@@ -5,6 +5,7 @@
 #include "SDL/SDL_rotozoom.h"
 #include <string>
 #include <list>
+#include <iostream>
 
 #include "constants.h"
 #include "classes.h"
@@ -34,6 +35,7 @@ void Ship::move()
     {
       //move back
       x -= xVel;
+      takeDamage(abs(xVel) * 4);
       xVel = -xVel / 2; //ricochet
     }
     
@@ -45,6 +47,7 @@ void Ship::move()
     {
       //move back
       y -= yVel;
+      takeDamage(abs(yVel) * 4);
       yVel = -yVel / 2;
     }
 }
@@ -53,4 +56,32 @@ void Ship::show()
 {
   //Show the ship
   apply_surface( x, y, player, screen );
+}
+
+void Ship::takeDamage(int damage)
+{
+  if(shield - damage > 0)
+    shield -= damage;
+  else
+    {
+      damage -= shield;
+      shield = 0;
+
+      if(armor - damage > 0)
+	armor -= damage;
+      else
+	{
+	  damage -= armor;
+	  armor = 0;
+	  
+	  if(hull - damage > 0)
+	      hull -= damage;
+	  else
+	    {
+	      hull = 0;
+	      gameOver();
+	    }
+	}
+	  
+    }
 }

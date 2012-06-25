@@ -1,6 +1,8 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include "SDL/SDL_rotozoom.h"
+#include <iostream>
+
 #include "constants.h"
 #include "functions.h"
 #include "globals.h"
@@ -118,4 +120,9 @@ SDL_Surface* rotate(SDL_Surface* source, double angle, double zoom,
 
   return optimizedrotate;
     
+}
+
+void gameOver()
+{
+  std::cout << "Game Over!\n";
 }

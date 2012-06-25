@@ -27,4 +27,6 @@ void clean_up();
 SDL_Surface* rotate(SDL_Surface* source, double angle, double zoom,
                     int smooth);
 
+void gameOver();
+
 #endif

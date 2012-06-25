@@ -32,8 +32,13 @@ Player::Player()
   left = false;
   right = false;
 
+  maxHull = 100;
   hull = 100;
+
+  maxArmor = 100;
   armor = 100;
+
+  maxShield = 100;
   shield = 100;
 }
 
@@ -74,17 +79,19 @@ void Player::handle_input()
   if(event.type == SDL_MOUSEBUTTONDOWN)
     {
       //left mouse button
-      if(event.button.button = SDL_BUTTON_LEFT)
+      if(event.button.button == SDL_BUTTON_LEFT)
 	lmouse = true;
-      if(event.button.button = SDL_BUTTON_RIGHT)
+      if(event.button.button == SDL_BUTTON_RIGHT)
 	rmouse = true;
     }
+
   if(event.type == SDL_MOUSEBUTTONUP)
     {
       //left mouse button
-      if(event.button.button = SDL_BUTTON_LEFT)
+      if(event.button.button == SDL_BUTTON_LEFT)
 	lmouse = false;
-      if(event.button.button = SDL_BUTTON_RIGHT)
+
+      if(event.button.button == SDL_BUTTON_RIGHT)
 	rmouse = false;
     }
 }

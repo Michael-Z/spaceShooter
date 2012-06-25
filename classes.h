@@ -51,8 +51,13 @@ class Ship
   SDL_Surface *ship;
 
   //defences
+  int maxHull;
   int hull;
+
+  int maxArmor;
   int armor;
+
+  int maxShield;
   int shield;
     
  public:
@@ -64,6 +69,9 @@ class Ship
     
   //Shows the shipt on the screen
   void show();
+
+  //take damage
+  void takeDamage(int damage);
 };
 
 class Player : public Ship
