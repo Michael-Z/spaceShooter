@@ -3,13 +3,23 @@
 #include "SDL/SDL.h"
 #include "globals.h"
 #include "constants.h"
+#include "classes.h"
 
 //The surfaces
-SDL_Surface *playerRotated = NULL;
+//ship surfaces
 SDL_Surface *player = NULL;
+SDL_Surface *grunt = NULL;
+
 
 SDL_Surface *background = NULL;
 SDL_Surface *screen = NULL;
+
+//HUD elements
+SDL_Surface *HUD_shield_armor_hull = NULL;
+SDL_Rect playerShield;
+SDL_Rect playerArmor;
+SDL_Rect playerHull;
+SDL_Rect playerEnergy;
 
 //surfaces - projectiles
 SDL_Surface *moltenSlug = NULL;

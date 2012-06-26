@@ -7,11 +7,18 @@
 #include "SDL/SDL.h"
 
 //The surfaces
-extern SDL_Surface *playerRotated;
 extern SDL_Surface *player;
+extern SDL_Surface *grunt;
 
 extern SDL_Surface *background;
 extern SDL_Surface *screen;
+
+//HUD elements
+extern SDL_Surface *HUD_shield_armor_hull;
+extern SDL_Rect playerShield;
+extern SDL_Rect playerArmor;
+extern SDL_Rect playerHull;
+extern SDL_Rect playerEnergy;
 
 //surfaces - projectiles
 extern SDL_Surface *moltenSlug;

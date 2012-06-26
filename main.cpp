@@ -8,6 +8,7 @@
 #include "globals.h"
 
 #include <iostream>
+#include <list>
 
 int main(int argc, char* args[])
 {
@@ -16,6 +17,7 @@ int main(int argc, char* args[])
 
   //the player
   Player player0;
+  Grunt grunt0 = Grunt(500, 500, &player0);
 
   //frame rate regulator
   Timer fps;
@@ -52,8 +54,9 @@ int main(int argc, char* args[])
 
       player0.shootBullets();
       player0.moveBullets();
-      player0.accelerate();
+      player0.updateStatusBars();
 
+      player0.accelerate();
       player0.move();
       player0.faceMouse();
 
@@ -62,11 +65,23 @@ int main(int argc, char* args[])
       //background
       apply_surface(0, 0, background, screen, &camera);
 
-      //show bullets
+      //HUD
+      renderHUD();
+
+      //show bullets /* */ should integrate this into move
       player0.showBullets();
 
       //show player0 on screen
       player0.show();
+
+
+      //////
+      grunt0.accelerate();
+      grunt0.move();
+      grunt0.shootBullets();
+      grunt0.moveBullets();
+	
+      grunt0.show();
 
       //update screen
       if(SDL_Flip(screen) == -1)

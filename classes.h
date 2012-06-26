@@ -25,7 +25,7 @@ class Projectile
  public:
   Projectile(SDL_Surface *image, int startx, int starty, double xDir,
 	     double yDir, int dam, int vel, int rad, int ran);
-  ~Projectile();
+
   void move();
   bool isOutBounds();
   void show();
@@ -61,17 +61,24 @@ class Ship
   int shield;
     
  public:
-  //Initializes the variables
-  Ship();
-    
   //Moves the shipt
   void move();
-    
-  //Shows the shipt on the screen
+
   void show();
 
   //take damage
   void takeDamage(int damage);
+
+  int getShield();
+  int getArmor();
+  int getHull();
+
+  int getX();
+  int getY();
+  int getXvel();
+  int getYvel();
+  double getxDir();
+  double getyDir();
 };
 
 class Player : public Ship
@@ -91,6 +98,10 @@ class Player : public Ship
 
   //current angle
   double angle;
+
+  //energy
+  int maxEnergy;
+  int energy;
 
   //metal slugs container
   std::list<Projectile*> slugs;
@@ -117,9 +128,25 @@ class Player : public Ship
   //center Camera
   void set_camera();
 
-  void show();
+  //void show();
 
+  int getEnergy();
 
+  void updateStatusBars();
+};
+
+//basic enemy, dumb and shoots molten slugs
+class Grunt : public Ship
+{
+ private:
+  std::list<Projectile*> slugs;
+  Player *target;
+
+ public:
+  Grunt(int startx, int starty, Player *target);
+  void accelerate();
+  void shootBullets();
+  void moveBullets();
 };
 
 //The timer

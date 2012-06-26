@@ -8,6 +8,9 @@
 #include "SDL/SDL_image.h"
 #include <string>
 
+//distance formula
+int distForm(int x1, int y1, int x2, int y2);
+
 //File Loader
 SDL_Surface *load_image( std::string filename );
 
@@ -26,6 +29,8 @@ void clean_up();
 
 SDL_Surface* rotate(SDL_Surface* source, double angle, double zoom,
                     int smooth);
+
+void renderHUD();
 
 void gameOver();
 

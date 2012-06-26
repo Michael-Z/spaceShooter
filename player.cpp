@@ -16,6 +16,10 @@
 
 Player::Player()
 {
+  //ship = playerRotated;
+  //printf("%x %x\n", ship, playerRotated);
+  //std::cout << ship << " " << playerRotated << std::endl;
+
   //offset
   x = 1000;
   y = 1000;
@@ -23,6 +27,9 @@ Player::Player()
   //velocity
   xVel = 0;
   yVel = 0;
+
+  x1 = 0;
+  y1 = 1;
 
   lmouse = false;
   rmouse = false;
@@ -40,6 +47,9 @@ Player::Player()
 
   maxShield = 100;
   shield = 100;
+
+  maxEnergy = 100;
+  energy = 100;
 }
 
 void Player::handle_input()
@@ -154,7 +164,7 @@ void Player::faceMouse()
     }
   
   //rotate image
-  playerRotated = rotate(player, angle, 1, 0);
+  ship = rotate(player, angle, 1, 0);
 }
 
 void Player::accelerate()
@@ -207,7 +217,7 @@ void Player::shootBullets()
       int slugSpeed = 20;
       int slugDamage = 10;
       int slugRad = 5;
-      int slugRange = 300;
+      int slugRange = 400;
       
       Projectile* shot = new Projectile(moltenSlug, x, y, x1, y1,
 					slugDamage, slugSpeed, slugRad,
@@ -255,11 +265,17 @@ void Player::set_camera()
     }
 }
 
-void Player::show()
-{    
-  //Show the player
-  apply_surface( x - camera.x - SHIP_WIDTH / 2
-		 , y - camera.y - SHIP_WIDTH / 2
-		 , playerRotated, screen );
+int Player::getEnergy()
+{
+  return energy;
 }
 
+void Player::updateStatusBars()
+{
+
+  playerShield.w = int(200 * (double(shield) / maxShield));
+  playerArmor.w = int(200 * (double(armor) / maxArmor));
+  playerHull.w = int(200 * (double(hull) / maxHull));
+  playerEnergy.w = int(200 * (double(energy) / maxEnergy));
+  //std::cout << shield << " " << maxShield << std::endl;
+}

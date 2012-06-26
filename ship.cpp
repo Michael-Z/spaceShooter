@@ -12,19 +12,6 @@
 #include "functions.h"
 #include "globals.h"
 
-Ship::Ship()
-{
-  //Initialize the offsets
-  x = 0;
-  y = 0;
-    
-  //Initialize the velocity
-  xVel = 0;
-  yVel = 0;
-
-  //initialize the image of the ship
-}
-
 void Ship::move()
 {
   //Move the ship left or right
@@ -54,8 +41,9 @@ void Ship::move()
 
 void Ship::show()
 {
-  //Show the ship
-  apply_surface( x, y, player, screen );
+  apply_surface(x - camera.x - SHIP_WIDTH / 2,
+                y - camera.y - SHIP_WIDTH / 2,
+                ship, screen );
 }
 
 void Ship::takeDamage(int damage)
@@ -79,9 +67,54 @@ void Ship::takeDamage(int damage)
 	  else
 	    {
 	      hull = 0;
-	      gameOver();
+	      /*gameOver(); */
 	    }
 	}
 	  
     }
+}
+
+int Ship::getShield()
+{
+  return shield;
+}
+
+int Ship::getArmor()
+{
+  return armor;
+}
+
+int Ship::getHull()
+{
+  return hull;
+}
+
+int Ship::getX()
+{
+  return x;
+}
+
+int Ship::getY()
+{
+  return y;
+}
+
+int Ship::getXvel()
+{
+  return xVel;
+}
+
+int Ship::getYvel()
+{
+  return yVel;
+}
+
+double Ship::getxDir()
+{
+  return x1;
+}
+
+double Ship::getyDir()
+{
+  return y1;
 }
