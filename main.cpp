@@ -17,7 +17,6 @@ int main(int argc, char* args[])
 
   //the player
   Player player0;
-  Grunt grunt0 = Grunt(500, 500, &player0);
 
   //frame rate regulator
   Timer fps;
@@ -31,6 +30,13 @@ int main(int argc, char* args[])
   //start frame counter
   frame = 0;
 
+  //create enemy lists
+  std::list<Grunt*> grunts;
+  grunts.push_back(new Grunt(500, 500, &player0));
+  grunts.push_back(new Grunt(1500, 500, &player0));
+  grunts.push_back(new Grunt(500, 1500, &player0));
+  grunts.push_back(new Grunt(1500, 1500, &player0));
+
   //while in game
   while(quit == false)
     {
@@ -40,7 +46,7 @@ int main(int argc, char* args[])
       //while events to handle
       while(SDL_PollEvent(&event))
 	{
-	  //player0 ship movement
+	  //player0 ship movement/ shooting
 	  player0.handle_input();
 
 	  //if user closes window
@@ -50,38 +56,15 @@ int main(int argc, char* args[])
 	    }
 	}
 
-      //playerRotated = rotate(player, 30, 1, 0);
-
-      player0.shootBullets();
-      player0.moveBullets();
-      player0.updateStatusBars();
-
-      player0.accelerate();
-      player0.move();
-      player0.faceMouse();
-
-      player0.set_camera();
-
       //background
       apply_surface(0, 0, background, screen, &camera);
 
       //HUD
       renderHUD();
 
-      //show bullets /* */ should integrate this into move
-      player0.showBullets();
-
-      //show player0 on screen
-      player0.show();
-
-
-      //////
-      grunt0.accelerate();
-      grunt0.move();
-      grunt0.shootBullets();
-      grunt0.moveBullets();
-	
-      grunt0.show();
+      player0.doUnit();
+      
+      doGrunts(grunts);
 
       //update screen
       if(SDL_Flip(screen) == -1)

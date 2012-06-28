@@ -6,7 +6,11 @@
 //The headers
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
+
+#include "classes.h"
+
 #include <string>
+#include <list>
 
 //distance formula
 int distForm(int x1, int y1, int x2, int y2);
@@ -31,6 +35,9 @@ SDL_Surface* rotate(SDL_Surface* source, double angle, double zoom,
                     int smooth);
 
 void renderHUD();
+
+//perform and render units
+void doGrunts(std::list<Grunt*> grunts);
 
 void gameOver();
 

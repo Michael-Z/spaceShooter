@@ -15,9 +15,9 @@ class Projectile
 
   SDL_Surface* picture;
 
-  int velocity;// = 10; //pixels per frame
-  int radius;// = 5;
-  int range;// = 400;
+  int velocity;
+  int radius;
+  int range;
   int damage;
 
   int dist;
@@ -47,6 +47,8 @@ class Ship
   //The velocity of the ship
   int xVel, yVel;
 
+  int radius;
+
   //surface of the ship
   SDL_Surface *ship;
 
@@ -59,15 +61,38 @@ class Ship
 
   int maxShield;
   int shield;
+
+  //weapon properties
+  int MS_speed;
+  int MS_damage;
+  int MS_radius;
+  int MS_range;
+  int MS_rate;
+
+  //metal slugs container
+  std::list<Projectile*> slugs;
     
  public:
+  //do what the ship is supposed to do
+  void doUnit();
+
   //Moves the shipt
   void move();
+  
+  //face direction of coords
+  void faceDirection(int x, int y);
 
+  //show ship
   void show();
 
   //take damage
   void takeDamage(int damage);
+
+  //shoot various projectiles
+  void shootMoltenSlug();
+
+  //move various projectiles
+  void moveProjectiles(std::list<Projectile*> bullets);
 
   int getShield();
   int getArmor();
@@ -103,11 +128,13 @@ class Player : public Ship
   int maxEnergy;
   int energy;
 
-  //metal slugs container
-  std::list<Projectile*> slugs;
+  //current lclick weapon 1-5?
+  int weapon;
 
  public:
   Player();
+
+  void doUnit();
 
   //Takes key presses and adjusts the ship's velocity
   void handle_input();
@@ -118,12 +145,8 @@ class Player : public Ship
   //accelerate
   void accelerate();
 
-  void shootBullets();
-
-  //move bullets
-  void moveBullets();
-
-  void showBullets();
+  //do left click action
+  void doLeftClick();
 
   //center Camera
   void set_camera();
@@ -139,14 +162,13 @@ class Player : public Ship
 class Grunt : public Ship
 {
  private:
-  std::list<Projectile*> slugs;
   Player *target;
 
  public:
   Grunt(int startx, int starty, Player *target);
+  void doUnit(std::list<Grunt*> grunts, std::list<Grunt*>::iterator it);
+
   void accelerate();
-  void shootBullets();
-  void moveBullets();
 };
 
 //The timer

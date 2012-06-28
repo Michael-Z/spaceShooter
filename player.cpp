@@ -16,9 +16,7 @@
 
 Player::Player()
 {
-  //ship = playerRotated;
-  //printf("%x %x\n", ship, playerRotated);
-  //std::cout << ship << " " << playerRotated << std::endl;
+  radius = 20;
 
   //offset
   x = 1000;
@@ -30,6 +28,19 @@ Player::Player()
 
   x1 = 0;
   y1 = 1;
+
+  //default weapon (lclick)
+  weapon = 1;
+
+
+  //default weapon attributes
+
+  //molten slug
+  MS_speed = 20;
+  MS_damage = 10;
+  MS_radius = 5;
+  MS_range = 600;
+  MS_rate = 10;
 
   lmouse = false;
   rmouse = false;
@@ -124,14 +135,11 @@ void Player::faceMouse()
   else if(y > LEVEL_HEIGHT - SCREEN_HEIGHT / 2)
     sY = SCREEN_HEIGHT - (LEVEL_HEIGHT - y);
   
-  
-  double hypo = sqrt(((double)(pow(mX - sX, 2) + pow(mY - sY, 2))));
+  double hypo = distForm(sX, sY, mX, mY);
   
   //update direction
   x1 = (mX - sX) / hypo;
   y1 = (mY - sY) / hypo;
-  
-  //std::cout << x1 << " " << y1 << std::endl;
   
   double angle;
   
@@ -179,69 +187,22 @@ void Player::accelerate()
     xVel += 1;
 }
 
-void Player::moveBullets()
+void Player::doLeftClick()
 {
-  //metal slugs
-  for(std::list<Projectile*>::iterator it = slugs.begin(); it != slugs.end();)
+  if(lmouse == true)
     {
-      //move bullet, remove if max range/out of bounds
-      (**it).move();
-
-      if((**it).getDist() > (**it).getRange()  || (**it).isOutBounds())
+      if(weapon == 1 && frame % MS_rate == 0)
 	{
-	  //delete(*it);
-	  slugs.erase(it++); //remove from list take next
+	  shootMoltenSlug();
 	}
-
-      //check collision
-      else if(false)
-	{
-	  void();
-	  //collision check
-	  //iterate through enemies and check if it collided
-	  //*it.collide();
-	}
-      else
-	{
-	  ++it; //take next object
-	}
-    }
-}
-
-void Player::shootBullets()
-{
-  if(lmouse == true && frame % 10 == 0)
-    {
-      //should fix bullets to be vectors
-      //molten slug speed
-      int slugSpeed = 20;
-      int slugDamage = 10;
-      int slugRad = 5;
-      int slugRange = 400;
-      
-      Projectile* shot = new Projectile(moltenSlug, x, y, x1, y1,
-					slugDamage, slugSpeed, slugRad,
-					slugRange);
-      
-      slugs.push_back(shot);
-    }
-}
-
-void Player::showBullets()
-{
-  //metal slugs
-  for(std::list<Projectile*>::iterator it = slugs.begin(); it != slugs.end();
-      it++)
-    {
-      (**it).show();
     }
 }
 
 void Player::set_camera()
 {
   //Center the camera over the camera
-  camera.x = ( x + SHIP_WIDTH / 2 ) - SCREEN_WIDTH / 2;
-  camera.y = ( y + SHIP_HEIGHT / 2 ) - SCREEN_HEIGHT / 2;
+  camera.x = ( x + radius) - SCREEN_WIDTH / 2;
+  camera.y = ( y + radius) - SCREEN_HEIGHT / 2;
     
   int cameraXold = camera.x;
   int cameraYold = camera.y;
@@ -277,5 +238,20 @@ void Player::updateStatusBars()
   playerArmor.w = int(200 * (double(armor) / maxArmor));
   playerHull.w = int(200 * (double(hull) / maxHull));
   playerEnergy.w = int(200 * (double(energy) / maxEnergy));
-  //std::cout << shield << " " << maxShield << std::endl;
+}
+
+void Player::doUnit()
+{
+  updateStatusBars();
+  accelerate();
+  move();
+  faceMouse();
+  set_camera();
+
+  //do actions
+  doLeftClick();
+
+  //move projectiles
+  moveProjectiles(slugs);
+  show();
 }

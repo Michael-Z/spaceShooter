@@ -4,7 +4,9 @@
 
 #include <iostream>
 #include <math.h>
+#include <list>
 
+#include "classes.h"
 #include "constants.h"
 #include "functions.h"
 #include "globals.h"
@@ -180,6 +182,16 @@ void renderHUD()
   
   SDL_FillRect(screen, &playerEnergy, SDL_MapRGB(screen->format, 0xFF, 0xFF,
 						 0));
+}
+
+void doGrunts(std::list<Grunt*> grunts)
+{
+  for(std::list<Grunt*>::iterator it = grunts.begin(); it != grunts.end();
+      it++)
+    {
+      (**it).doUnit(grunts, it);
+    }
+    
 }
 
 void gameOver()

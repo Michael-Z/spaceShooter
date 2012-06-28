@@ -12,10 +12,9 @@
 
 Grunt::Grunt(int startx, int starty, Player *player0)
 {
-  //std::cout << grunt == NULL;
-  //ship = player;
-
   target = player0;
+
+  radius = 30;
 
   x = startx;
   y = starty;
@@ -23,7 +22,6 @@ Grunt::Grunt(int startx, int starty, Player *player0)
   xVel = 0;
   yVel = 0;
 
-  //not used int grunt
   x1 = 0;
   y1 = 1;
 
@@ -34,15 +32,18 @@ Grunt::Grunt(int startx, int starty, Player *player0)
   shield = 20;
   armor = 20;
   hull = 20;
+
+  //Molten Slug info
+  MS_speed = 20;
+  MS_damage = 10;
+  MS_radius = 5;
+  MS_range = 600;
+  MS_rate = 10;
 }
 
 //accelerate towards player, but not crashing into
 void Grunt::accelerate()
 {
-
-  /* */
-  ship = grunt;
-
   int maxSpeed = 10; //frames per pixel
   
   int playerX = (*target).getX();
@@ -88,64 +89,48 @@ void Grunt::accelerate()
     }
 }
 
-void Grunt::shootBullets()
+void Grunt::doUnit(std::list<Grunt*> grunts, std::list<Grunt*>::iterator it)
 {
-  if(frame % 10 == 0)
-    {
-      /* put into projectile class? */
+  //set picture
+  if(ship != grunt)
+    ship = grunt;
 
+  accelerate();
+
+
+  int dist;
+
+  //need to improve this to not repeat
+  //it++;
+  for(std::list<Grunt*>::iterator i = grunts.begin()/*it*/; i != grunts.end(); i++)
+    {
+      //printf("loop?\n");
+      if(i != it)
+	{
+	  int dist = distForm(x, y, (**i).getX(), (**i).getY());
+	  if(dist < radius * 2 && dist > 0)
+	    {
+	      //bounce off each other
+	      xVel = -xVel;
+	      yVel = -yVel;
+	    }
+	}
+    }
+
+  move();
+
+  //move();
+
+  //face target and shoot
+  if(frame % MS_rate == 0)
+    {
       //predict player position
       int playerX = (*target).getX() + 5 * (*target).getXvel();
       int playerY = (*target).getY() + 5 * (*target).getYvel();
-      
-      int dist = distForm(x, y, playerX, playerY);
-
-      x1 = double(playerX - x) / dist;
-      y1 = double(playerY - y) / dist;
-      
-      //should fix bullets to be vectors
-      //molten slug speed
-      int slugSpeed = 20;
-      int slugDamage = 10;
-      int slugRad = 5;
-      int slugRange = 800;
-      
-      Projectile* shot = new Projectile(moltenSlug, x, y, x1, y1,
-                                        slugDamage, slugSpeed, slugRad,
-                                        slugRange);
-      
-      slugs.push_back(shot);
-    }
-}
-
-void Grunt::moveBullets()
-{
-  /* put this into projectile class? */
-  //metal slugs
-  for(std::list<Projectile*>::iterator it = slugs.begin(); it != slugs.end();)
-    {
-      //move bullet, remove if max range/out of bounds
-      (**it).move();
-      (**it).show();
-
-      if((**it).getDist() > (**it).getRange()  || (**it).isOutBounds())
-        {
-          //delete(*it);
-          slugs.erase(it++); //remove from list take next
-        }
-      
-      //check collision                                                         
-      else if(false)
-        {
-          void();
-          //collision check                                                     
-          //iterate through enemies and check if it collided                    
-          //*it.collide();
-        }
-      else
-	{
-          ++it; //take next object                                              
-        }
+      faceDirection(playerX, playerY);
+      shootMoltenSlug();
     }
 
+  moveProjectiles(slugs);
+  show();
 }

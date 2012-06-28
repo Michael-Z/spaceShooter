@@ -18,7 +18,7 @@ void Ship::move()
   x += xVel;
     
   //If the ship went too far to the left or right
-  if( ( x < SHIP_HEIGHT / 2 ) || ( x + SHIP_WIDTH > LEVEL_WIDTH ) )
+  if( ( x < radius) || ( x + radius > LEVEL_WIDTH ) )
     {
       //move back
       x -= xVel;
@@ -30,7 +30,7 @@ void Ship::move()
   y += yVel;
     
   //If the ship went too far up or down
-  if( ( y < SHIP_HEIGHT / 2 ) || ( y + SHIP_HEIGHT > LEVEL_HEIGHT ) )
+  if( ( y < radius) || ( y + radius > LEVEL_HEIGHT ) )
     {
       //move back
       y -= yVel;
@@ -39,10 +39,18 @@ void Ship::move()
     }
 }
 
+void Ship::faceDirection(int tX, int tY)
+{
+  int dist = distForm(x, y, tX, tY);
+    
+  x1 = double(tX - x) / dist;
+  y1 = double(tY - y) / dist;
+}
+
 void Ship::show()
 {
-  apply_surface(x - camera.x - SHIP_WIDTH / 2,
-                y - camera.y - SHIP_WIDTH / 2,
+  apply_surface(x - camera.x - radius,
+                y - camera.y - radius,
                 ship, screen );
 }
 
@@ -71,6 +79,44 @@ void Ship::takeDamage(int damage)
 	    }
 	}
 	  
+    }
+}
+
+void Ship::shootMoltenSlug()
+{
+  //should fix bullets to be vectors
+  Projectile* shot = new Projectile(moltenSlug, x, y, x1, y1,
+				    MS_damage, MS_speed, MS_radius,
+				    MS_range);
+  slugs.push_back(shot);
+}
+
+void Ship::moveProjectiles(std::list<Projectile*> bullets)
+{
+  for(std::list<Projectile*>::iterator it = bullets.begin();
+      it != bullets.end();)
+    {
+      //move bullet, remove if max range/out of bounds, show bullet
+      (**it).move();
+
+      if((**it).getDist() > (**it).getRange()  || (**it).isOutBounds())
+        {
+          //delete(*it);
+          slugs.erase(it++); //remove from list take next
+        }
+
+      //check collision
+      else if(false)
+        {
+          void();
+          //collision check
+                           
+          //iterate through enemies and check if it collided
+          //*it.collide();  
+	}
+      else
+	(**it).show();
+	++it; //take next moltenSlug
     }
 }
 
