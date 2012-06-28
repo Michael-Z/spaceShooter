@@ -118,7 +118,7 @@ bool init()
 bool load_files()
 {
   //Load the images
-  background = load_image("images/250px_grid.png");
+  background = load_image("images/background.png");
   HUD_shield_armor_hull = load_image("images/HUD_shield_armor_hull.png", true);
 
   //load ship images
@@ -186,12 +186,18 @@ void renderHUD()
 
 void doGrunts(std::list<Grunt*> grunts)
 {
-  for(std::list<Grunt*>::iterator it = grunts.begin(); it != grunts.end();
-      it++)
+  for(std::list<Grunt*>::iterator it = grunts.begin(); it != grunts.end();)
     {
-      (**it).doUnit(grunts, it);
+      if((**it).getHull() == 0)
+	{
+	  grunts.erase(it++);
+	}
+      else
+	{
+	  (**it).doUnit(grunts, it);
+	  ++it;
+	}
     }
-    
 }
 
 void gameOver()

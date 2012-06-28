@@ -15,7 +15,7 @@ class Projectile
 
   SDL_Surface* picture;
 
-  int velocity;
+  //int velocity;
   int radius;
   int range;
   int damage;
@@ -23,8 +23,9 @@ class Projectile
   int dist;
 
  public:
-  Projectile(SDL_Surface *image, int startx, int starty, double xDir,
-	     double yDir, int dam, int vel, int rad, int ran);
+  Projectile(SDL_Surface *image, int startx, int starty, int sXvel, int sYvel,
+	     int dam, int rad, int ran);
+  ~Projectile();
 
   void move();
   bool isOutBounds();
@@ -32,12 +33,21 @@ class Projectile
   bool collide(int cX, int cY, int rad);
   int getDist();
   int getRange();
+  int getDamage();
+  int getRad();
+  int getX();
+  int getY();
 };
 
 //Basic ship class, enemies, player based off of
 class Ship
 {
  protected:
+  bool isPlayer;
+
+  //target for enemies
+  Ship *target;
+
   //The X and Y offsets of the ship
   int x, y;
 
@@ -78,6 +88,9 @@ class Ship
 
   //Moves the shipt
   void move();
+
+  //undos an invalid move
+  void unMove();
   
   //face direction of coords
   void faceDirection(int x, int y);
@@ -94,10 +107,14 @@ class Ship
   //move various projectiles
   void moveProjectiles(std::list<Projectile*> bullets);
 
+  //die with explosion!
+  void die();
+
   int getShield();
   int getArmor();
   int getHull();
 
+  int getRad();
   int getX();
   int getY();
   int getXvel();
@@ -161,11 +178,9 @@ class Player : public Ship
 //basic enemy, dumb and shoots molten slugs
 class Grunt : public Ship
 {
- private:
-  Player *target;
-
  public:
   Grunt(int startx, int starty, Player *target);
+  ~Grunt();
   void doUnit(std::list<Grunt*> grunts, std::list<Grunt*>::iterator it);
 
   void accelerate();

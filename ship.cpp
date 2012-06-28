@@ -39,6 +39,12 @@ void Ship::move()
     }
 }
 
+void Ship::unMove()
+{
+  x -= xVel;
+  y -= yVel;
+}
+
 void Ship::faceDirection(int tX, int tY)
 {
   int dist = distForm(x, y, tX, tY);
@@ -75,7 +81,7 @@ void Ship::takeDamage(int damage)
 	  else
 	    {
 	      hull = 0;
-	      /*gameOver(); */
+	      die();
 	    }
 	}
 	  
@@ -85,9 +91,21 @@ void Ship::takeDamage(int damage)
 void Ship::shootMoltenSlug()
 {
   //should fix bullets to be vectors
-  Projectile* shot = new Projectile(moltenSlug, x, y, x1, y1,
-				    MS_damage, MS_speed, MS_radius,
-				    MS_range);
+
+  int sXvel = xVel + int(MS_speed * x1);
+  int sYvel = yVel + int(MS_speed * y1);
+  
+  //prevent projectiles from going too slow
+  if(distForm(0, 0, sXvel, sYvel) < MS_speed / 2)
+    {
+      sXvel = int((MS_speed) / 2 * x1);
+      sYvel = int((MS_speed) / 2 * y1);
+    }
+  int flight_time = MS_range / MS_speed; //flight time in frames
+  int range = flight_time * int(distForm(0, 0, sXvel, sYvel));
+
+  Projectile* shot = new Projectile(moltenSlug, x, y, sXvel, sYvel,
+				    MS_damage, MS_radius, range);
   slugs.push_back(shot);
 }
 
@@ -99,10 +117,41 @@ void Ship::moveProjectiles(std::list<Projectile*> bullets)
       //move bullet, remove if max range/out of bounds, show bullet
       (**it).move();
 
+      if(isPlayer == false)
+	{
+	  if(distForm((*target).getX(), (*target).getY(), (**it).getX(),
+		      (**it).getY()) < (*target).getRad() + (**it).getRad())
+	    {
+	      (*target).takeDamage((**it).getDamage());
+	      //delete *it;
+	      bullets.erase(it++);
+	      goto end;
+	    }
+	  else
+	    goto next;
+	}
+      else //its the player, check enemy lists
+	{
+	  for(std::list<Grunt*>::iterator g = grunts.begin();
+	      g != grunts.end(); g++)
+	    {
+	      if(distForm((**g).getX(), (**g).getY(), (**it).getX(),
+			 (**it).getY()) < (**g).getRad() + (**it).getRad())
+		{
+		  (**g).takeDamage((**it).getDamage());
+		  bullets.erase(it++);
+		  goto end;
+		}
+	    }
+	  goto next;
+	}
+    next:
       if((**it).getDist() > (**it).getRange()  || (**it).isOutBounds())
         {
           //delete(*it);
-          slugs.erase(it++); //remove from list take next
+	  //delete(*it);
+          bullets.erase(it++); //remove from list take next
+
         }
 
       //check collision
@@ -115,9 +164,18 @@ void Ship::moveProjectiles(std::list<Projectile*> bullets)
           //*it.collide();  
 	}
       else
-	(**it).show();
-	++it; //take next moltenSlug
+	{
+	  (**it).show();
+	  ++it;
+	}
+    end:
+      void();
     }
+}
+
+void Ship::die()
+{
+  void();
 }
 
 int Ship::getShield()
@@ -133,6 +191,11 @@ int Ship::getArmor()
 int Ship::getHull()
 {
   return hull;
+}
+
+int Ship::getRad()
+{
+  return radius;
 }
 
 int Ship::getX()

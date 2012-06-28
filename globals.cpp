@@ -5,11 +5,12 @@
 #include "constants.h"
 #include "classes.h"
 
+#include <list>
+
 //The surfaces
 //ship surfaces
 SDL_Surface *player = NULL;
 SDL_Surface *grunt = NULL;
-
 
 SDL_Surface *background = NULL;
 SDL_Surface *screen = NULL;
@@ -23,6 +24,9 @@ SDL_Rect playerEnergy;
 
 //surfaces - projectiles
 SDL_Surface *moltenSlug = NULL;
+
+//enemy containers
+std::list<Grunt*> grunts;
 
 //The event structure
 SDL_Event event;

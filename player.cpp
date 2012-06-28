@@ -16,6 +16,8 @@
 
 Player::Player()
 {
+  isPlayer = true;
+
   radius = 20;
 
   //offset
@@ -39,7 +41,7 @@ Player::Player()
   MS_speed = 20;
   MS_damage = 10;
   MS_radius = 5;
-  MS_range = 600;
+  MS_range = 400;
   MS_rate = 10;
 
   lmouse = false;

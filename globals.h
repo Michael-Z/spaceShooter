@@ -6,6 +6,11 @@
 //The header
 #include "SDL/SDL.h"
 
+#include "classes.h"
+
+#include <list>
+
+
 //The surfaces
 extern SDL_Surface *player;
 extern SDL_Surface *grunt;
@@ -22,6 +27,9 @@ extern SDL_Rect playerEnergy;
 
 //surfaces - projectiles
 extern SDL_Surface *moltenSlug;
+
+//enemy containers
+extern std::list<Grunt*> grunts;
 
 //The event structure
 extern SDL_Event event;

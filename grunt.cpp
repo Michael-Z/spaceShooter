@@ -12,6 +12,7 @@
 
 Grunt::Grunt(int startx, int starty, Player *player0)
 {
+  isPlayer = false;
   target = player0;
 
   radius = 30;
@@ -37,8 +38,13 @@ Grunt::Grunt(int startx, int starty, Player *player0)
   MS_speed = 20;
   MS_damage = 10;
   MS_radius = 5;
-  MS_range = 600;
+  MS_range = 400;
   MS_rate = 10;
+}
+
+Grunt::~Grunt()
+{
+  void();
 }
 
 //accelerate towards player, but not crashing into
@@ -99,27 +105,32 @@ void Grunt::doUnit(std::list<Grunt*> grunts, std::list<Grunt*>::iterator it)
 
 
   int dist;
+  int ixVel;
+  int iyVel;
+
+  move();
 
   //need to improve this to not repeat
   //it++;
   for(std::list<Grunt*>::iterator i = grunts.begin()/*it*/; i != grunts.end(); i++)
     {
-      //printf("loop?\n");
       if(i != it)
 	{
 	  int dist = distForm(x, y, (**i).getX(), (**i).getY());
 	  if(dist < radius * 2 && dist > 0)
 	    {
+	      unMove();
+	      //ixVel = (**i).getXvel();
+	      //iyVel = (**i).getYvel();
+
 	      //bounce off each other
-	      xVel = -xVel;
-	      yVel = -yVel;
+	      //if(!((xVel > 0 && ixVel > 0) || (xVel < 0 && ixVel < 0)))
+		xVel = -xVel / 2;
+		//if(!((yVel > 0 && iyVel > 0) || (yVel < 0 && iyVel < 0)))
+		yVel = -yVel / 2;
 	    }
 	}
     }
-
-  move();
-
-  //move();
 
   //face target and shoot
   if(frame % MS_rate == 0)

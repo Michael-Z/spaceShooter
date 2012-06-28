@@ -11,22 +11,26 @@
 #include "globals.h"
 
 Projectile::Projectile(SDL_Surface* image, int startx, int starty,
-		       double xDir, double yDir, int dam, int vel, int rad,
-		       int ran)
+		       int sXvel, int sYvel, int dam, int rad, int ran)
 {
   picture = image;
   x = startx;
   y = starty;
 
   damage = dam;
-  velocity = vel;
+  //velocity = vel;
   radius = rad;
   range = ran;
   dist = 0;
 
   //xDir and yDir direction unit vector
-  xVel = (int)(xDir * velocity);
-  yVel = (int)(yDir * velocity);
+  xVel = sXvel;
+  yVel = sYvel;
+}
+
+Projectile::~Projectile()
+{
+  void(0);
 }
 
 void Projectile::move()
@@ -65,3 +69,22 @@ int Projectile::getRange()
   return range;
 }
 
+int Projectile::getRad()
+{
+  return radius;
+}
+
+int Projectile::getDamage()
+{
+  return damage;
+}
+
+int Projectile::getX()
+{
+  return x;
+}
+
+int Projectile::getY()
+{
+  return y;
+}

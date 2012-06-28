@@ -31,7 +31,7 @@ int main(int argc, char* args[])
   frame = 0;
 
   //create enemy lists
-  std::list<Grunt*> grunts;
+  //std::list<Grunt*> grunts;
   grunts.push_back(new Grunt(500, 500, &player0));
   grunts.push_back(new Grunt(1500, 500, &player0));
   grunts.push_back(new Grunt(500, 1500, &player0));
