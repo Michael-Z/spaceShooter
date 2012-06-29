@@ -105,7 +105,7 @@ class Ship
   void shootMoltenSlug();
 
   //move various projectiles
-  void moveProjectiles(std::list<Projectile*> bullets);
+  std::list<Projectile*> moveProjectiles(std::list<Projectile*> bullets);
 
   //die with explosion!
   void die();
@@ -218,6 +218,11 @@ class Timer
   bool is_paused();    
 };
 
-
+/*
+class Explosion
+{
+  void();
+};
+*/
 
 #endif

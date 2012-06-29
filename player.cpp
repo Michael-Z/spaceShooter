@@ -254,6 +254,6 @@ void Player::doUnit()
   doLeftClick();
 
   //move projectiles
-  moveProjectiles(slugs);
+  slugs = moveProjectiles(slugs);
   show();
 }

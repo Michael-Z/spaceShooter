@@ -142,6 +142,6 @@ void Grunt::doUnit(std::list<Grunt*> grunts, std::list<Grunt*>::iterator it)
       shootMoltenSlug();
     }
 
-  moveProjectiles(slugs);
+  slugs = moveProjectiles(slugs);
   show();
 }

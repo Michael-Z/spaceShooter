@@ -104,16 +104,17 @@ void Ship::shootMoltenSlug()
   int flight_time = MS_range / MS_speed; //flight time in frames
   int range = flight_time * int(distForm(0, 0, sXvel, sYvel));
 
-  Projectile* shot = new Projectile(moltenSlug, x, y, sXvel, sYvel,
+  Projectile *shot = new Projectile(moltenSlug, x, y, sXvel, sYvel,
 				    MS_damage, MS_radius, range);
   slugs.push_back(shot);
 }
 
-void Ship::moveProjectiles(std::list<Projectile*> bullets)
+std::list<Projectile*> Ship::moveProjectiles(std::list<Projectile*> bullets)
 {
   for(std::list<Projectile*>::iterator it = bullets.begin();
       it != bullets.end();)
     {
+
       //move bullet, remove if max range/out of bounds, show bullet
       (**it).move();
 
@@ -123,7 +124,7 @@ void Ship::moveProjectiles(std::list<Projectile*> bullets)
 		      (**it).getY()) < (*target).getRad() + (**it).getRad())
 	    {
 	      (*target).takeDamage((**it).getDamage());
-	      //delete *it;
+	      delete *it;
 	      bullets.erase(it++);
 	      goto end;
 	    }
@@ -139,6 +140,7 @@ void Ship::moveProjectiles(std::list<Projectile*> bullets)
 			 (**it).getY()) < (**g).getRad() + (**it).getRad())
 		{
 		  (**g).takeDamage((**it).getDamage());
+		  delete *it;
 		  bullets.erase(it++);
 		  goto end;
 		}
@@ -149,7 +151,7 @@ void Ship::moveProjectiles(std::list<Projectile*> bullets)
       if((**it).getDist() > (**it).getRange()  || (**it).isOutBounds())
         {
           //delete(*it);
-	  //delete(*it);
+	  delete(*it);
           bullets.erase(it++); //remove from list take next
 
         }
@@ -171,6 +173,7 @@ void Ship::moveProjectiles(std::list<Projectile*> bullets)
     end:
       void();
     }
+  return bullets;
 }
 
 void Ship::die()

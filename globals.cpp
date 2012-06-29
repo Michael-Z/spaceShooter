@@ -12,6 +12,7 @@
 SDL_Surface *player = NULL;
 SDL_Surface *grunt = NULL;
 
+SDL_Surface *explosion = NULL;
 SDL_Surface *background = NULL;
 SDL_Surface *screen = NULL;
 

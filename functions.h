@@ -37,7 +37,7 @@ SDL_Surface* rotate(SDL_Surface* source, double angle, double zoom,
 void renderHUD();
 
 //perform and render units
-void doGrunts(std::list<Grunt*> grunts);
+void doGrunts();//std::list<Grunt*> grunts);
 
 void gameOver();
 

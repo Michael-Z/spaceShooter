@@ -30,16 +30,20 @@ int main(int argc, char* args[])
   //start frame counter
   frame = 0;
 
+  //std::list<int> ints;
+
   //create enemy lists
   //std::list<Grunt*> grunts;
-  grunts.push_back(new Grunt(500, 500, &player0));
-  grunts.push_back(new Grunt(1500, 500, &player0));
-  grunts.push_back(new Grunt(500, 1500, &player0));
-  grunts.push_back(new Grunt(1500, 1500, &player0));
+  //grunts.push_back(new Grunt(500, 500, &player0));
+  //grunts.push_back(new Grunt(1500, 500, &player0));
+  //grunts.push_back(new Grunt(500, 1500, &player0));
+  //grunts.push_back(new Grunt(1500, 1500, &player0));
 
   //while in game
   while(quit == false)
     {
+      //printf("%d\n", frame);
+
       //start frame timer
       fps.start();
       
@@ -61,10 +65,15 @@ int main(int argc, char* args[])
 
       //HUD
       renderHUD();
+      
+      ///*
+      if(frame % 60 == 0)
+	grunts.push_back(new Grunt(500, 500, &player0));
+      //*/
 
       player0.doUnit();
-      
-      doGrunts(grunts);
+      doGrunts();//grunts);
+
 
       //update screen
       if(SDL_Flip(screen) == -1)

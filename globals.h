@@ -15,6 +15,7 @@
 extern SDL_Surface *player;
 extern SDL_Surface *grunt;
 
+extern SDL_Surface *explosion;
 extern SDL_Surface *background;
 extern SDL_Surface *screen;
 
