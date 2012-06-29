@@ -39,6 +39,8 @@ void renderHUD();
 //perform and render units
 void doGrunts();//std::list<Grunt*> grunts);
 
+void doExplosions();
+
 void gameOver();
 
 #endif

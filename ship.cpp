@@ -178,7 +178,7 @@ std::list<Projectile*> Ship::moveProjectiles(std::list<Projectile*> bullets)
 
 void Ship::die()
 {
-  void();
+  explosions.push_back(new Explosion(x, y));
 }
 
 int Ship::getShield()

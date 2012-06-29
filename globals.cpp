@@ -16,6 +16,9 @@ SDL_Surface *explosion = NULL;
 SDL_Surface *background = NULL;
 SDL_Surface *screen = NULL;
 
+//explosion clips
+SDL_Rect explosion_frames[25];
+
 //HUD elements
 SDL_Surface *HUD_shield_armor_hull = NULL;
 SDL_Rect playerShield;
@@ -28,6 +31,9 @@ SDL_Surface *moltenSlug = NULL;
 
 //enemy containers
 std::list<Grunt*> grunts;
+
+//explosion container
+std::list<Explosion*> explosions;
 
 //The event structure
 SDL_Event event;

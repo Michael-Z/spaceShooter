@@ -19,6 +19,9 @@ extern SDL_Surface *explosion;
 extern SDL_Surface *background;
 extern SDL_Surface *screen;
 
+//explosion_clips
+extern SDL_Rect explosion_frames[25];
+
 //HUD elements
 extern SDL_Surface *HUD_shield_armor_hull;
 extern SDL_Rect playerShield;
@@ -31,6 +34,9 @@ extern SDL_Surface *moltenSlug;
 
 //enemy containers
 extern std::list<Grunt*> grunts;
+
+//explosion containers
+extern std::list<Explosion*> explosions;
 
 //The event structure
 extern SDL_Event event;

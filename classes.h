@@ -3,6 +3,8 @@
 #ifndef CLASSES_H
 #define CLASSES_H
 
+#include "SDL/SDL.h"
+
 #include <list>
 
 //basic projectile type, others inherit from
@@ -218,11 +220,22 @@ class Timer
   bool is_paused();    
 };
 
-/*
+
 class Explosion
 {
-  void();
+ private:
+  int x;
+  int y;
+
+  int stage;
+
+ public:
+  Explosion(int sX, int sY);
+  int get_stage();
+  void show();
+
+
 };
-*/
+
 
 #endif

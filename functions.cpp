@@ -110,6 +110,14 @@ bool init()
   playerEnergy.h = 17;
   playerEnergy.w = 200;
   
+  //set explosion frame clips
+  for(int i = 0; i < 25; i++)
+    {
+      explosion_frames[i].x = 64 * (i % 5);
+      explosion_frames[i].y = 64 * (i / 5);
+      explosion_frames[i].w = 64;
+      explosion_frames[i].h = 64;
+    }
     
   //If everything initialized fine
   return true;
@@ -120,7 +128,7 @@ bool load_files()
   //Load the images
   background = load_image("images/background.png");
   HUD_shield_armor_hull = load_image("images/HUD_shield_armor_hull.png", true);
-  explosion = load_image("images/explosion.png");
+  explosion = load_image("images/explosion.png", true);
 
   //load ship images
   player = load_image("images/ship.png");
@@ -202,6 +210,24 @@ void doGrunts()//std::list<Grunt*> grunts)
 
 	  (**it).doUnit(grunts, it);
 	  ++it;
+	}
+    }
+}
+
+void doExplosions()
+{
+  for(std::list<Explosion*>::iterator it = explosions.begin();
+      it != explosions.end();)
+    {
+      if((**it).get_stage() == 24)
+	{
+	  delete *it;
+	  explosions.erase(it++);
+	}
+      else
+	{
+	(**it).show();
+	++it;
 	}
     }
 }

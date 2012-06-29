@@ -30,10 +30,8 @@ int main(int argc, char* args[])
   //start frame counter
   frame = 0;
 
-  //std::list<int> ints;
+  //Explosion explosion0 = Explosion(1000, 1000);
 
-  //create enemy lists
-  //std::list<Grunt*> grunts;
   //grunts.push_back(new Grunt(500, 500, &player0));
   //grunts.push_back(new Grunt(1500, 500, &player0));
   //grunts.push_back(new Grunt(500, 1500, &player0));
@@ -72,8 +70,10 @@ int main(int argc, char* args[])
       //*/
 
       player0.doUnit();
-      doGrunts();//grunts);
-
+      doGrunts();
+      doExplosions();
+      
+      ///**/ explosion0.show();
 
       //update screen
       if(SDL_Flip(screen) == -1)
