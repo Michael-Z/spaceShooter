@@ -17,15 +17,15 @@ Boomer::Boomer(int startx, int starty, Player* player)
   xVel = 0;
   yVel = 0;
 
-  damage = 50;
+  damage = 20;
 
   maxShield = 1;
   maxArmor = 1;
-  maxHull = 3;
+  maxHull = 1;
 
   shield = 1;
   armor = 1;
-  hull = 3;
+  hull = 1;
 }
 
 void Boomer::accelerate()

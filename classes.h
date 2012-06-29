@@ -73,6 +73,7 @@ class Ship
 
   int maxShield;
   int shield;
+  int shieldRegen; //% per 10 frames
 
   //weapon properties
   int MS_speed;
@@ -81,6 +82,18 @@ class Ship
   int MS_range;
   int MS_rate;
 
+  int MG_speed;
+  int MG_damage;
+  int MG_radius;
+  int MG_range;
+  int MG_rate;
+
+  int SG_speed;
+  int SG_damage;
+  int SG_radius;
+  int SG_range;
+  int SG_rate;
+
   //metal slugs container
   std::list<Projectile*> slugs;
     
@@ -88,8 +101,10 @@ class Ship
   //do what the ship is supposed to do
   void doUnit();
 
-  //Moves the shipt
+  //Moves the ship, 
   void move();
+  void regenShield();
+
 
   //undos an invalid move
   void unMove();
@@ -104,7 +119,10 @@ class Ship
   void takeDamage(int damage);
 
   //shoot various projectiles
-  void shootMoltenSlug();
+  void shootProjectile(SDL_Surface* image, int speed, int range, int damage,
+		       int radius);
+
+  void shootShotgun();
 
   //move various projectiles
   std::list<Projectile*> moveProjectiles(std::list<Projectile*> bullets);
@@ -149,12 +167,18 @@ class Player : public Ship
   //energy
   int maxEnergy;
   int energy;
+  int energyRegen; //energy regen per 10 frames
 
   //current lclick weapon 1-5?
   int weapon;
+  int ability;
+
+  int shieldRepFact;
 
  public:
   Player();
+
+  void regenEnergy();
 
   void doUnit();
 
@@ -169,6 +193,7 @@ class Player : public Ship
 
   //do left click action
   void doLeftClick();
+  void doRightClick();
 
   //center Camera
   void set_camera();

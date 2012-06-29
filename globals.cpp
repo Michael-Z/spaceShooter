@@ -14,11 +14,15 @@ SDL_Surface *grunt = NULL;
 SDL_Surface *boomer = NULL;
 
 SDL_Surface *explosion = NULL;
+SDL_Surface *shield_rep = NULL;
 SDL_Surface *background = NULL;
 SDL_Surface *screen = NULL;
 
 //explosion clips
 SDL_Rect explosion_frames[25];
+
+//shield rep animation
+SDL_Rect shield_rep_frames[4];
 
 //HUD elements
 SDL_Surface *HUD_shield_armor_hull = NULL;
@@ -29,6 +33,8 @@ SDL_Rect playerEnergy;
 
 //surfaces - projectiles
 SDL_Surface *moltenSlug = NULL;
+SDL_Surface *miniGun = NULL;
+SDL_Surface *shotgun = NULL;
 
 //enemy containers
 std::list<Grunt*> grunts;

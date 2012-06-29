@@ -17,11 +17,15 @@ extern SDL_Surface *grunt;
 extern SDL_Surface *boomer;
 
 extern SDL_Surface *explosion;
+extern SDL_Surface *shield_rep;
 extern SDL_Surface *background;
 extern SDL_Surface *screen;
 
 //explosion_clips
 extern SDL_Rect explosion_frames[25];
+
+//shield rep animation
+extern SDL_Rect shield_rep_frames[4];
 
 //HUD elements
 extern SDL_Surface *HUD_shield_armor_hull;
@@ -32,6 +36,8 @@ extern SDL_Rect playerEnergy;
 
 //surfaces - projectiles
 extern SDL_Surface *moltenSlug;
+extern SDL_Surface *miniGun;
+extern SDL_Surface *shotgun;
 
 //enemy containers
 extern std::list<Grunt*> grunts;

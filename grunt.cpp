@@ -26,20 +26,20 @@ Grunt::Grunt(int startx, int starty, Player *player0)
   x1 = 0;
   y1 = 1;
 
-  maxShield = 20;
-  maxArmor = 20;
-  maxHull = 20;
+  maxShield = 10;
+  maxArmor = 10;
+  maxHull = 10;
 
-  shield = 20;
-  armor = 20;
-  hull = 20;
+  shield = 10;
+  armor = 10;
+  hull = 10;
 
   //Molten Slug info
   MS_speed = 20;
   MS_damage = 10;
   MS_radius = 5;
-  MS_range = 400;
-  MS_rate = 10;
+  MS_range = 600;
+  MS_rate = 20;
 }
 
 Grunt::~Grunt()
@@ -75,8 +75,6 @@ void Grunt::accelerate()
       if(playerY > y) yVel -= 1;
       else yVel += 1;
     }
-  int oldXvel = xVel;
-  int oldYvel = yVel;
 
   if(abs(xVel) > maxSpeed)
     {
@@ -104,7 +102,7 @@ void Grunt::doUnit(std::list<Grunt*> grunts, std::list<Grunt*>::iterator it)
   accelerate();
 
 
-  int dist;
+  //int dist;
   //int ixVel;
   //int iyVel;
 
@@ -139,7 +137,7 @@ void Grunt::doUnit(std::list<Grunt*> grunts, std::list<Grunt*>::iterator it)
       int playerX = (*target).getX() + 5 * (*target).getXvel();
       int playerY = (*target).getY() + 5 * (*target).getYvel();
       faceDirection(playerX, playerY);
-      shootMoltenSlug();
+      shootProjectile(moltenSlug, MS_speed, MS_range, MS_damage, MS_radius);
     }
 
   slugs = moveProjectiles(slugs);

@@ -15,8 +15,8 @@
 void Ship::move()
 {
   //Move the ship left or right
-  x += xVel;
-    
+  x += xVel / 2;
+
   //If the ship went too far to the left or right
   if( ( x < radius) || ( x + radius > LEVEL_WIDTH ) )
     {
@@ -27,7 +27,7 @@ void Ship::move()
     }
     
   //Move the ship up or down
-  y += yVel;
+  y += yVel / 2;
     
   //If the ship went too far up or down
   if( ( y < radius) || ( y + radius > LEVEL_HEIGHT ) )
@@ -37,6 +37,12 @@ void Ship::move()
       takeDamage(abs(yVel) * 4);
       yVel = -yVel / 2;
     }
+}
+
+void Ship::regenShield()
+{
+  if(shield < maxShield && frame % 10 == 0)
+    shield += shieldRegen * maxShield / 100;
 }
 
 void Ship::unMove()
@@ -88,25 +94,84 @@ void Ship::takeDamage(int damage)
     }
 }
 
-void Ship::shootMoltenSlug()
+void Ship::shootProjectile(SDL_Surface *image, int speed, int range,
+			   int damage, int radius)
 {
-  //should fix bullets to be vectors
+  int sXvel = xVel + int(speed * x1);
+  int sYvel = yVel + int(speed * y1);
 
-  int sXvel = xVel + int(MS_speed * x1);
-  int sYvel = yVel + int(MS_speed * y1);
-  
   //prevent projectiles from going too slow
-  if(distForm(0, 0, sXvel, sYvel) < MS_speed / 2)
+  if(distForm(0, 0, sXvel, sYvel) < speed / 2)
     {
-      sXvel = int((MS_speed) / 2 * x1);
-      sYvel = int((MS_speed) / 2 * y1);
+      sXvel = int((speed) / 2 * x1);
+      sYvel = int((speed) / 2 * y1);
     }
-  int flight_time = MS_range / MS_speed; //flight time in frames
-  int range = flight_time * int(distForm(0, 0, sXvel, sYvel));
+  int flight_time = range / speed; //flight time in frames
+  int rangeMod = flight_time * int(distForm(0, 0, sXvel, sYvel));
 
-  Projectile *shot = new Projectile(moltenSlug, x, y, sXvel, sYvel,
-				    MS_damage, MS_radius, range);
+  Projectile *shot = new Projectile(image, x, y, sXvel, sYvel,
+                                    damage, radius, rangeMod);
   slugs.push_back(shot);
+
+}
+
+void Ship::shootShotgun()
+{
+  double x1old = x1;
+  double y1old = y1;
+  double y1cp = 1;
+
+  shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
+
+  double lran = double(rand())/double(RAND_MAX / .2);
+  double sran = double(rand())/double(RAND_MAX / .1);
+
+  x1 = x1old - lran;
+  if(x1 < -1)
+    {
+      x1 += 2 * lran;
+      y1cp = -1;
+    }
+  if(y1old < 0) y1cp *= -1;
+  y1 = sqrt(1 - pow(x1, 2)) * y1cp;
+  y1cp = 1;
+  shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
+  
+  x1 = x1old - sran;
+  if(x1 < -1)
+    {
+      x1 += 2 * sran;
+      y1cp = -1;
+    }
+  if(y1old < 0) y1cp *= -1;
+  y1 = sqrt(1 - pow(x1, 2)) * y1cp;
+  y1cp = 1;
+  shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
+
+  x1 = x1old + lran;
+  if(x1 > 1)
+    {
+      x1 -= 2 * lran;
+      y1cp = -1;
+    }
+  if(y1old < 0) y1cp *= -1;
+  y1 = sqrt(1 - pow(x1, 2)) * y1cp;
+  y1cp = 1;
+  shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
+
+  x1 = x1old + sran;
+  if(x1 > 1)
+    {
+      x1 -= 2 * sran;
+      y1cp = -1;
+    }
+  if(y1old < 0) y1cp *= -1;
+  y1 = sqrt(1 - pow(x1, 2)) * y1cp;
+  y1cp = 1;
+  shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
+  
+  x1 = x1old;
+  y1 = y1old;
 }
 
 std::list<Projectile*> Ship::moveProjectiles(std::list<Projectile*> bullets)

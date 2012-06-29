@@ -118,6 +118,15 @@ bool init()
       explosion_frames[i].w = 64;
       explosion_frames[i].h = 64;
     }
+
+  //set shield_rep frame clips
+  for(int i = 0; i < 4; i++)
+    {
+      shield_rep_frames[i].x = 60 * (i % 2);
+      shield_rep_frames[i].y = 60 * (i / 2);
+      shield_rep_frames[i].w = 60;
+      shield_rep_frames[i].h = 60;
+    }
     
   //If everything initialized fine
   return true;
@@ -129,18 +138,23 @@ bool load_files()
   background = load_image("images/background.png");
   HUD_shield_armor_hull = load_image("images/HUD_shield_armor_hull.png", true);
   explosion = load_image("images/explosion.png", true);
+  shield_rep = load_image("images/repairShield_animation.png", true);
 
   //load ship images
   player = load_image("images/ship.png");
   grunt = load_image("images/grunt.png");
   boomer = load_image("images/boomer.png");
 
+  //projectiles
   moltenSlug = load_image("images/moltenSlug.png");
+  miniGun = load_image("images/MiniGun.png");
+  shotgun = load_image("images/shotgun.png");
 
   //If there was a problem in loading the player or background
   if(background == NULL || HUD_shield_armor_hull == NULL ||
+     shield_rep == NULL ||
      explosion == NULL || player == NULL || grunt == NULL || boomer == NULL ||
-     moltenSlug == NULL)
+     moltenSlug == NULL || miniGun == NULL || shotgun == NULL)
     {
       printf("failed to load an image\n");
       return false;    

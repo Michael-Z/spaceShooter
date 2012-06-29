@@ -13,7 +13,6 @@
 #include "globals.h"
 
 
-
 Player::Player()
 {
   isPlayer = true;
@@ -33,7 +32,7 @@ Player::Player()
 
   //default weapon (lclick)
   weapon = 1;
-
+  ability = 1;
 
   //default weapon attributes
 
@@ -41,8 +40,22 @@ Player::Player()
   MS_speed = 20;
   MS_damage = 10;
   MS_radius = 5;
-  MS_range = 400;
-  MS_rate = 10;
+  MS_range = 600;
+  MS_rate = 20;
+
+  //mini gun
+  MG_speed = 20;
+  MG_damage = 5;
+  MG_radius = 4;
+  MG_range = 400;
+  MG_rate = 4;
+
+  //shotgun
+  SG_speed = 20;
+  SG_damage = 8;
+  SG_radius = 5;
+  SG_range = 400;
+  SG_rate = 30;
 
   lmouse = false;
   rmouse = false;
@@ -61,11 +74,22 @@ Player::Player()
   maxArmor = 100;
   armor = 100;
 
+  shieldRegen = 1;
   maxShield = 100;
   shield = 100;
 
+  energyRegen = 1;
   maxEnergy = 100;
   energy = 100;
+
+  //abilities
+  shieldRepFact = 1;
+}
+
+void Player::regenEnergy()
+{
+  if(energy < maxEnergy && frame % 10 == 0)
+    energy += energyRegen * maxEnergy / 100;
 }
 
 void Player::handle_input()
@@ -80,6 +104,14 @@ void Player::handle_input()
 	case SDLK_DOWN: down = true; break;
 	case SDLK_LEFT: left = true; break;
 	case SDLK_RIGHT: right = true; break;    
+
+	case SDLK_1: weapon = 1; break;
+	case SDLK_2: weapon = 2; break;
+	case SDLK_3: weapon = 3; break;
+	case SDLK_4: weapon = 4; break;
+	case SDLK_5: weapon = 5; break;
+	
+	default: void(); break;
         }
     }
   //If a key was released
@@ -92,6 +124,7 @@ void Player::handle_input()
 	case SDLK_DOWN: down = false; break;
 	case SDLK_LEFT: left = false; break;
 	case SDLK_RIGHT: right = false; break;    
+	default: void(); break;
         }        
     }
 
@@ -108,14 +141,12 @@ void Player::handle_input()
       if(event.button.button == SDL_BUTTON_LEFT)
 	{
 	  lmouse = true;
-	  if(frame - lStart > 2000) //prevent button spamming
-	    lStart = frame;
+	  //lStart = frame;
 	}
       if(event.button.button == SDL_BUTTON_RIGHT)
 	{
 	  rmouse = true;
-	  if(frame - rStart > 2000)
-	    rStart = frame;
+	  //rStart = frame;
 	}
     }
 
@@ -202,11 +233,48 @@ void Player::accelerate()
 
 void Player::doLeftClick()
 {
-  if(lmouse == true)
+  if(lStart > 0)
+    lStart--;
+
+  if(lmouse == true && lStart == 0)
     {
-      if(weapon == 1 && (frame - lStart) % MS_rate == 0)
+
+      if(weapon == 1)
 	{
-	  shootMoltenSlug();
+	  lStart = MS_rate;
+	  shootProjectile(moltenSlug, MS_speed, MS_range, MS_damage,
+			  MS_radius);
+	}
+      if(weapon == 2)
+	{
+	  lStart = MG_rate;
+	  shootProjectile(miniGun, MG_speed, MG_range, MG_damage, MG_radius);
+	}
+      if(weapon == 3)
+	{
+	  lStart = SG_rate;
+	  shootShotgun();
+	}
+    }
+}
+
+void Player::doRightClick()
+{
+  if(rStart > 0)
+    rStart--;
+  
+  if(rmouse == true && rStart == 0)
+    {
+      if(ability == 1 && energy > 0)
+	{
+	  apply_surface(x - camera.x - 25, y - camera.y - 25,
+			shield_rep, screen,
+			&shield_rep_frames[(frame % 16) / 4]);
+
+	  shield += shieldRepFact;
+	  if(shield > maxShield)
+	    shield = maxShield;
+	  energy -= 1;
 	}
     }
 }
@@ -217,9 +285,6 @@ void Player::set_camera()
   camera.x = ( x + radius) - SCREEN_WIDTH / 2;
   camera.y = ( y + radius) - SCREEN_HEIGHT / 2;
     
-  int cameraXold = camera.x;
-  int cameraYold = camera.y;
-
   //Keep the camera in bounds.
   if( camera.x < 0 )
     {
@@ -255,6 +320,8 @@ void Player::updateStatusBars()
 
 void Player::doUnit()
 {
+  regenShield();
+  regenEnergy();
   updateStatusBars();
   accelerate();
   move();
@@ -267,4 +334,5 @@ void Player::doUnit()
   //move projectiles
   slugs = moveProjectiles(slugs);
   show();
+  doRightClick();
 }

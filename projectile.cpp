@@ -35,11 +35,10 @@ Projectile::~Projectile()
 
 void Projectile::move()
 {
-  x += xVel;
-  y += yVel;
-  dist += sqrt(pow(xVel, 2) + pow(yVel, 2));
+  x += xVel / 2;
+  y += yVel / 2;
+  dist += distForm(0, 0, xVel / 2, yVel / 2);
 
-  //std::cout << x << " " << y << " " << dist << std::endl;
 }
 
 bool Projectile::isOutBounds()

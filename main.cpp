@@ -64,12 +64,11 @@ int main(int argc, char* args[])
       //HUD
       renderHUD();
       
-      /*
-      if(frame % 60 == 0)
+      if(frame % 300 == 0)
 	grunts.push_back(new Grunt(500, 500, &player0));
-      */
+      
 
-      if(frame % 30 == 0)
+      if(frame % 80 == 0)
 	boomers.push_back(new Boomer(500, 1000, &player0));
 
       player0.doUnit();
