@@ -133,6 +133,7 @@ std::list<Projectile*> Ship::moveProjectiles(std::list<Projectile*> bullets)
 	}
       else //its the player, check enemy lists
 	{
+	  //collision check grunts
 	  for(std::list<Grunt*>::iterator g = grunts.begin();
 	      g != grunts.end(); g++)
 	    {
@@ -145,6 +146,19 @@ std::list<Projectile*> Ship::moveProjectiles(std::list<Projectile*> bullets)
 		  goto end;
 		}
 	    }
+	  for(std::list<Boomer*>::iterator b = boomers.begin();
+	      b != boomers.end(); b++)
+	    {
+	      if(distForm((**b).getX(), (**b).getY(), (**it).getX(),
+			  (**it).getY()) < (**b).getRad() + (**it).getRad())
+		{
+		  (**b).takeDamage((**it).getDamage());
+		  delete *it;
+		  bullets.erase(it++);
+		  goto end;
+		}
+	    }
+	      
 	  goto next;
 	}
     next:

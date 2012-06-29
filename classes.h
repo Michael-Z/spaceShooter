@@ -140,6 +140,9 @@ class Player : public Ship
   bool lmouse;
   bool rmouse;
 
+  int lStart; //when mouse button is clicked
+  int rStart;
+  
   //current angle
   double angle;
 
@@ -186,6 +189,18 @@ class Grunt : public Ship
   void doUnit(std::list<Grunt*> grunts, std::list<Grunt*>::iterator it);
 
   void accelerate();
+};
+
+class Boomer : public Ship
+{
+ private:
+  int damage;
+
+ public:
+  Boomer(int startx, int starty, Player* player);
+  void accelerate();
+  void doUnit();
+  void die();
 };
 
 //The timer

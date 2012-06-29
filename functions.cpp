@@ -133,14 +133,16 @@ bool load_files()
   //load ship images
   player = load_image("images/ship.png");
   grunt = load_image("images/grunt.png");
-
+  boomer = load_image("images/boomer.png");
 
   moltenSlug = load_image("images/moltenSlug.png");
 
   //If there was a problem in loading the player or background
-  if(player == NULL || background == NULL || moltenSlug == NULL ||
-     grunt == NULL)
+  if(background == NULL || HUD_shield_armor_hull == NULL ||
+     explosion == NULL || player == NULL || grunt == NULL || boomer == NULL ||
+     moltenSlug == NULL)
     {
+      printf("failed to load an image\n");
       return false;    
     }
     
@@ -214,6 +216,24 @@ void doGrunts()//std::list<Grunt*> grunts)
     }
 }
 
+void doBoomers()
+{
+  for(std::list<Boomer*>::iterator it = boomers.begin(); it != boomers.end();)
+    {
+      if((*it)->getHull() == 0)
+	{
+	  delete * it;
+	  boomers.erase(it++);
+	}
+      else
+	{
+
+	  (**it).doUnit();
+	  ++it;
+	}
+    }
+}
+
 void doExplosions()
 {
   for(std::list<Explosion*>::iterator it = explosions.begin();
@@ -236,3 +256,4 @@ void gameOver()
 {
   std::cout << "Game Over!\n";
 }
+

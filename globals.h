@@ -14,6 +14,7 @@
 //The surfaces
 extern SDL_Surface *player;
 extern SDL_Surface *grunt;
+extern SDL_Surface *boomer;
 
 extern SDL_Surface *explosion;
 extern SDL_Surface *background;
@@ -34,6 +35,7 @@ extern SDL_Surface *moltenSlug;
 
 //enemy containers
 extern std::list<Grunt*> grunts;
+extern std::list<Boomer*> boomers;
 
 //explosion containers
 extern std::list<Explosion*> explosions;

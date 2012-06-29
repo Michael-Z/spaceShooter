@@ -30,12 +30,12 @@ int main(int argc, char* args[])
   //start frame counter
   frame = 0;
 
-  //Explosion explosion0 = Explosion(1000, 1000);
-
   //grunts.push_back(new Grunt(500, 500, &player0));
   //grunts.push_back(new Grunt(1500, 500, &player0));
   //grunts.push_back(new Grunt(500, 1500, &player0));
   //grunts.push_back(new Grunt(1500, 1500, &player0));
+
+  boomers.push_back(new Boomer(500, 500, &player0));
 
   //while in game
   while(quit == false)
@@ -64,13 +64,17 @@ int main(int argc, char* args[])
       //HUD
       renderHUD();
       
-      ///*
+      /*
       if(frame % 60 == 0)
 	grunts.push_back(new Grunt(500, 500, &player0));
-      //*/
+      */
+
+      if(frame % 30 == 0)
+	boomers.push_back(new Boomer(500, 1000, &player0));
 
       player0.doUnit();
       doGrunts();
+      doBoomers();
       doExplosions();
       
       ///**/ explosion0.show();

@@ -105,8 +105,8 @@ void Grunt::doUnit(std::list<Grunt*> grunts, std::list<Grunt*>::iterator it)
 
 
   int dist;
-  int ixVel;
-  int iyVel;
+  //int ixVel;
+  //int iyVel;
 
   move();
 

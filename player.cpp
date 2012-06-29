@@ -47,6 +47,9 @@ Player::Player()
   lmouse = false;
   rmouse = false;
 
+  lStart = 0;
+  rStart = 0;
+
   up = false;
   down = false;
   left = false;
@@ -103,9 +106,17 @@ void Player::handle_input()
     {
       //left mouse button
       if(event.button.button == SDL_BUTTON_LEFT)
-	lmouse = true;
+	{
+	  lmouse = true;
+	  if(frame - lStart > 2000) //prevent button spamming
+	    lStart = frame;
+	}
       if(event.button.button == SDL_BUTTON_RIGHT)
-	rmouse = true;
+	{
+	  rmouse = true;
+	  if(frame - rStart > 2000)
+	    rStart = frame;
+	}
     }
 
   if(event.type == SDL_MOUSEBUTTONUP)
@@ -193,7 +204,7 @@ void Player::doLeftClick()
 {
   if(lmouse == true)
     {
-      if(weapon == 1 && frame % MS_rate == 0)
+      if(weapon == 1 && (frame - lStart) % MS_rate == 0)
 	{
 	  shootMoltenSlug();
 	}
