@@ -8,7 +8,7 @@
 #include "functions.h"
 #include "globals.h"
 
-Stealth::Stealth(int startx, int starty, Player *player0)
+Stealth::Stealth(int startx, int starty, Ship *player0)
 {
   isPlayer = false;
   target = player0;
@@ -29,6 +29,7 @@ Stealth::Stealth(int startx, int starty, Player *player0)
   maxArmor = 10;
   maxHull = 10;
 
+  shieldRegen = 2;
   shield = 50;
   armor = 10;
   hull = 10;
@@ -78,6 +79,7 @@ void Stealth::doUnit(std::list<Stealth*>::iterator it)
     ship = stealth;
 
   accelerate();
+  regenShield();
 
   move();
 

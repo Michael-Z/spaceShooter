@@ -4,7 +4,8 @@
 #include "globals.h"
 #include "functions.h"
 
-Boomer::Boomer(int startx, int starty, Player* player)
+Boomer::Boomer(int startx, int starty, Ship* player, int startxVel,
+	       int startyVel)
 {
   isPlayer = false;
   target = player;
@@ -15,8 +16,8 @@ Boomer::Boomer(int startx, int starty, Player* player)
   x = startx;
   y = starty;
   
-  xVel = 0;
-  yVel = 0;
+  xVel = startxVel;
+  yVel = startyVel;
 
   damage = 20;
 
@@ -24,7 +25,6 @@ Boomer::Boomer(int startx, int starty, Player* player)
   maxArmor = 1;
   maxHull = 1;
 
-  shieldRegen = 0;
   shield = 1;
   armor = 1;
   hull = 1;

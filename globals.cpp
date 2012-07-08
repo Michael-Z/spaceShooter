@@ -13,6 +13,7 @@ SDL_Surface *player = NULL;
 SDL_Surface *grunt = NULL;
 SDL_Surface *boomer = NULL;
 SDL_Surface *stealth = NULL;
+SDL_Surface *carrier = NULL;
 
 SDL_Surface *explosion = NULL;
 SDL_Surface *shield_rep = NULL;
@@ -42,6 +43,7 @@ SDL_Surface *homing = NULL;
 std::list<Grunt*> grunts;
 std::list<Boomer*> boomers;
 std::list<Stealth*> stealths;
+std::list<Carrier*> carriers;
 
 //explosion container
 std::list<Explosion*> explosions;

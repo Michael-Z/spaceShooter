@@ -10,7 +10,7 @@
 #include "functions.h"
 #include "globals.h"
 
-Grunt::Grunt(int startx, int starty, Player *player0)
+Grunt::Grunt(int startx, int starty, Ship *player0)
 {
   isPlayer = false;
   target = player0;
@@ -31,7 +31,6 @@ Grunt::Grunt(int startx, int starty, Player *player0)
   maxArmor = 10;
   maxHull = 10;
 
-  shieldRegen = 0;
   shield = 10;
   armor = 10;
   hull = 10;

@@ -241,6 +241,19 @@ std::list<Projectile*> Ship::moveProjectiles(std::list<Projectile*> bullets)
 		  goto end;
 		}
 	    }
+
+	  for(std::list<Carrier*>::iterator c = carriers.begin();
+	      c != carriers.end(); c++)
+	    {
+	      if(distForm((**c).getX(), (**c).getY(), (**it).getX(),
+			  (**it).getY()) < (**c).getRad() + (**it).getRad())
+		{
+		  (**c).takeDamage((**it).getDamage());
+		  delete *it;
+		  bullets.erase(it++);
+		  goto end;
+		}
+	    }
 	      
 	  goto next;
 	}

@@ -46,6 +46,7 @@ void renderHUD();
 void doGrunts();
 void doBoomers();
 void doStealths();
+void doCarriers();
 
 void doExplosions();
 

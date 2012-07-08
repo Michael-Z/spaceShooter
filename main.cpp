@@ -30,7 +30,8 @@ int main(int argc, char* args[])
   //start frame counter
   frame = 0;
 
-  stealths.push_back(new Stealth(500, 500, &player0));
+  carriers.push_back(new Carrier(1500, 1500, &player0));
+  //stealths.push_back(new Stealth(500, 500, &player0));
   //grunts.push_back(new Grunt(500, 500, &player0));
   //grunts.push_back(new Grunt(1500, 500, &player0));
   //grunts.push_back(new Grunt(500, 1500, &player0));
@@ -65,17 +66,19 @@ int main(int argc, char* args[])
       //HUD
       renderHUD();
 
-      /*
+      ///*
       if(frame % 300 == 0)
 	grunts.push_back(new Grunt(500, 500, &player0));
       
 
       if(frame % 80 == 0)
 	boomers.push_back(new Boomer(500, 1000, &player0));
-      */
 
       if(frame % 500 == 0)
 	stealths.push_back(new Stealth(1000, 1000, &player0));
+
+      if(frame % 800 == 0)
+	carriers.push_back(new Carrier(1500, 1500, &player0));
 
       //*/
 
@@ -83,6 +86,8 @@ int main(int argc, char* args[])
       doGrunts();
       doBoomers();
       doStealths();
+      doCarriers();
+
       doExplosions();
       
       //update screen

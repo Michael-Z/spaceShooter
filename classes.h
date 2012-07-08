@@ -223,7 +223,7 @@ class Player : public Ship
 class Grunt : public Ship
 {
  public:
-  Grunt(int startx, int starty, Player *target);
+  Grunt(int startx, int starty, Ship *target);
   ~Grunt();
   void doUnit(std::list<Grunt*>::iterator it);
 
@@ -236,7 +236,8 @@ class Boomer : public Ship
   int damage;
 
  public:
-  Boomer(int startx, int starty, Player* player);
+  Boomer(int startx, int starty, Ship* player,
+	 int startxVel = 0, int startyVel = 0);
   void accelerate();
   void doUnit();
   void die();
@@ -245,9 +246,20 @@ class Boomer : public Ship
 class Stealth : public Ship
 {
  public:
-  Stealth(int startx, int starty, Player *target);
+  Stealth(int startx, int starty, Ship *target);
   void doUnit(std::list<Stealth*>::iterator it);
 
+  void accelerate();
+};
+
+class Carrier : public Ship
+{
+ public:
+  Carrier(int startx, int starty, Ship *target);
+  void doUnit(std::list<Carrier*>::iterator it);
+
+  using Ship::die;
+  void die();
   void accelerate();
 };
 

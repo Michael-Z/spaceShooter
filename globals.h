@@ -16,6 +16,7 @@ extern SDL_Surface *player;
 extern SDL_Surface *grunt;
 extern SDL_Surface *boomer;
 extern SDL_Surface *stealth;
+extern SDL_Surface *carrier;
 
 extern SDL_Surface *explosion;
 extern SDL_Surface *shield_rep;
@@ -45,6 +46,7 @@ extern SDL_Surface *homing;
 extern std::list<Grunt*> grunts;
 extern std::list<Boomer*> boomers;
 extern std::list<Stealth*> stealths;
+extern std::list<Carrier*> carriers;
 
 //explosion containers
 extern std::list<Explosion*> explosions;

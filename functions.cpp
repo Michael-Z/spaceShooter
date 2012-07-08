@@ -165,6 +165,7 @@ bool load_files()
   grunt = load_image("images/grunt.png");
   boomer = load_image("images/boomer.png");
   stealth = load_image("images/stealth.png", true);
+  carrier = load_image("images/carrier.png");
 
   //projectiles
   moltenSlug = load_image("images/moltenSlug.png");
@@ -177,6 +178,7 @@ bool load_files()
      shield_rep == NULL ||
      explosion == NULL ||
      player == NULL || grunt == NULL || boomer == NULL || stealth == NULL ||
+     carrier == NULL || 
      moltenSlug == NULL || miniGun == NULL || shotgun == NULL ||
      homing == NULL)
     {
@@ -195,6 +197,7 @@ void clean_up()
   SDL_FreeSurface(grunt);
   SDL_FreeSurface(boomer);
   SDL_FreeSurface(stealth);
+  SDL_FreeSurface(carrier);
 
   SDL_FreeSurface(background);
   SDL_FreeSurface(HUD_shield_armor_hull);
@@ -289,6 +292,25 @@ void doStealths()
 	{
 	  delete *it;
 	  stealths.erase(it++);
+	}
+      else
+	{
+	  (*it)->doUnit(it);
+	  it++;
+	}
+    }
+}
+
+void doCarriers()
+{
+  for(std::list<Carrier*>::iterator it = carriers.begin();
+      it != carriers.end();)
+    {
+      if((*it)->getHull() == 0)
+	{
+	  (**it).die();
+	  delete *it;
+	  carriers.erase(it++);
 	}
       else
 	{
