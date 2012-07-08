@@ -15,6 +15,7 @@
 extern SDL_Surface *player;
 extern SDL_Surface *grunt;
 extern SDL_Surface *boomer;
+extern SDL_Surface *stealth;
 
 extern SDL_Surface *explosion;
 extern SDL_Surface *shield_rep;
@@ -38,10 +39,12 @@ extern SDL_Rect playerEnergy;
 extern SDL_Surface *moltenSlug;
 extern SDL_Surface *miniGun;
 extern SDL_Surface *shotgun;
+extern SDL_Surface *homing;
 
 //enemy containers
 extern std::list<Grunt*> grunts;
 extern std::list<Boomer*> boomers;
+extern std::list<Stealth*> stealths;
 
 //explosion containers
 extern std::list<Explosion*> explosions;

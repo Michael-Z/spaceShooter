@@ -37,7 +37,7 @@ Player::Player()
   //default weapon attributes
 
   //molten slug
-  MS_speed = 20;
+  MS_speed = 30;
   MS_damage = 10;
   MS_radius = 5;
   MS_range = 600;
@@ -45,7 +45,7 @@ Player::Player()
 
   //mini gun
   MG_speed = 20;
-  MG_damage = 5;
+  MG_damage = 3;
   MG_radius = 4;
   MG_range = 400;
   MG_rate = 4;
@@ -56,6 +56,13 @@ Player::Player()
   SG_radius = 5;
   SG_range = 400;
   SG_rate = 30;
+
+  //homing missiles
+  homing_speed = 10;
+  homing_damage = 10;
+  homing_radius = 5;
+  homing_range = 800;
+  homing_rate = 30;
 
   lmouse = false;
   rmouse = false;
@@ -185,35 +192,7 @@ void Player::faceMouse()
   x1 = (mX - sX) / hypo;
   y1 = (mY - sY) / hypo;
   
-  double angle;
-  
-  if(mY - sY == 0)
-    {
-      if(mX > sX)
-	angle = -90;
-      else
-	angle = 90;
-    }
-  
-  else
-    {
-      if(sX > mX && mY < sY)
-	{
-	  angle = atan(((double)(sX - mX)) / (sY - mY)) * 180.0 / PI;
-	}
-      else if(sX > mX && mY > sY)
-	{
-	  angle = 180 -atan(((double)(sX - mX)) / (mY - sY)) * 180.0 / PI;
-	}
-      else if(sX < mX && mY < sY)
-	{
-	  angle = -atan(((double)(mX - sX)) / (sY - mY)) * 180.0 / PI;
-	}
-      else //(sX < mX && mY > sY)
-	{
-	  angle= -180 + atan(((double)(mX - sX)) / (mY - sY)) * 180.0 / PI;
-	}
-    }
+  double angle = (unitToAngle(x1, y1) - PI / 2) * 180.0 / PI;
   
   //rotate image
   ship = rotate(player, angle, 1, 0);
@@ -239,21 +218,27 @@ void Player::doLeftClick()
   if(lmouse == true && lStart == 0)
     {
 
+      //maybe allow multiple weapons?
       if(weapon == 1)
 	{
 	  lStart = MS_rate;
 	  shootProjectile(moltenSlug, MS_speed, MS_range, MS_damage,
 			  MS_radius);
 	}
-      if(weapon == 2)
+      else if(weapon == 2)
 	{
 	  lStart = MG_rate;
 	  shootProjectile(miniGun, MG_speed, MG_range, MG_damage, MG_radius);
 	}
-      if(weapon == 3)
+      else if(weapon == 3)
 	{
 	  lStart = SG_rate;
 	  shootShotgun();
+	}
+      else if(weapon == 4)
+	{
+	  lStart = homing_rate;
+	  shootHoming();
 	}
     }
 }

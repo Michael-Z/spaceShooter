@@ -15,6 +15,12 @@
 //distance formula
 int distForm(int x1, int y1, int x2, int y2);
 
+//unit vector to angle (radians)
+double unitToAngle(double x1, double y1);
+
+double angleToUnitX(double angle);
+double angleToUnitY(double angle);
+
 //File Loader
 SDL_Surface *load_image( std::string filename );
 
@@ -39,6 +45,7 @@ void renderHUD();
 //perform and render units
 void doGrunts();
 void doBoomers();
+void doStealths();
 
 void doExplosions();
 

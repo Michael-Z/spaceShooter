@@ -12,6 +12,7 @@
 SDL_Surface *player = NULL;
 SDL_Surface *grunt = NULL;
 SDL_Surface *boomer = NULL;
+SDL_Surface *stealth = NULL;
 
 SDL_Surface *explosion = NULL;
 SDL_Surface *shield_rep = NULL;
@@ -35,10 +36,12 @@ SDL_Rect playerEnergy;
 SDL_Surface *moltenSlug = NULL;
 SDL_Surface *miniGun = NULL;
 SDL_Surface *shotgun = NULL;
+SDL_Surface *homing = NULL;
 
 //enemy containers
 std::list<Grunt*> grunts;
 std::list<Boomer*> boomers;
+std::list<Stealth*> stealths;
 
 //explosion container
 std::list<Explosion*> explosions;

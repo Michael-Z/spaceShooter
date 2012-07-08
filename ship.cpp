@@ -95,7 +95,7 @@ void Ship::takeDamage(int damage)
 }
 
 void Ship::shootProjectile(SDL_Surface *image, int speed, int range,
-			   int damage, int radius)
+			   int damage, int radius, bool isHoming)
 {
   int sXvel = xVel + int(speed * x1);
   int sYvel = yVel + int(speed * y1);
@@ -110,7 +110,7 @@ void Ship::shootProjectile(SDL_Surface *image, int speed, int range,
   int rangeMod = flight_time * int(distForm(0, 0, sXvel, sYvel));
 
   Projectile *shot = new Projectile(image, x, y, sXvel, sYvel,
-                                    damage, radius, rangeMod);
+                                    damage, radius, rangeMod, isHoming);
   slugs.push_back(shot);
 
 }
@@ -119,57 +119,54 @@ void Ship::shootShotgun()
 {
   double x1old = x1;
   double y1old = y1;
-  double y1cp = 1;
+
+  double angle = unitToAngle(x1, y1);
 
   shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
 
-  double lran = double(rand())/double(RAND_MAX / .2);
-  double sran = double(rand())/double(RAND_MAX / .1);
+  x1 = angleToUnitX(angle + PI / 8);
+  y1 = angleToUnitY(angle + PI / 8);
 
-  x1 = x1old - lran;
-  if(x1 < -1)
-    {
-      x1 += 2 * lran;
-      y1cp = -1;
-    }
-  if(y1old < 0) y1cp *= -1;
-  y1 = sqrt(1 - pow(x1, 2)) * y1cp;
-  y1cp = 1;
+  shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
+
+  x1 = angleToUnitX(angle - PI / 8);
+  y1 = angleToUnitY(angle - PI / 8);
+
+  shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
+
+
+  x1 = angleToUnitX(angle + PI / 16);
+  y1 = angleToUnitY(angle + PI / 16);
+
+  shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
+
+  x1 = angleToUnitX(angle - PI / 16);
+  y1 = angleToUnitY(angle - PI / 16);
+
   shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
   
-  x1 = x1old - sran;
-  if(x1 < -1)
-    {
-      x1 += 2 * sran;
-      y1cp = -1;
-    }
-  if(y1old < 0) y1cp *= -1;
-  y1 = sqrt(1 - pow(x1, 2)) * y1cp;
-  y1cp = 1;
-  shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
+  x1 = x1old;
+  y1 = y1old;
+}
 
-  x1 = x1old + lran;
-  if(x1 > 1)
-    {
-      x1 -= 2 * lran;
-      y1cp = -1;
-    }
-  if(y1old < 0) y1cp *= -1;
-  y1 = sqrt(1 - pow(x1, 2)) * y1cp;
-  y1cp = 1;
-  shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
+void Ship::shootHoming()
+{
+  double x1old = x1;
+  double y1old = y1;
 
-  x1 = x1old + sran;
-  if(x1 > 1)
-    {
-      x1 -= 2 * sran;
-      y1cp = -1;
-    }
-  if(y1old < 0) y1cp *= -1;
-  y1 = sqrt(1 - pow(x1, 2)) * y1cp;
-  y1cp = 1;
-  shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
-  
+  double angle = unitToAngle(x1, y1);
+  x1 = angleToUnitX(angle + PI / 4);
+  y1 = angleToUnitY(angle + PI / 4);
+
+  shootProjectile(homing, homing_speed, homing_range, homing_damage,
+		  homing_radius, true);
+
+  x1 = angleToUnitX(angle - PI / 4);
+  y1 = angleToUnitY(angle - PI / 4);
+
+  shootProjectile(homing, homing_speed, homing_range, homing_damage,
+		  homing_radius, true);
+
   x1 = x1old;
   y1 = y1old;
 }
@@ -185,6 +182,9 @@ std::list<Projectile*> Ship::moveProjectiles(std::list<Projectile*> bullets)
 
       if(isPlayer == false)
 	{
+	  if((**it).isHoming())
+	    (**it).doHoming((*target).getX(), (*target).getY());
+
 	  if(distForm((*target).getX(), (*target).getY(), (**it).getX(),
 		      (**it).getY()) < (*target).getRad() + (**it).getRad())
 	    {
@@ -198,6 +198,12 @@ std::list<Projectile*> Ship::moveProjectiles(std::list<Projectile*> bullets)
 	}
       else //its the player, check enemy lists
 	{
+	  //adjust velocity if its homing.
+	  if((**it).isHoming())
+	    {
+	      (**it).doHoming(camera.x + mouseX, camera.y + mouseY);
+	    }
+
 	  //collision check grunts
 	  for(std::list<Grunt*>::iterator g = grunts.begin();
 	      g != grunts.end(); g++)
@@ -218,6 +224,18 @@ std::list<Projectile*> Ship::moveProjectiles(std::list<Projectile*> bullets)
 			  (**it).getY()) < (**b).getRad() + (**it).getRad())
 		{
 		  (**b).takeDamage((**it).getDamage());
+		  delete *it;
+		  bullets.erase(it++);
+		  goto end;
+		}
+	    }
+	  for(std::list<Stealth*>::iterator s = stealths.begin();
+	      s != stealths.end(); s++)
+	    {
+	      if(distForm((**s).getX(), (**s).getY(), (**it).getX(),
+			  (**it).getY()) < (**s).getRad() + (**it).getRad())
+		{
+		  (**s).takeDamage((**it).getDamage());
 		  delete *it;
 		  bullets.erase(it++);
 		  goto end;

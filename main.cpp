@@ -30,7 +30,8 @@ int main(int argc, char* args[])
   //start frame counter
   frame = 0;
 
-  grunts.push_back(new Grunt(500, 500, &player0));
+  stealths.push_back(new Stealth(500, 500, &player0));
+  //grunts.push_back(new Grunt(500, 500, &player0));
   //grunts.push_back(new Grunt(1500, 500, &player0));
   //grunts.push_back(new Grunt(500, 1500, &player0));
   //grunts.push_back(new Grunt(1500, 1500, &player0));
@@ -73,13 +74,17 @@ int main(int argc, char* args[])
 	boomers.push_back(new Boomer(500, 1000, &player0));
       */
 
+      if(frame % 500 == 0)
+	stealths.push_back(new Stealth(1000, 1000, &player0));
+
+      //*/
+
       player0.doUnit();
       doGrunts();
       doBoomers();
+      doStealths();
       doExplosions();
       
-      ///**/ explosion0.show();
-
       //update screen
       if(SDL_Flip(screen) == -1)
 	return 1;

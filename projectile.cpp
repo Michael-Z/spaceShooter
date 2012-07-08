@@ -11,8 +11,10 @@
 #include "globals.h"
 
 Projectile::Projectile(SDL_Surface* image, int startx, int starty,
-		       int sXvel, int sYvel, int dam, int rad, int ran)
+		       int sXvel, int sYvel, int dam, int rad, int ran, 
+		       bool isHoming)
 {
+  homing = isHoming;
   picture = image;
   x = startx;
   y = starty;
@@ -31,6 +33,19 @@ Projectile::Projectile(SDL_Surface* image, int startx, int starty,
 Projectile::~Projectile()
 {
   void(0);
+}
+
+void Projectile::doHoming(int tX, int tY)
+{
+  if(tX > x)
+    xVel += 1;
+  else if(tX < x)
+    xVel -= 1;
+
+  if(tY > y)
+    yVel += 1;
+  else if(tY < y)
+    yVel -= 1;
 }
 
 void Projectile::move()

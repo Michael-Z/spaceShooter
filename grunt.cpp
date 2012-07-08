@@ -16,6 +16,7 @@ Grunt::Grunt(int startx, int starty, Player *player0)
   target = player0;
 
   radius = 30;
+  maxSpeed = 20;
 
   x = startx;
   y = starty;
@@ -30,18 +31,20 @@ Grunt::Grunt(int startx, int starty, Player *player0)
   maxArmor = 10;
   maxHull = 10;
 
+  shieldRegen = 0;
   shield = 10;
   armor = 10;
   hull = 10;
 
   //Molten Slug info
-  MS_speed = 20;
+  MS_speed = 30;
   MS_damage = 10;
   MS_radius = 5;
   MS_range = 600;
   MS_rate = 20;
 }
 
+/* useless */
 Grunt::~Grunt()
 {
   void();
@@ -50,8 +53,6 @@ Grunt::~Grunt()
 //accelerate towards player, but not crashing into
 void Grunt::accelerate()
 {
-  int maxSpeed = 10; //frames per pixel
-  
   int playerX = (*target).getX();
   int playerY = (*target).getY();
 
@@ -76,6 +77,7 @@ void Grunt::accelerate()
       else yVel += 1;
     }
 
+  /* fix max speed implementation see stealth.cpp */
   if(abs(xVel) > maxSpeed)
     {
       if(xVel > 0)
@@ -93,7 +95,7 @@ void Grunt::accelerate()
     }
 }
 
-void Grunt::doUnit(std::list<Grunt*> grunts, std::list<Grunt*>::iterator it)
+void Grunt::doUnit(std::list<Grunt*>::iterator it)
 {
   //set picture
   if(ship != grunt)

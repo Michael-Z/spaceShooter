@@ -16,6 +16,26 @@ int distForm(int x1, int y1, int x2, int y2)
   return int(sqrt(double(pow(x1 - x2, 2)) + pow(y1 - y2, 2)));
 }
 
+double unitToAngle(double x1, double y1)
+{
+  if(y1 < 0)
+      return acos(x1);
+
+  else
+      return 2 * PI - acos(x1);
+}
+
+double angleToUnitX(double angle)
+{
+  return cos(angle);
+}
+
+double angleToUnitY(double angle)
+{
+  //negative because y is reversed
+  return -sin(angle);
+}
+
 SDL_Surface *load_image(const char* filename, bool transparent = false)
 {
   //The image that's loaded
@@ -144,17 +164,21 @@ bool load_files()
   player = load_image("images/ship.png");
   grunt = load_image("images/grunt.png");
   boomer = load_image("images/boomer.png");
+  stealth = load_image("images/stealth.png", true);
 
   //projectiles
   moltenSlug = load_image("images/moltenSlug.png");
   miniGun = load_image("images/MiniGun.png");
   shotgun = load_image("images/shotgun.png");
+  homing = load_image("images/homing.png");
 
   //If there was a problem in loading the player or background
   if(background == NULL || HUD_shield_armor_hull == NULL ||
      shield_rep == NULL ||
-     explosion == NULL || player == NULL || grunt == NULL || boomer == NULL ||
-     moltenSlug == NULL || miniGun == NULL || shotgun == NULL)
+     explosion == NULL ||
+     player == NULL || grunt == NULL || boomer == NULL || stealth == NULL ||
+     moltenSlug == NULL || miniGun == NULL || shotgun == NULL ||
+     homing == NULL)
     {
       printf("failed to load an image\n");
       return false;    
@@ -168,9 +192,17 @@ void clean_up()
 {
   //Free the surface
   SDL_FreeSurface(player);
+  SDL_FreeSurface(grunt);
+  SDL_FreeSurface(boomer);
+  SDL_FreeSurface(stealth);
+
   SDL_FreeSurface(background);
   SDL_FreeSurface(HUD_shield_armor_hull);
+
   SDL_FreeSurface(moltenSlug);
+  SDL_FreeSurface(miniGun);
+  SDL_FreeSurface(shotgun);
+  SDL_FreeSurface(homing);
     
   //Quit SDL
   SDL_Quit();
@@ -210,9 +242,8 @@ void renderHUD()
 						 0));
 }
 
-void doGrunts()//std::list<Grunt*> grunts)
+void doGrunts()
 {
-  //printf("%d\n", grunts.size());
   for(std::list<Grunt*>::iterator it = grunts.begin(); it != grunts.end();)
     {
 
@@ -224,7 +255,8 @@ void doGrunts()//std::list<Grunt*> grunts)
       else
 	{
 
-	  (**it).doUnit(grunts, it);
+	  //(**it).doUnit(grunts, it);
+	  (**it).doUnit(it);
 	  ++it;
 	}
     }
@@ -244,6 +276,24 @@ void doBoomers()
 
 	  (**it).doUnit();
 	  ++it;
+	}
+    }
+}
+
+void doStealths()
+{
+  for(std::list<Stealth*>::iterator it = stealths.begin();
+      it != stealths.end();)
+    {
+      if((*it)->getHull() == 0)
+	{
+	  delete *it;
+	  stealths.erase(it++);
+	}
+      else
+	{
+	  (*it)->doUnit(it);
+	  it++;
 	}
     }
 }

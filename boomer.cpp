@@ -10,6 +10,7 @@ Boomer::Boomer(int startx, int starty, Player* player)
   target = player;
 
   radius = 10;
+  maxSpeed = 20;
 
   x = startx;
   y = starty;
@@ -23,6 +24,7 @@ Boomer::Boomer(int startx, int starty, Player* player)
   maxArmor = 1;
   maxHull = 1;
 
+  shieldRegen = 0;
   shield = 1;
   armor = 1;
   hull = 1;
@@ -30,7 +32,6 @@ Boomer::Boomer(int startx, int starty, Player* player)
 
 void Boomer::accelerate()
 {
-  int maxSpeed = 20;
   int tX = target->getX();
   int tY = target->getY();
   int tXvel = target->getXvel();

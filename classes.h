@@ -11,6 +11,7 @@
 class Projectile
 {
  protected:
+  bool homing;
   int x, y;
 
   int xVel, yVel;
@@ -26,9 +27,12 @@ class Projectile
 
  public:
   Projectile(SDL_Surface *image, int startx, int starty, int sXvel, int sYvel,
-	     int dam, int rad, int ran);
+	     int dam, int rad, int ran, bool homing);
   ~Projectile();
 
+  bool isHoming() { return homing; }
+
+  void doHoming(int tX, int tY);
   void move();
   bool isOutBounds();
   void show();
@@ -60,6 +64,8 @@ class Ship
   int xVel, yVel;
 
   int radius;
+  
+  int maxSpeed;
 
   //surface of the ship
   SDL_Surface *ship;
@@ -94,6 +100,13 @@ class Ship
   int SG_range;
   int SG_rate;
 
+  //homing missile properties
+  int homing_speed;
+  int homing_damage;
+  int homing_radius;
+  int homing_range;
+  int homing_rate;
+
   //metal slugs container
   std::list<Projectile*> slugs;
     
@@ -120,9 +133,10 @@ class Ship
 
   //shoot various projectiles
   void shootProjectile(SDL_Surface* image, int speed, int range, int damage,
-		       int radius);
+		       int radius, bool isHoming = false);
 
   void shootShotgun();
+  void shootHoming();
 
   //move various projectiles
   std::list<Projectile*> moveProjectiles(std::list<Projectile*> bullets);
@@ -211,7 +225,7 @@ class Grunt : public Ship
  public:
   Grunt(int startx, int starty, Player *target);
   ~Grunt();
-  void doUnit(std::list<Grunt*> grunts, std::list<Grunt*>::iterator it);
+  void doUnit(std::list<Grunt*>::iterator it);
 
   void accelerate();
 };
@@ -226,6 +240,15 @@ class Boomer : public Ship
   void accelerate();
   void doUnit();
   void die();
+};
+
+class Stealth : public Ship
+{
+ public:
+  Stealth(int startx, int starty, Player *target);
+  void doUnit(std::list<Stealth*>::iterator it);
+
+  void accelerate();
 };
 
 //The timer
