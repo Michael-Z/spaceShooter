@@ -14,6 +14,7 @@ Grunt::Grunt(int startx, int starty, Ship *player0)
 {
   isPlayer = false;
   target = player0;
+  score = 20;
 
   radius = 30;
   maxSpeed = 20;

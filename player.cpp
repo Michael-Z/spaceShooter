@@ -16,6 +16,14 @@
 Player::Player()
 {
   isPlayer = true;
+  score = 0;
+
+  level = 1;
+  exp = 0;
+  oldExp = 0;
+  levelExp = 100;
+
+  skillPoints = 0;
 
   radius = 20;
 
@@ -301,6 +309,7 @@ void Player::updateStatusBars()
   playerArmor.w = int(200 * (double(armor) / maxArmor));
   playerHull.w = int(200 * (double(hull) / maxHull));
   playerEnergy.w = int(200 * (double(energy) / maxEnergy));
+  playerExp.w = int(300 * double(exp - oldExp) / (levelExp - oldExp));
 }
 
 void Player::doUnit()
@@ -308,6 +317,11 @@ void Player::doUnit()
   regenShield();
   regenEnergy();
   updateStatusBars();
+  
+  exp = playerScore; //get experience
+  if(exp > levelExp)
+    doLevel();
+
   accelerate();
   move();
   faceMouse();
@@ -320,4 +334,37 @@ void Player::doUnit()
   slugs = moveProjectiles(slugs);
   show();
   doRightClick();
+}
+
+void Player::doLevel()
+{
+  int oldOldExp = oldExp;
+
+  level += 1;
+  playerLevel = level;
+  skillPoints += 1;
+  oldExp = levelExp;
+
+  /* may be temporary exp curve*/
+  levelExp += int(1.5 * (levelExp - oldOldExp));
+
+  printf("Level Up! Exp: %d Level: %d \n", oldExp - oldOldExp,level);
+
+  //stat increases
+  maxShield += 10;
+  shield += 10;
+
+  maxArmor += 10;
+  armor += 10;
+
+  maxHull += 5;
+  hull += 5;
+
+  maxEnergy += 5;
+  energy += 5;
+
+  //show level up message
+  //font28Color = {0xEE, 0xEE, 0xEE};
+  mainMessage = TTF_RenderText_Solid(font28, "Level Up!", font28Color);
+  mainMessageTimer = 40;
 }

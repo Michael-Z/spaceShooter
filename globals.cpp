@@ -1,6 +1,8 @@
 //globals.cpp
 
 #include "SDL/SDL.h"
+#include "SDL/SDL_ttf.h"
+
 #include "globals.h"
 #include "constants.h"
 #include "classes.h"
@@ -17,6 +19,13 @@ SDL_Surface *carrier = NULL;
 
 SDL_Surface *explosion = NULL;
 SDL_Surface *shield_rep = NULL;
+
+SDL_Surface *mainMessage = NULL;
+int mainMessageTimer = 0;
+
+SDL_Surface *scoreHUD = NULL;
+SDL_Surface *levelHUD = NULL;
+
 SDL_Surface *background = NULL;
 SDL_Surface *screen = NULL;
 
@@ -26,12 +35,17 @@ SDL_Rect explosion_frames[25];
 //shield rep animation
 SDL_Rect shield_rep_frames[4];
 
+//ttf font
+TTF_Font *font28 = NULL;
+SDL_Color font28Color = {255, 255, 255};
+
 //HUD elements
 SDL_Surface *HUD_shield_armor_hull = NULL;
 SDL_Rect playerShield;
 SDL_Rect playerArmor;
 SDL_Rect playerHull;
 SDL_Rect playerEnergy;
+SDL_Rect playerExp;
 
 //surfaces - projectiles
 SDL_Surface *moltenSlug = NULL;
@@ -60,4 +74,8 @@ int frame;
 //mouse location;
 int mouseX;
 int mouseY;
+
+//score of player
+Uint32 playerScore;
+int playerLevel;
 

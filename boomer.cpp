@@ -9,6 +9,7 @@ Boomer::Boomer(int startx, int starty, Ship* player, int startxVel,
 {
   isPlayer = false;
   target = player;
+  score = 10;
 
   radius = 10;
   maxSpeed = 20;

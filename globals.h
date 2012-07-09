@@ -5,6 +5,7 @@
 
 //The header
 #include "SDL/SDL.h"
+#include "SDL/SDL_ttf.h"
 
 #include "classes.h"
 
@@ -20,6 +21,14 @@ extern SDL_Surface *carrier;
 
 extern SDL_Surface *explosion;
 extern SDL_Surface *shield_rep;
+
+extern SDL_Surface *mainMessage;
+extern int mainMessageTimer; //timer for main message
+
+extern SDL_Surface *scoreHUD;
+extern SDL_Surface *levelHUD;
+
+
 extern SDL_Surface *background;
 extern SDL_Surface *screen;
 
@@ -29,12 +38,17 @@ extern SDL_Rect explosion_frames[25];
 //shield rep animation
 extern SDL_Rect shield_rep_frames[4];
 
+//ttf font
+extern TTF_Font *font28;
+extern SDL_Color font28Color;
+
 //HUD elements
 extern SDL_Surface *HUD_shield_armor_hull;
 extern SDL_Rect playerShield;
 extern SDL_Rect playerArmor;
 extern SDL_Rect playerHull;
 extern SDL_Rect playerEnergy;
+extern SDL_Rect playerExp;
 
 //surfaces - projectiles
 extern SDL_Surface *moltenSlug;
@@ -63,5 +77,9 @@ extern int frame;
 //mouse location
 extern int mouseX;
 extern int mouseY;
+
+//player score
+extern Uint32 playerScore;
+extern int playerLevel;
 
 #endif

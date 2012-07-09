@@ -87,6 +87,7 @@ void Ship::takeDamage(int damage)
 	  else
 	    {
 	      hull = 0;
+	      playerScore += score;
 	      die();
 	    }
 	}

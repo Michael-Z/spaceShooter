@@ -1,10 +1,12 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include "SDL/SDL_rotozoom.h"
+#include "SDL/SDL_ttf.h"
 
 #include <iostream>
 #include <math.h>
 #include <list>
+#include <sstream>
 
 #include "classes.h"
 #include "constants.h"
@@ -103,6 +105,11 @@ bool init()
     {
       return false;    
     }
+
+  if( TTF_Init() == -1)
+    {
+      return false;
+    }
     
   //Set the window caption
   SDL_WM_SetCaption("Space Shooter!", NULL );
@@ -129,6 +136,11 @@ bool init()
   playerEnergy.y = SCREEN_HEIGHT - 18;
   playerEnergy.h = 17;
   playerEnergy.w = 200;
+
+  playerExp.x = 0;
+  playerExp.y = SCREEN_HEIGHT - 89;
+  playerExp.h = 8;
+  playerExp.w = 0;
   
   //set explosion frame clips
   for(int i = 0; i < 25; i++)
@@ -154,6 +166,9 @@ bool init()
 
 bool load_files()
 {
+  //load ttf font
+  font28 = TTF_OpenFont("FreeSans.ttf", 28);
+
   //Load the images
   background = load_image("images/background.png");
   HUD_shield_armor_hull = load_image("images/HUD_shield_armor_hull.png", true);
@@ -184,6 +199,12 @@ bool load_files()
     {
       printf("failed to load an image\n");
       return false;    
+    }
+
+  if(font28 == NULL)
+    {
+      printf("failed to load ttf font");
+      return false;
     }
     
   //If everything loaded fine
@@ -230,7 +251,7 @@ SDL_Surface* rotate(SDL_Surface* source, double angle, double zoom,
 void renderHUD()
 {
   //player status bars background
-  apply_surface(0, SCREEN_HEIGHT - 80, HUD_shield_armor_hull, screen);
+  apply_surface(0, SCREEN_HEIGHT - 90, HUD_shield_armor_hull, screen);
 
   //player status bars
   SDL_FillRect(screen, &playerShield, SDL_MapRGB(screen->format, 0, 0xFF,
@@ -243,6 +264,34 @@ void renderHUD()
   
   SDL_FillRect(screen, &playerEnergy, SDL_MapRGB(screen->format, 0xFF, 0xFF,
 						 0));
+
+  SDL_FillRect(screen, &playerExp, SDL_MapRGB(screen->format, 0, 0x46, 0xd5));
+
+  //render main Message
+  if(mainMessageTimer > 0)
+    {
+      mainMessageTimer--;
+      apply_surface(int(SCREEN_WIDTH * 3.5 / 8), int(SCREEN_HEIGHT / 4),
+		    mainMessage, screen);
+    }
+
+  //render score
+  std::stringstream scoreStr;
+
+  scoreStr << "Score: " << playerScore;
+
+  scoreHUD = TTF_RenderText_Solid(font28, scoreStr.str().c_str(), font28Color);
+
+  apply_surface(5, 0, scoreHUD, screen);
+
+  //here for later implementation
+
+  std::stringstream levelStr;
+
+  levelStr << "Player Level: " << playerLevel;
+  levelHUD = TTF_RenderText_Solid(font28, levelStr.str().c_str(), font28Color);
+
+  apply_surface(5, 33, levelHUD, screen);
 }
 
 void doGrunts()

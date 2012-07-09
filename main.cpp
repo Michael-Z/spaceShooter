@@ -39,6 +39,15 @@ int main(int argc, char* args[])
 
   //boomers.push_back(new Boomer(500, 500, &player0));
 
+  //set the playerScore to 0
+  playerScore = 0;
+  playerLevel = 1;
+
+  //set blank message
+  mainMessage = TTF_RenderText_Solid(font28, "", font28Color);
+  scoreHUD = TTF_RenderText_Solid(font28, "", font28Color);
+  levelHUD = TTF_RenderText_Solid(font28, "", font28Color);
+
   //while in game
   while(quit == false)
     {
@@ -63,9 +72,6 @@ int main(int argc, char* args[])
       //background
       apply_surface(0, 0, background, screen, &camera);
 
-      //HUD
-      renderHUD();
-
       ///*
       if(frame % 300 == 0)
 	grunts.push_back(new Grunt(500, 500, &player0));
@@ -89,6 +95,9 @@ int main(int argc, char* args[])
       doCarriers();
 
       doExplosions();
+
+      //HUD
+      renderHUD();
       
       //update screen
       if(SDL_Flip(screen) == -1)

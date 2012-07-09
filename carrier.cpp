@@ -14,6 +14,7 @@ Carrier::Carrier(int startx, int starty, Ship *player0)
 {
   isPlayer = false;
   target = player0;
+  score = 200;
 
   radius = 50;
   maxSpeed = 10;

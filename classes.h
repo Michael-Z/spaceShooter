@@ -51,6 +51,8 @@ class Ship
  protected:
   bool isPlayer;
 
+  int score; //score from killing enemies
+
   //target for enemies
   Ship *target;
 
@@ -160,7 +162,12 @@ class Ship
 class Player : public Ship
 {
  private:
+  int level;
   Uint32 exp;
+  Uint32 oldExp;
+  Uint32 levelExp;
+
+  int skillPoints;
 
   //if the keys are pressed
   bool up;
@@ -217,6 +224,8 @@ class Player : public Ship
   int getEnergy();
 
   void updateStatusBars();
+
+  void doLevel();
 };
 
 //basic enemy, dumb and shoots molten slugs

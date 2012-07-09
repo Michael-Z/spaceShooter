@@ -12,6 +12,7 @@ Stealth::Stealth(int startx, int starty, Ship *player0)
 {
   isPlayer = false;
   target = player0;
+  score = 50;
 
   radius = 15;
   maxSpeed = 15;
