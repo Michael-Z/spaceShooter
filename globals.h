@@ -32,6 +32,13 @@ extern SDL_Surface *levelHUD;
 extern SDL_Surface *background;
 extern SDL_Surface *screen;
 
+//menu backgrounds & buttons
+extern SDL_Surface *mainMenuBG;
+extern SDL_Surface *mainMenuButtons;
+
+extern Button *startGameButton;
+extern SDL_Rect mainMenuButtonFrames[3];
+
 //explosion_clips
 extern SDL_Rect explosion_frames[25];
 
@@ -41,6 +48,9 @@ extern SDL_Rect shield_rep_frames[4];
 //ttf font
 extern TTF_Font *font28;
 extern SDL_Color font28Color;
+
+extern TTF_Font *font18;
+extern SDL_Color font18Color;
 
 //HUD elements
 extern SDL_Surface *HUD_shield_armor_hull;
@@ -77,6 +87,12 @@ extern int frame;
 //mouse location
 extern int mouseX;
 extern int mouseY;
+
+//if game is paused
+extern bool isPaused;
+
+//current menu
+extern bool menu;
 
 //player score
 extern Uint32 playerScore;

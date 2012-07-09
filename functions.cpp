@@ -141,6 +141,26 @@ bool init()
   playerExp.y = SCREEN_HEIGHT - 89;
   playerExp.h = 8;
   playerExp.w = 0;
+
+  //set main menu clips
+  for(int i = 0; i < 1; i++) //one button for now
+    {
+      for(int j = 0; j < 3; j++)
+	{
+	  int mmBF = 3 *i + j;
+	  mainMenuButtonFrames[mmBF].x = j * 300;
+	  mainMenuButtonFrames[mmBF].y = i * 100;
+	  mainMenuButtonFrames[mmBF].w = 300;
+	  mainMenuButtonFrames[mmBF].h = 100;
+	}
+    }
+
+  //create buttons
+  //main Menu Buttons
+  startGameButton = new Button(SCREEN_WIDTH / 2 - 150, SCREEN_HEIGHT / 4,
+			       300, 100, &mainMenuButtonFrames[0],
+			       &mainMenuButtonFrames[1],
+			       &mainMenuButtonFrames[2]);
   
   //set explosion frame clips
   for(int i = 0; i < 25; i++)
@@ -168,6 +188,7 @@ bool load_files()
 {
   //load ttf font
   font28 = TTF_OpenFont("FreeSans.ttf", 28);
+  font18 = TTF_OpenFont("FreeSans.ttf", 18);
 
   //Load the images
   background = load_image("images/background.png");
@@ -188,6 +209,10 @@ bool load_files()
   shotgun = load_image("images/shotgun.png");
   homing = load_image("images/homing.png");
 
+  //menu items
+  mainMenuBG = load_image("images/mainMenuBG.png");
+  mainMenuButtons = load_image("images/mainMenuButtons.png");
+
   //If there was a problem in loading the player or background
   if(background == NULL || HUD_shield_armor_hull == NULL ||
      shield_rep == NULL ||
@@ -195,13 +220,14 @@ bool load_files()
      player == NULL || grunt == NULL || boomer == NULL || stealth == NULL ||
      carrier == NULL || 
      moltenSlug == NULL || miniGun == NULL || shotgun == NULL ||
-     homing == NULL)
+     homing == NULL ||
+     mainMenuBG == NULL || mainMenuButtons == NULL)
     {
       printf("failed to load an image\n");
       return false;    
     }
 
-  if(font28 == NULL)
+  if(font28 == NULL || font18 == NULL)
     {
       printf("failed to load ttf font");
       return false;
@@ -227,6 +253,9 @@ void clean_up()
   SDL_FreeSurface(miniGun);
   SDL_FreeSurface(shotgun);
   SDL_FreeSurface(homing);
+
+  SDL_FreeSurface(mainMenuBG);
+  SDL_FreeSurface(mainMenuButtons);
     
   //Quit SDL
   SDL_Quit();
@@ -280,7 +309,7 @@ void renderHUD()
 
   scoreStr << "Score: " << playerScore;
 
-  scoreHUD = TTF_RenderText_Solid(font28, scoreStr.str().c_str(), font28Color);
+  scoreHUD = TTF_RenderText_Solid(font18, scoreStr.str().c_str(), font18Color);
 
   apply_surface(5, 0, scoreHUD, screen);
 
@@ -288,11 +317,21 @@ void renderHUD()
 
   std::stringstream levelStr;
 
-  levelStr << "Player Level: " << playerLevel;
-  levelHUD = TTF_RenderText_Solid(font28, levelStr.str().c_str(), font28Color);
+  levelStr << "Level: " << playerLevel;
+  levelHUD = TTF_RenderText_Solid(font18, levelStr.str().c_str(), font18Color);
 
-  apply_surface(5, 33, levelHUD, screen);
+  apply_surface(5, 18, levelHUD, screen);
 }
+
+void handle_menu_input()
+{
+  if(event.type == SDL_MOUSEMOTION)
+    {
+      mouseX = event.motion.x;
+      mouseY = event.motion.y;
+    }
+}
+
 
 void doGrunts()
 {

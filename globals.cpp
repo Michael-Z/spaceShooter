@@ -29,6 +29,14 @@ SDL_Surface *levelHUD = NULL;
 SDL_Surface *background = NULL;
 SDL_Surface *screen = NULL;
 
+//menu backgrounds & buttons
+SDL_Surface *mainMenuBG = NULL;
+SDL_Surface *mainMenuButtons = NULL;
+
+Button *startGameButton = NULL;
+SDL_Rect mainMenuButtonFrames[3];
+
+
 //explosion clips
 SDL_Rect explosion_frames[25];
 
@@ -38,6 +46,9 @@ SDL_Rect shield_rep_frames[4];
 //ttf font
 TTF_Font *font28 = NULL;
 SDL_Color font28Color = {255, 255, 255};
+
+TTF_Font *font18 = NULL;
+SDL_Color font18Color = {255, 255, 255};
 
 //HUD elements
 SDL_Surface *HUD_shield_armor_hull = NULL;
@@ -74,6 +85,12 @@ int frame;
 //mouse location;
 int mouseX;
 int mouseY;
+
+//if the game is paused
+bool isPaused = true;
+
+//current menu
+bool menu = 0;
 
 //score of player
 Uint32 playerScore;

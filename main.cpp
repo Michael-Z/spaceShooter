@@ -2,10 +2,12 @@
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
+
 #include "constants.h"
 #include "classes.h"
 #include "functions.h"
 #include "globals.h"
+#include "menus.h"
 
 #include <iostream>
 #include <list>
@@ -51,8 +53,6 @@ int main(int argc, char* args[])
   //while in game
   while(quit == false)
     {
-      //printf("%d\n", frame);
-
       //start frame timer
       fps.start();
       
@@ -60,7 +60,10 @@ int main(int argc, char* args[])
       while(SDL_PollEvent(&event))
 	{
 	  //player0 ship movement/ shooting
-	  player0.handle_input();
+	  if(isPaused == false)
+	     player0.handle_input();
+	  else
+	    handle_menu_input();
 
 	  //if user closes window
 	  if(event.type == SDL_QUIT)
@@ -69,35 +72,46 @@ int main(int argc, char* args[])
 	    }
 	}
 
-      //background
-      apply_surface(0, 0, background, screen, &camera);
+      if(isPaused == false)
+	{
+	  //background
+	  apply_surface(0, 0, background, screen, &camera);
 
-      ///*
-      if(frame % 300 == 0)
-	grunts.push_back(new Grunt(500, 500, &player0));
-      
+	  ///*
+	  if(frame % 300 == 0)
+	    grunts.push_back(new Grunt(500, 500, &player0));
+	  
+	  
+	  if(frame % 80 == 0)
+	    boomers.push_back(new Boomer(500, 1000, &player0));
+	  
+	  if(frame % 500 == 0)
+	    stealths.push_back(new Stealth(1000, 1000, &player0));
+	  
+	  if(frame % 800 == 0)
+	    carriers.push_back(new Carrier(1500, 1500, &player0));
+	  
+	  //*/
+	  
+	  player0.doUnit();
+	  doGrunts();
+	  doBoomers();
+	  doStealths();
+	  doCarriers();
+	  
+	  doExplosions();
+	  
+	  //HUD
+	  renderHUD();
+	}
+      else //paused, show some sort of menu;
+	{
+	  switch(menu) //show menu based on menu variable
+	    {
+	    case 0: doMainMenu(); break;
 
-      if(frame % 80 == 0)
-	boomers.push_back(new Boomer(500, 1000, &player0));
-
-      if(frame % 500 == 0)
-	stealths.push_back(new Stealth(1000, 1000, &player0));
-
-      if(frame % 800 == 0)
-	carriers.push_back(new Carrier(1500, 1500, &player0));
-
-      //*/
-
-      player0.doUnit();
-      doGrunts();
-      doBoomers();
-      doStealths();
-      doCarriers();
-
-      doExplosions();
-
-      //HUD
-      renderHUD();
+	    }
+	}
       
       //update screen
       if(SDL_Flip(screen) == -1)

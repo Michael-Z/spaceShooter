@@ -42,6 +42,9 @@ SDL_Surface* rotate(SDL_Surface* source, double angle, double zoom,
 
 void renderHUD();
 
+//handle menu input (clicking, mouse location)
+void handle_menu_input();
+
 //perform and render units
 void doGrunts();
 void doBoomers();

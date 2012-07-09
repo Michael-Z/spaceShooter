@@ -7,6 +7,26 @@
 
 #include <list>
 
+//clickable button
+class Button
+{
+ private:
+  SDL_Rect box;
+  SDL_Rect* clip;
+  SDL_Rect* mainClip; //regular clip
+  SDL_Rect* overClip; // clip for mouse over
+  SDL_Rect* clicked;  //when button is clicked
+
+ public:
+  Button(int x, int y, int w, int h, SDL_Rect* buttonClip,
+	 SDL_Rect* mouseOverClip,
+	 SDL_Rect* buttonClicked);
+  
+  bool inButton(int tX, int tY);
+  bool handle_events();
+  void show();
+};
+
 //basic projectile type, others inherit from
 class Projectile
 {
