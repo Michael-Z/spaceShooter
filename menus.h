@@ -1,3 +1,5 @@
 //menus.h
 
-void doMainMenu();
+bool doMainMenu();
+void instructionsMenu();
+

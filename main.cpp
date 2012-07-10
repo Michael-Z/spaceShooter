@@ -50,6 +50,9 @@ int main(int argc, char* args[])
   scoreHUD = TTF_RenderText_Solid(font28, "", font28Color);
   levelHUD = TTF_RenderText_Solid(font28, "", font28Color);
 
+  //play music
+  Mix_PlayMusic(mainMusic, -1);
+
   //while in game
   while(quit == false)
     {
@@ -104,12 +107,12 @@ int main(int argc, char* args[])
 	  //HUD
 	  renderHUD();
 	}
-      else //paused, show some sort of menu;
+      else if(quit == false) //paused, show some sort of menu;
 	{
 	  switch(menu) //show menu based on menu variable
 	    {
-	    case 0: doMainMenu(); break;
-
+	    case 0: quit = doMainMenu(); break;
+	    case 1: instructionsMenu(); break;
 	    }
 	}
       

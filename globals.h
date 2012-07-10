@@ -6,6 +6,7 @@
 //The header
 #include "SDL/SDL.h"
 #include "SDL/SDL_ttf.h"
+#include "SDL/SDL_mixer.h"
 
 #include "classes.h"
 
@@ -35,8 +36,21 @@ extern SDL_Surface *screen;
 //menu backgrounds & buttons
 extern SDL_Surface *mainMenuBG;
 extern SDL_Surface *mainMenuButtons;
+extern SDL_Surface *mainMenuButtonText;
+extern SDL_Surface *menuBG_1024_768;
+
+extern SDL_Surface *instructionsBG;
+
+extern SDL_Surface *mainMenuToolTip;
+
+extern Button *mainMenuButton;
 
 extern Button *startGameButton;
+extern Button *arcadeModeButton;
+extern Button *loadGameButton;
+extern Button *instructionsButton;
+extern Button *quitGameButton;
+
 extern SDL_Rect mainMenuButtonFrames[3];
 
 //explosion_clips
@@ -97,5 +111,15 @@ extern bool menu;
 //player score
 extern Uint32 playerScore;
 extern int playerLevel;
+
+//sound effects
+
+extern Mix_Music *mainMusic;
+extern Mix_Chunk *moltenSlugSFX;
+extern Mix_Chunk *miniGunSFX;
+extern Mix_Chunk *shotgunSFX;
+extern Mix_Chunk *homingSFX;
+
+extern Mix_Chunk *explosionSFX;
 
 #endif

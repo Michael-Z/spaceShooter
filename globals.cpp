@@ -2,6 +2,7 @@
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_ttf.h"
+#include "SDL/SDL_mixer.h"
 
 #include "globals.h"
 #include "constants.h"
@@ -32,8 +33,20 @@ SDL_Surface *screen = NULL;
 //menu backgrounds & buttons
 SDL_Surface *mainMenuBG = NULL;
 SDL_Surface *mainMenuButtons = NULL;
+SDL_Surface *mainMenuButtonText = NULL;
+SDL_Surface *menuBG_1024_768 = NULL;
+SDL_Surface *instructionsBG = NULL;
+
+SDL_Surface *mainMenuToolTip = NULL;
+
+Button *mainMenuButton = NULL;
 
 Button *startGameButton = NULL;
+Button *arcadeModeButton = NULL;
+Button *loadGameButton = NULL;
+Button *instructionsButton = NULL;
+Button *quitGameButton = NULL;
+
 SDL_Rect mainMenuButtonFrames[3];
 
 
@@ -96,3 +109,13 @@ bool menu = 0;
 Uint32 playerScore;
 int playerLevel;
 
+//Music
+Mix_Music *mainMusic = NULL;
+
+//sound effects
+Mix_Chunk *moltenSlugSFX = NULL;
+Mix_Chunk *miniGunSFX = NULL;
+Mix_Chunk *shotgunSFX = NULL;
+Mix_Chunk *homingSFX = NULL;
+
+Mix_Chunk *explosionSFX = NULL;

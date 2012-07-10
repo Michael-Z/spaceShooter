@@ -2,6 +2,7 @@
 #include "SDL/SDL_image.h"
 #include "SDL/SDL_rotozoom.h"
 #include "SDL/SDL_ttf.h"
+#include "SDL/SDL_mixer.h"
 
 #include <iostream>
 #include <math.h>
@@ -110,6 +111,12 @@ bool init()
     {
       return false;
     }
+
+  //initialize SDL_mixer
+  if(Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+    {
+      return false;
+    }
     
   //Set the window caption
   SDL_WM_SetCaption("Space Shooter!", NULL );
@@ -161,6 +168,33 @@ bool init()
 			       300, 100, &mainMenuButtonFrames[0],
 			       &mainMenuButtonFrames[1],
 			       &mainMenuButtonFrames[2]);
+
+  arcadeModeButton = new Button(SCREEN_WIDTH / 2 - 150,
+				SCREEN_HEIGHT / 4 + 110,
+				300, 100, &mainMenuButtonFrames[0],
+				&mainMenuButtonFrames[1],
+				&mainMenuButtonFrames[2]);
+
+  loadGameButton = new Button(SCREEN_WIDTH / 2 - 150, SCREEN_HEIGHT / 4 + 220,
+			      300, 100, &mainMenuButtonFrames[0],
+			      &mainMenuButtonFrames[1],
+			      &mainMenuButtonFrames[2]);
+
+  instructionsButton = new Button(SCREEN_WIDTH / 2 - 150,
+				  SCREEN_HEIGHT / 4 + 330,
+				  300, 100, &mainMenuButtonFrames[0],
+				  &mainMenuButtonFrames[1],
+				  &mainMenuButtonFrames[2]);
+
+  quitGameButton = new Button(SCREEN_WIDTH / 2 - 150, SCREEN_HEIGHT / 4 + 440,
+			      300, 100, &mainMenuButtonFrames[0],
+			      &mainMenuButtonFrames[1],
+			      &mainMenuButtonFrames[2]);
+
+  mainMenuButton = new Button(SCREEN_WIDTH / 2 - 150, SCREEN_HEIGHT - 130,
+			      300, 100, &mainMenuButtonFrames[0],
+			      &mainMenuButtonFrames[1],
+			      &mainMenuButtonFrames[2]);
   
   //set explosion frame clips
   for(int i = 0; i < 25; i++)
@@ -181,6 +215,9 @@ bool init()
     }
     
   //If everything initialized fine
+
+
+
   return true;
 }
 
@@ -210,8 +247,13 @@ bool load_files()
   homing = load_image("images/homing.png");
 
   //menu items
-  mainMenuBG = load_image("images/mainMenuBG.png");
-  mainMenuButtons = load_image("images/mainMenuButtons.png");
+  
+  menuBG_1024_768 = load_image("images/menuBG_1024-768.png");
+  mainMenuBG = load_image("images/mainMenuBG.png", true);
+  mainMenuButtons = load_image("images/mainMenuButtons.png", true);
+  mainMenuButtonText = load_image("images/mainMenuButtonText.png", true);
+
+  instructionsBG = load_image("images/instructionsBG.png", true);
 
   //If there was a problem in loading the player or background
   if(background == NULL || HUD_shield_armor_hull == NULL ||
@@ -221,7 +263,9 @@ bool load_files()
      carrier == NULL || 
      moltenSlug == NULL || miniGun == NULL || shotgun == NULL ||
      homing == NULL ||
-     mainMenuBG == NULL || mainMenuButtons == NULL)
+     mainMenuBG == NULL || mainMenuButtons == NULL ||
+     mainMenuButtonText == NULL || menuBG_1024_768 == NULL ||
+     instructionsBG == NULL)
     {
       printf("failed to load an image\n");
       return false;    
@@ -230,6 +274,28 @@ bool load_files()
   if(font28 == NULL || font18 == NULL)
     {
       printf("failed to load ttf font");
+      return false;
+    }
+
+  //load sounds
+  mainMusic = Mix_LoadMUS("sounds/mainMusic.wav");
+  if(mainMusic == NULL)
+    {
+      printf("failed to load Music\n");
+      return false;
+    }
+  
+  moltenSlugSFX = Mix_LoadWAV("sounds/moltenSlugSFX.wav");
+  miniGunSFX = Mix_LoadWAV("sounds/miniGunSFX.wav");
+  shotgunSFX = Mix_LoadWAV("sounds/shotgunSFX.wav");
+  homingSFX = Mix_LoadWAV("sounds/homingSFX.wav");
+
+  explosionSFX = Mix_LoadWAV("sounds/explosionSFX.wav");
+
+  if(moltenSlugSFX == NULL || miniGunSFX == NULL || shotgunSFX == NULL ||
+     homingSFX == NULL || explosionSFX == NULL)
+    {
+      printf("failed to load sound effects");
       return false;
     }
     
@@ -256,6 +322,29 @@ void clean_up()
 
   SDL_FreeSurface(mainMenuBG);
   SDL_FreeSurface(mainMenuButtons);
+  SDL_FreeSurface(mainMenuButtonText);
+
+  SDL_FreeSurface(instructionsBG);
+
+  //free sound effecs
+  Mix_FreeChunk(moltenSlugSFX);
+  Mix_FreeChunk(miniGunSFX);
+  Mix_FreeChunk(shotgunSFX);
+  Mix_FreeChunk(homingSFX);
+  Mix_FreeChunk(explosionSFX);
+  
+  Mix_FreeMusic(mainMusic);
+  
+  //close font
+  TTF_CloseFont(font28);
+  TTF_CloseFont(font18);
+
+  //quit sdl_mixer
+  Mix_CloseAudio();
+
+  //quit SDL_ttf
+  TTF_Quit();
+  
     
   //Quit SDL
   SDL_Quit();

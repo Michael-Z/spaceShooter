@@ -1,0 +1,7 @@
+To do:
+
+*Improve sprite quality
+*Drawing of ship for main screen
+*clean up code (ie remove testing/commented code)
+*change background music
+*get better sound effecs (maybe make own)

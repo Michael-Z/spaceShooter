@@ -47,7 +47,10 @@ bool Button::handle_events()
 	{
 	  //if in button return true, execute button action
 	  if(clip == clicked && inButton(x, y))
-	    return true;
+	    {
+	      clip = overClip;
+	      return true;
+	    }
 	}
     }
   else if(clip == clicked && inButton(x, y))

@@ -229,22 +229,26 @@ void Player::doLeftClick()
       //maybe allow multiple weapons?
       if(weapon == 1)
 	{
+	  Mix_PlayChannel(-1, moltenSlugSFX, 0);
 	  lStart = MS_rate;
 	  shootProjectile(moltenSlug, MS_speed, MS_range, MS_damage,
 			  MS_radius);
 	}
       else if(weapon == 2)
 	{
+	  Mix_PlayChannel(-1, miniGunSFX, 0);
 	  lStart = MG_rate;
 	  shootProjectile(miniGun, MG_speed, MG_range, MG_damage, MG_radius);
 	}
       else if(weapon == 3)
 	{
+	  Mix_PlayChannel(-1, shotgunSFX, 0);
 	  lStart = SG_rate;
 	  shootShotgun();
 	}
       else if(weapon == 4)
 	{
+	  Mix_PlayChannel(-1, homingSFX, 0);
 	  lStart = homing_rate;
 	  shootHoming();
 	}
@@ -342,7 +346,7 @@ void Player::doLevel()
 
   level += 1;
   playerLevel = level;
-  skillPoints += 1;
+  skillPoints += 2;
   oldExp = levelExp;
 
   /* may be temporary exp curve*/

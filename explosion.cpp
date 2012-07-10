@@ -6,6 +6,7 @@
 
 Explosion::Explosion(int sX, int sY)
 {
+  Mix_PlayChannel(-1, explosionSFX, 0);
   stage = 0;
   x = sX;
   y = sY;
