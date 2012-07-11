@@ -1,7 +1,15 @@
 To do:
 
+*fix numbers on status bars
+*update exp fraction on kills
+*check text rendering for memory leaks
 *Improve sprite quality
 *Drawing of ship for main screen
 *clean up code (ie remove testing/commented code)
 *change background music
 *get better sound effecs (maybe make own)
+*add level system.
+*add mute button
+*scrolling menu backgrounds
+*make tooltips
+*update README

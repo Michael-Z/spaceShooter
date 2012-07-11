@@ -11,6 +11,7 @@
 class Button
 {
  private:
+  SDL_Surface *buttonSheet;
   SDL_Rect box;
   SDL_Rect* clip;
   SDL_Rect* mainClip; //regular clip
@@ -18,7 +19,8 @@ class Button
   SDL_Rect* clicked;  //when button is clicked
 
  public:
-  Button(int x, int y, int w, int h, SDL_Rect* buttonClip,
+  Button(int x, int y, int w, int h, SDL_Surface* theButtonSheet,
+	 SDL_Rect* buttonClip,
 	 SDL_Rect* mouseOverClip,
 	 SDL_Rect* buttonClicked);
   

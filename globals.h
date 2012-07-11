@@ -36,15 +36,22 @@ extern SDL_Surface *screen;
 //menu backgrounds & buttons
 extern SDL_Surface *mainMenuBG;
 extern SDL_Surface *mainMenuButtons;
+extern SDL_Surface *skillTreeSelection;
 extern SDL_Surface *mainMenuButtonText;
 extern SDL_Surface *menuBG_1024_768;
 
 extern SDL_Surface *instructionsBG;
+extern SDL_Surface *pauseMenuBG;
+extern SDL_Surface *skillTreeBG;
+extern SDL_Surface *offensiveTreeBG;
+extern SDL_Surface *defensiveTreeBG;
+extern SDL_Surface *abilityTreeBG;
 
 extern SDL_Surface *mainMenuToolTip;
 
 extern Button *mainMenuButton;
 
+//main menu buttons
 extern Button *startGameButton;
 extern Button *arcadeModeButton;
 extern Button *loadGameButton;
@@ -52,6 +59,19 @@ extern Button *instructionsButton;
 extern Button *quitGameButton;
 
 extern SDL_Rect mainMenuButtonFrames[3];
+
+//pause menu buttons
+extern Button *resumeGameButton;
+extern Button *skillMenuButton;
+extern Button *saveGameButton;
+
+//Skill tree Buttons
+extern Button *pauseMenuButton;
+extern Button *offensiveTreeButton;
+extern Button *defensiveTreeButton;
+extern Button *abilityTreeButton;
+
+extern SDL_Rect skillTreeSelectionFrames[3];
 
 //explosion_clips
 extern SDL_Rect explosion_frames[25];
@@ -66,6 +86,8 @@ extern SDL_Color font28Color;
 extern TTF_Font *font18;
 extern SDL_Color font18Color;
 
+extern TTF_Font *font14;
+
 //HUD elements
 extern SDL_Surface *HUD_shield_armor_hull;
 extern SDL_Rect playerShield;
@@ -73,6 +95,13 @@ extern SDL_Rect playerArmor;
 extern SDL_Rect playerHull;
 extern SDL_Rect playerEnergy;
 extern SDL_Rect playerExp;
+
+extern const char* pShieldNum;
+extern const char* pArmorNum;
+extern const char* pHullNum;
+extern const char* pEnergyNum;
+extern const char* pExpNum;
+
 
 //surfaces - projectiles
 extern SDL_Surface *moltenSlug;
@@ -106,7 +135,10 @@ extern int mouseY;
 extern bool isPaused;
 
 //current menu
-extern bool menu;
+extern int menu;
+
+//current skill tree
+extern int skillTree;
 
 //player score
 extern Uint32 playerScore;

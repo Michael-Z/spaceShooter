@@ -2,10 +2,12 @@
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
+
 #include <string>
 #include <math.h>
 #include <iostream>
 #include <list>
+#include <sstream>
 
 #include "constants.h"
 #include "classes.h"
@@ -115,6 +117,8 @@ void Player::handle_input()
       //Adjust the velocity
       switch( event.key.keysym.sym )
         {
+	case SDLK_ESCAPE: menu = 2; isPaused = true; break;
+
 	case SDLK_UP: up = true; break;
 	case SDLK_DOWN: down = true; break;
 	case SDLK_LEFT: left = true; break;
@@ -308,12 +312,25 @@ int Player::getEnergy()
 
 void Player::updateStatusBars()
 {
-
+  //update the bars
   playerShield.w = int(200 * (double(shield) / maxShield));
   playerArmor.w = int(200 * (double(armor) / maxArmor));
   playerHull.w = int(200 * (double(hull) / maxHull));
   playerEnergy.w = int(200 * (double(energy) / maxEnergy));
   playerExp.w = int(300 * double(exp - oldExp) / (levelExp - oldExp));
+
+  /*
+  //update the numbers
+  std::stringstream shieldNum << shield << " / " << maxShield;
+  std::stringstream armorNum << armor << " / " << maxArmor;
+  std::stringstream hullNum << hull << " / " << maxHull;
+  std::stringstream energyNum << energy << " / " << maxEnergy;
+
+  pShieldNum = shieldNum.str().c_str();
+  pArmorNum = armorNum.str().c_str();
+  pHullNum = hullNum.str().c_str();
+  pEnergyNum = energyNum.str().c_str();
+  */
 }
 
 void Player::doUnit()

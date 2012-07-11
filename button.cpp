@@ -6,7 +6,8 @@
 #include "classes.h"
 #include "functions.h"
 
-Button::Button(int x, int y, int w, int h, SDL_Rect* buttonClip,
+Button::Button(int x, int y, int w, int h, SDL_Surface *theButtonSheet,
+	       SDL_Rect* buttonClip,
 	       SDL_Rect* mouseOverClip, SDL_Rect* buttonClicked)
 {
   box.x = x;
@@ -14,6 +15,7 @@ Button::Button(int x, int y, int w, int h, SDL_Rect* buttonClip,
   box.w = w;
   box.h = h;
 
+  buttonSheet = theButtonSheet;
   clip = buttonClip;
   mainClip = buttonClip;
   overClip = mouseOverClip;
@@ -73,5 +75,5 @@ bool Button::handle_events()
 
 void Button::show()
 {
-  apply_surface(box.x, box.y, mainMenuButtons, screen, clip);
+  apply_surface(box.x, box.y, buttonSheet, screen, clip);
 }

@@ -29,6 +29,8 @@ int main(int argc, char* args[])
   if(load_files() == false)
     return 1;
 
+  setButtons_and_Frames();
+
   //start frame counter
   frame = 0;
 
@@ -51,7 +53,7 @@ int main(int argc, char* args[])
   levelHUD = TTF_RenderText_Solid(font28, "", font28Color);
 
   //play music
-  Mix_PlayMusic(mainMusic, -1);
+  //Mix_PlayMusic(mainMusic, -1);
 
   //while in game
   while(quit == false)
@@ -113,6 +115,11 @@ int main(int argc, char* args[])
 	    {
 	    case 0: quit = doMainMenu(); break;
 	    case 1: instructionsMenu(); break;
+	    case 2: doPauseMenu(); break;
+	    case 3: doSkillMenu(&player0); break;
+
+	      //if not valid menu, unpause game
+	    default: isPaused = false;
 	    }
 	}
       

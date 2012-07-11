@@ -33,14 +33,21 @@ SDL_Surface *screen = NULL;
 //menu backgrounds & buttons
 SDL_Surface *mainMenuBG = NULL;
 SDL_Surface *mainMenuButtons = NULL;
+SDL_Surface *skillTreeSelection = NULL;
 SDL_Surface *mainMenuButtonText = NULL;
 SDL_Surface *menuBG_1024_768 = NULL;
 SDL_Surface *instructionsBG = NULL;
+SDL_Surface *pauseMenuBG = NULL;
+SDL_Surface *skillTreeBG = NULL;
+SDL_Surface *offensiveTreeBG = NULL;
+SDL_Surface *defensiveTreeBG = NULL;
+SDL_Surface *abilityTreeBG = NULL;
 
 SDL_Surface *mainMenuToolTip = NULL;
 
 Button *mainMenuButton = NULL;
 
+//main menu buttons
 Button *startGameButton = NULL;
 Button *arcadeModeButton = NULL;
 Button *loadGameButton = NULL;
@@ -49,6 +56,18 @@ Button *quitGameButton = NULL;
 
 SDL_Rect mainMenuButtonFrames[3];
 
+//pause menu buttons
+Button *resumeGameButton = NULL;
+Button *skillMenuButton = NULL;
+Button *saveGameButton = NULL;
+
+//Skill tree buttons
+Button *pauseMenuButton = NULL;
+Button *offensiveTreeButton = NULL;
+Button *defensiveTreeButton = NULL;
+Button *abilityTreeButton = NULL;
+
+SDL_Rect skillTreeSelectionFrames[3];
 
 //explosion clips
 SDL_Rect explosion_frames[25];
@@ -63,6 +82,8 @@ SDL_Color font28Color = {255, 255, 255};
 TTF_Font *font18 = NULL;
 SDL_Color font18Color = {255, 255, 255};
 
+TTF_Font *font14 = NULL;
+
 //HUD elements
 SDL_Surface *HUD_shield_armor_hull = NULL;
 SDL_Rect playerShield;
@@ -70,6 +91,12 @@ SDL_Rect playerArmor;
 SDL_Rect playerHull;
 SDL_Rect playerEnergy;
 SDL_Rect playerExp;
+
+const char* pShieldNum;
+const char* pArmorNum;
+const char* pHullNum;
+const char* pEnergyNum;
+const char* pExpNum;
 
 //surfaces - projectiles
 SDL_Surface *moltenSlug = NULL;
@@ -103,7 +130,10 @@ int mouseY;
 bool isPaused = true;
 
 //current menu
-bool menu = 0;
+int menu = 0;
+
+//current skill tree
+int skillTree;
 
 //score of player
 Uint32 playerScore;

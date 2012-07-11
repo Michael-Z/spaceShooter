@@ -34,6 +34,8 @@ bool init();
 //File loading
 bool load_files();
 
+void setButtons_and_Frames();
+
 //Clean up
 void clean_up();
 
