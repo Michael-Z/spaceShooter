@@ -105,6 +105,10 @@ class Ship
   int shield;
   int shieldRegen; //% per 10 frames
 
+  //metal slugs container
+  std::list<Projectile*> slugs;
+    
+ public:
   //weapon properties
   int MS_speed;
   int MS_damage;
@@ -131,10 +135,6 @@ class Ship
   int homing_range;
   int homing_rate;
 
-  //metal slugs container
-  std::list<Projectile*> slugs;
-    
- public:
   //do what the ship is supposed to do
   void doUnit();
 
@@ -168,10 +168,6 @@ class Ship
   //die with explosion!
   void die();
 
-  int getShield();
-  int getArmor();
-  int getHull();
-
   int getRad();
   int getX();
   int getY();
@@ -179,6 +175,15 @@ class Ship
   int getYvel();
   double getxDir();
   double getyDir();
+
+  int getMaxShield() { return maxShield; }
+  int getMaxArmor() { return maxArmor; }
+  int getMaxHull() { return maxHull; }
+
+  int getShield() { return shield; }
+  int getArmor() { return armor; }
+  int getHull() { return hull;}
+
 };
 
 class Player : public Ship
@@ -221,6 +226,12 @@ class Player : public Ship
  public:
   Player();
 
+  //skill points
+  int MS_damagePoints;
+  int MS_rangePoints;
+  int MS_radiusPoints;
+  int MS_ratePoints;
+
   void regenEnergy();
 
   void doUnit();
@@ -241,9 +252,13 @@ class Player : public Ship
   //center Camera
   void set_camera();
 
-  //void show();
+  int getLevel() { return level; }
 
+  int getMaxEnergy() { return maxEnergy; }
   int getEnergy();
+
+  int getSkillPoints() { return skillPoints; }
+  bool useSkillPoint();
 
   void updateStatusBars();
 
@@ -343,5 +358,21 @@ class Explosion
 
 };
 
+class Tooltip
+{
+ private:
+  int x;
+  int y;
+  int w;
+  int h;
+
+  SDL_Surface* image;
+
+ public:
+  Tooltip(int sX, int sY, int sW, int sH, SDL_Surface *ttImage);
+
+  bool inTooltip(int tX, int tY);
+  void handle_events();
+};
 
 #endif

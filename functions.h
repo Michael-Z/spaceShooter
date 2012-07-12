@@ -6,6 +6,7 @@
 //The headers
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
+#include "SDL/SDL_ttf.h"
 
 #include "classes.h"
 
@@ -34,7 +35,10 @@ bool init();
 //File loading
 bool load_files();
 
+//create objects
 void setButtons_and_Frames();
+void create_Tooltips();
+
 
 //Clean up
 void clean_up();
@@ -42,7 +46,7 @@ void clean_up();
 SDL_Surface* rotate(SDL_Surface* source, double angle, double zoom,
                     int smooth);
 
-void renderHUD();
+void renderHUD(Player *player);
 
 //handle menu input (clicking, mouse location)
 void handle_menu_input();
@@ -56,5 +60,9 @@ void doCarriers();
 void doExplosions();
 
 void gameOver();
+
+void showText(const char* text, TTF_Font *font, SDL_Color color, int x, int y);
+
+const char* intToString(int i);
 
 #endif

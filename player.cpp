@@ -101,6 +101,15 @@ Player::Player()
 
   //abilities
   shieldRepFact = 1;
+
+  //set skill points
+
+  //offensive
+
+  MS_damagePoints = 0;
+  MS_rangePoints = 0;
+  MS_radiusPoints = 0;
+  MS_ratePoints = 0;
 }
 
 void Player::regenEnergy()
@@ -319,18 +328,16 @@ void Player::updateStatusBars()
   playerEnergy.w = int(200 * (double(energy) / maxEnergy));
   playerExp.w = int(300 * double(exp - oldExp) / (levelExp - oldExp));
 
-  /*
   //update the numbers
-  std::stringstream shieldNum << shield << " / " << maxShield;
-  std::stringstream armorNum << armor << " / " << maxArmor;
-  std::stringstream hullNum << hull << " / " << maxHull;
-  std::stringstream energyNum << energy << " / " << maxEnergy;
+  std::stringstream shieldNum;
+  std::stringstream armorNum;
+  std::stringstream hullNum;
+  std::stringstream energyNum;
 
-  pShieldNum = shieldNum.str().c_str();
-  pArmorNum = armorNum.str().c_str();
-  pHullNum = hullNum.str().c_str();
-  pEnergyNum = energyNum.str().c_str();
-  */
+  shieldNum << shield << " / " << maxShield;
+  armorNum << armor << " / " << maxArmor;
+  hullNum << hull << " / " << maxHull;
+  energyNum << energy << " / " << maxEnergy;
 }
 
 void Player::doUnit()
@@ -369,7 +376,7 @@ void Player::doLevel()
   /* may be temporary exp curve*/
   levelExp += int(1.5 * (levelExp - oldOldExp));
 
-  printf("Level Up! Exp: %d Level: %d \n", oldExp - oldOldExp,level);
+  //printf("Level Up! Exp: %d Level: %d \n", oldExp - oldOldExp,level);
 
   //stat increases
   maxShield += 10;
@@ -388,4 +395,15 @@ void Player::doLevel()
   //font28Color = {0xEE, 0xEE, 0xEE};
   mainMessage = TTF_RenderText_Solid(font28, "Level Up!", font28Color);
   mainMessageTimer = 40;
+}
+
+bool Player::useSkillPoint()
+{
+  if(skillPoints > 0)
+    {
+      skillPoints--;
+      return true;
+    }
+  else
+    return false;
 }

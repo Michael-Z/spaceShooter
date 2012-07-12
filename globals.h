@@ -73,6 +73,30 @@ extern Button *abilityTreeButton;
 
 extern SDL_Rect skillTreeSelectionFrames[3];
 
+//offensive skill buttons
+extern Button *MS_damageButton;
+extern Button *MS_rangeButton;
+extern Button *MS_radiusButton;
+extern Button *MS_rateButton;
+
+extern SDL_Surface *skillButtonSelection;
+extern SDL_Rect skillButtonSelectionFrames[3];
+
+//offensive tree tooltips
+extern SDL_Surface *skillUnavailable;
+
+extern SDL_Surface *MS_damageTTimg;
+extern Tooltip *MS_damageTooltip;
+
+extern SDL_Surface *MS_rangeTTimg;
+extern Tooltip *MS_rangeTooltip;
+
+extern SDL_Surface *MS_radiusTTimg;
+extern Tooltip *MS_radiusTooltip;
+
+extern SDL_Surface *MS_rateTTimg;
+extern Tooltip *MS_rateTooltip;
+
 //explosion_clips
 extern SDL_Rect explosion_frames[25];
 
@@ -95,13 +119,6 @@ extern SDL_Rect playerArmor;
 extern SDL_Rect playerHull;
 extern SDL_Rect playerEnergy;
 extern SDL_Rect playerExp;
-
-extern const char* pShieldNum;
-extern const char* pArmorNum;
-extern const char* pHullNum;
-extern const char* pEnergyNum;
-extern const char* pExpNum;
-
 
 //surfaces - projectiles
 extern SDL_Surface *moltenSlug;

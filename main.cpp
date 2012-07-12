@@ -30,6 +30,7 @@ int main(int argc, char* args[])
     return 1;
 
   setButtons_and_Frames();
+  create_Tooltips();
 
   //start frame counter
   frame = 0;
@@ -107,7 +108,7 @@ int main(int argc, char* args[])
 	  doExplosions();
 	  
 	  //HUD
-	  renderHUD();
+	  renderHUD(&player0);
 	}
       else if(quit == false) //paused, show some sort of menu;
 	{

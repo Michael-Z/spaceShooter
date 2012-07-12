@@ -172,6 +172,15 @@ bool load_files()
   defensiveTreeBG = load_image("images/defensiveSkills.png", true);
   abilityTreeBG = load_image("images/abilitySkills.png", true);
 
+  skillButtonSelection = load_image("images/skillButtonSelection.png", true);
+  skillUnavailable = load_image("images/skillUnavailable.png", true);
+
+  //tooltips
+  MS_damageTTimg = load_image("images/MS_damageTTimg.png", true);
+  MS_rangeTTimg = load_image("images/MS_rangeTTimg.png", true);
+  MS_radiusTTimg = load_image("images/MS_radiusTTimg.png", true);
+  MS_rateTTimg = load_image("images/MS_rateTTimg.png", true);
+
   //If there was a problem in loading the player or background
   if(background == NULL || HUD_shield_armor_hull == NULL ||
      shield_rep == NULL ||
@@ -184,7 +193,10 @@ bool load_files()
      mainMenuButtonText == NULL || menuBG_1024_768 == NULL ||
      instructionsBG == NULL || pauseMenuBG == NULL || skillTreeBG == NULL ||
      skillTreeSelection == NULL || offensiveTreeBG == NULL ||
-     defensiveTreeBG == NULL || abilityTreeBG == NULL)
+     defensiveTreeBG == NULL || abilityTreeBG == NULL ||
+     skillButtonSelection == NULL || skillUnavailable == NULL ||
+     MS_damageTTimg == NULL || MS_rangeTTimg == NULL ||
+     MS_radiusTTimg == NULL || MS_rateTTimg == NULL)
     {
       printf("failed to load an image\n");
       return false;    
@@ -357,6 +369,36 @@ void setButtons_and_Frames()
 				 &skillTreeSelectionFrames[0],
 				 &skillTreeSelectionFrames[1],
 				 &skillTreeSelectionFrames[2]);
+
+  //set skill button selection frames
+  for(int i = 0; i < 3; i++)
+    {
+      skillButtonSelectionFrames[i].x = i * 140;
+      skillButtonSelectionFrames[i].y = 0;
+      skillButtonSelectionFrames[i].w = 140;
+      skillButtonSelectionFrames[i].h = 140;
+    }
+
+  //offensive skill buttons
+  MS_damageButton = new Button(30, 160, 140, 140, skillButtonSelection,
+			       &skillButtonSelectionFrames[0],
+			       &skillButtonSelectionFrames[1],
+			       &skillButtonSelectionFrames[2]);
+  
+  MS_rangeButton = new Button(30, 300, 140, 140, skillButtonSelection,
+			      &skillButtonSelectionFrames[0],
+			      &skillButtonSelectionFrames[1],
+			      &skillButtonSelectionFrames[2]);
+  
+  MS_radiusButton = new Button(30, 440, 140, 140, skillButtonSelection,
+			       &skillButtonSelectionFrames[0],
+			       &skillButtonSelectionFrames[1],
+			       &skillButtonSelectionFrames[2]);
+  
+  MS_rateButton = new Button(30, 580, 140, 140, skillButtonSelection,
+			     &skillButtonSelectionFrames[0],
+			     &skillButtonSelectionFrames[1],
+			     &skillButtonSelectionFrames[2]);
 	
   
   //set explosion frame clips
@@ -376,6 +418,14 @@ void setButtons_and_Frames()
       shield_rep_frames[i].w = 60;
       shield_rep_frames[i].h = 60;
     }
+}
+
+void create_Tooltips()
+{
+  MS_damageTooltip = new Tooltip(40, 170, 120, 120, MS_damageTTimg);
+  MS_rangeTooltip = new Tooltip(40, 310, 120, 120, MS_rangeTTimg);
+  MS_radiusTooltip = new Tooltip(40, 450, 120, 120, MS_radiusTTimg);
+  MS_rateTooltip = new Tooltip(40, 590, 120, 120, MS_rateTTimg);
 }
 
 void clean_up()
@@ -407,6 +457,14 @@ void clean_up()
   SDL_FreeSurface(defensiveTreeBG);
   SDL_FreeSurface(abilityTreeBG);
 
+  SDL_FreeSurface(skillButtonSelection);
+  SDL_FreeSurface(skillUnavailable);
+
+  SDL_FreeSurface(MS_damageTTimg);
+  SDL_FreeSurface(MS_rangeTTimg);
+  SDL_FreeSurface(MS_radiusTTimg);
+  SDL_FreeSurface(MS_rateTTimg);
+
   //free sound effecs
   Mix_FreeChunk(moltenSlugSFX);
   Mix_FreeChunk(miniGunSFX);
@@ -419,6 +477,7 @@ void clean_up()
   //close font
   TTF_CloseFont(font28);
   TTF_CloseFont(font18);
+  TTF_CloseFont(font14);
 
   //quit sdl_mixer
   Mix_CloseAudio();
@@ -447,7 +506,7 @@ SDL_Surface* rotate(SDL_Surface* source, double angle, double zoom,
     
 }
 
-void renderHUD()
+void renderHUD(Player *player)
 {
   //player status bars background
   apply_surface(0, SCREEN_HEIGHT - 90, HUD_shield_armor_hull, screen);
@@ -461,38 +520,58 @@ void renderHUD()
 
   SDL_FillRect(screen, &playerHull, SDL_MapRGB(screen->format, 0xFF, 0, 0));
   
-  SDL_FillRect(screen, &playerEnergy, SDL_MapRGB(screen->format, 0xFF, 0xFF,
-						 0));
+  SDL_FillRect(screen, &playerEnergy, SDL_MapRGB(screen->format, 0x88, 0,
+						 0x88));
 
   SDL_FillRect(screen, &playerExp, SDL_MapRGB(screen->format, 0, 0x46, 0xd5));
 
-  /*
-  //render health bar numbers
-  SDL_Surface *shieldSurface = TTF_RenderText_Solid(font14, pShieldNum,
-						    font28Color);
-  
-  SDL_Surface *armorSurface = TTF_RenderText_Solid(font14, pArmorNum,
-						   font28Color);
-  
-  SDL_Surface *hullSurface = TTF_RenderText_Solid(font14, pHullNum,
-						  font28Color);
+  //render bar numbers
+  std::stringstream shieldNum;
+  std::stringstream armorNum;
+  std::stringstream hullNum;
+  std::stringstream energyNum;
 
-  SDL_Surface *energySurface = TTF_RenderText_Solid(font14, pEnergyNum,
-						    font28Color);
+  shieldNum << player->getShield() << " / " << player->getMaxShield();
+  armorNum << player->getArmor() << " / " << player->getMaxArmor();
+  hullNum << player->getHull() << " / " << player->getMaxHull();
+  energyNum << player->getEnergy() << " / " << player->getMaxEnergy();
 
+  SDL_Color color = { 0xFF, 0xFF, 0xFF };
+
+  SDL_Surface *shieldSurface = TTF_RenderText_Solid(font14,
+						    shieldNum.str().c_str(),
+						    color);
+  
+  SDL_Surface *armorSurface = TTF_RenderText_Solid(font14,
+						   armorNum.str().c_str(),
+						   color);
+  
+  SDL_Surface *hullSurface = TTF_RenderText_Solid(font14,
+						  hullNum.str().c_str(),
+						  color);
+
+  SDL_Surface *energySurface = TTF_RenderText_Solid(font14,
+						    energyNum.str().c_str(),
+						    color);
   //198 is middle of status bars
-  apply_surface(198 - shieldSurface->w, SCREEN_HEIGHT - 78, shieldSurface,
+  apply_surface(198 - shieldSurface->w / 2, SCREEN_HEIGHT - 78, shieldSurface,
 		screen);
 
-  apply_surface(198 - armorSurface->w, SCREEN_HEIGHT - 58, armorSurface,
+  apply_surface(198 - armorSurface->w / 2, SCREEN_HEIGHT - 58, armorSurface,
 		screen);
 
-  apply_surface(198 - hullSurface->w, SCREEN_HEIGHT - 38, hullSurface,
+  apply_surface(198 - hullSurface->w / 2, SCREEN_HEIGHT - 38, hullSurface,
 		screen);
 
-  apply_surface(198 - energySurface->w, SCREEN_HEIGHT - 18, energySurface,
+  apply_surface(198 - energySurface->w / 2, SCREEN_HEIGHT - 18, energySurface,
 		screen);
-  */
+
+  //free surfaces
+  SDL_FreeSurface(shieldSurface);
+  SDL_FreeSurface(armorSurface);
+  SDL_FreeSurface(hullSurface);
+  SDL_FreeSurface(energySurface);
+  //*/
 
   //render main Message
   if(mainMessageTimer > 0)
@@ -500,6 +579,8 @@ void renderHUD()
       mainMessageTimer--;
       apply_surface(int(SCREEN_WIDTH * 3.5 / 8), int(SCREEN_HEIGHT / 4),
 		    mainMessage, screen);
+      if(mainMessageTimer == 0)
+	SDL_FreeSurface(mainMessage);
     }
 
   //render score
@@ -511,6 +592,8 @@ void renderHUD()
 
   apply_surface(5, 0, scoreHUD, screen);
 
+  SDL_FreeSurface(scoreHUD);
+
   //here for later implementation
 
   std::stringstream levelStr;
@@ -519,6 +602,8 @@ void renderHUD()
   levelHUD = TTF_RenderText_Solid(font18, levelStr.str().c_str(), font18Color);
 
   apply_surface(5, 18, levelHUD, screen);
+
+  SDL_FreeSurface(levelHUD);
 }
 
 void handle_menu_input()
@@ -629,3 +714,18 @@ void gameOver()
   std::cout << "Game Over!\n";
 }
 
+void showText(const char* text, TTF_Font *font, SDL_Color color, int x, int y)
+{
+  SDL_Surface *ttfRender = TTF_RenderText_Solid(font, text, color);
+
+  apply_surface(x, y, ttfRender, screen);
+
+  SDL_FreeSurface(ttfRender);
+}
+
+const char* intToString(int i)
+{
+  std::stringstream ss;
+  ss << i;
+  return ss.str().c_str();
+}

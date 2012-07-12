@@ -69,6 +69,30 @@ Button *abilityTreeButton = NULL;
 
 SDL_Rect skillTreeSelectionFrames[3];
 
+//offensive skill buttons
+Button *MS_damageButton = NULL;
+Button *MS_rangeButton = NULL;
+Button *MS_radiusButton = NULL;
+Button *MS_rateButton = NULL;
+
+SDL_Surface *skillButtonSelection = NULL;
+SDL_Rect skillButtonSelectionFrames[3];
+
+//offensive tree tooltips
+SDL_Surface *skillUnavailable = NULL;
+
+SDL_Surface *MS_damageTTimg = NULL;
+Tooltip *MS_damageTooltip = NULL;
+
+SDL_Surface *MS_rangeTTimg = NULL;
+Tooltip *MS_rangeTooltip = NULL;
+
+SDL_Surface *MS_radiusTTimg = NULL;
+Tooltip *MS_radiusTooltip = NULL;
+
+SDL_Surface *MS_rateTTimg = NULL;
+Tooltip *MS_rateTooltip = NULL;
+
 //explosion clips
 SDL_Rect explosion_frames[25];
 
@@ -91,12 +115,6 @@ SDL_Rect playerArmor;
 SDL_Rect playerHull;
 SDL_Rect playerEnergy;
 SDL_Rect playerExp;
-
-const char* pShieldNum;
-const char* pArmorNum;
-const char* pHullNum;
-const char* pEnergyNum;
-const char* pExpNum;
 
 //surfaces - projectiles
 SDL_Surface *moltenSlug = NULL;

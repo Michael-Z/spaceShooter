@@ -294,21 +294,6 @@ void Ship::die()
   explosions.push_back(new Explosion(x, y));
 }
 
-int Ship::getShield()
-{
-  return shield;
-}
-
-int Ship::getArmor()
-{
-  return armor;
-}
-
-int Ship::getHull()
-{
-  return hull;
-}
-
 int Ship::getRad()
 {
   return radius;
