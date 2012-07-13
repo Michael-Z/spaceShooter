@@ -144,6 +144,7 @@ bool load_files()
   explosion = load_image("images/explosion.png", true);
   shield_rep = load_image("images/repairShield_animation.png", true);
   skillTreeSelection = load_image("images/skillTreeSelectionFrames.png", true);
+  levelUpAnimation = load_image("images/levelUpAnimation.png", true);
 
   //load ship images
   player = load_image("images/ship.png");
@@ -184,7 +185,7 @@ bool load_files()
   //If there was a problem in loading the player or background
   if(background == NULL || HUD_shield_armor_hull == NULL ||
      shield_rep == NULL ||
-     explosion == NULL ||
+     explosion == NULL || levelUpAnimation == NULL ||
      player == NULL || grunt == NULL || boomer == NULL || stealth == NULL ||
      carrier == NULL || 
      moltenSlug == NULL || miniGun == NULL || shotgun == NULL ||
@@ -264,18 +265,24 @@ void setButtons_and_Frames()
   playerExp.h = 8;
   playerExp.w = 0;
 
-  //set main menu clips
-  for(int i = 0; i < 1; i++) //one button for now
+  //level up animation clips
+  for(int i = 0; i < 16; i++)
     {
-      for(int j = 0; j < 3; j++)
-	{
-	  int mmBF = 3 *i + j;
-	  mainMenuButtonFrames[mmBF].x = j * 300;
-	  mainMenuButtonFrames[mmBF].y = i * 100;
-	  mainMenuButtonFrames[mmBF].w = 300;
-	  mainMenuButtonFrames[mmBF].h = 100;
-	}
+      levelUpFrames[i].x = (i % 4) * 100;
+      levelUpFrames[i].y = (i / 4) * 100;
+      levelUpFrames[i].h = 100;
+      levelUpFrames[i].w = 100;
     }
+
+  //set main menu clips
+    for(int j = 0; j < 3; j++)
+      {
+	int mmBF = j;
+	mainMenuButtonFrames[mmBF].x = j * 300;
+	mainMenuButtonFrames[mmBF].y = 0;
+	mainMenuButtonFrames[mmBF].w = 300;
+	mainMenuButtonFrames[mmBF].h = 100;
+      }
 
   //create buttons
   //main Menu Buttons
@@ -399,6 +406,28 @@ void setButtons_and_Frames()
 			     &skillButtonSelectionFrames[0],
 			     &skillButtonSelectionFrames[1],
 			     &skillButtonSelectionFrames[2]);
+
+  /*
+  MG_damageButton = new Button(190, 160, 140, 140, skillButtonSelection,
+			       &skillButtonSelectionFrames[0],
+			       &skillButtonSelectionFrames[1],
+			       &skillButtonSelectionFrames[2]);
+  
+  MG_speedButton = new Button(190, 300, 140, 140, skillButtonSelection,
+			      &skillButtonSelectionFrames[0],
+			      &skillButtonSelectionFrames[1],
+			      &skillButtonSelectionFrames[2]);
+  
+  MG_rangeButton = new Button(190, 440, 140, 140, skillButtonSelection,
+			       &skillButtonSelectionFrames[0],
+			       &skillButtonSelectionFrames[1],
+			       &skillButtonSelectionFrames[2]);
+  
+  MG_doubleButton = new Button(190, 580, 140, 140, skillButtonSelection,
+			     &skillButtonSelectionFrames[0],
+			     &skillButtonSelectionFrames[1],
+			     &skillButtonSelectionFrames[2]);
+  */
 	
   
   //set explosion frame clips
@@ -439,6 +468,8 @@ void clean_up()
 
   SDL_FreeSurface(background);
   SDL_FreeSurface(HUD_shield_armor_hull);
+  SDL_FreeSurface(explosion);
+  SDL_FreeSurface(levelUpAnimation);
 
   SDL_FreeSurface(moltenSlug);
   SDL_FreeSurface(miniGun);
@@ -758,4 +789,10 @@ void resetEnemies()
       delete *it;
       carriers.erase(it++);
     }
+}
+
+void playSound(Mix_Chunk *sound)
+{
+  if(mute == false)
+    Mix_PlayChannel(-1, sound, 0);
 }

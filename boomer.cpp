@@ -2,6 +2,7 @@
 
 #include "classes.h"
 #include "globals.h"
+#include "constants.h"
 #include "functions.h"
 
 Boomer::Boomer(int startx, int starty, Ship* player, int startxVel,
@@ -66,6 +67,14 @@ void Boomer::accelerate()
     {
       yVel -=1;
     }
+
+  //tryto avoid crashing into walls                                            
+  if(LEVEL_WIDTH - x < 150 && xVel > -maxSpeed) xVel -=2;
+  else if(x < 150 && xVel < maxSpeed) xVel += 2;
+
+  if(LEVEL_HEIGHT - y <150 && yVel > -maxSpeed) yVel -= 2;
+  else if(y < 150 && yVel < maxSpeed) yVel += 2;
+
 }
 
 void Boomer::doUnit()

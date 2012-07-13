@@ -1,9 +1,11 @@
 To do:
 
-*make enemies avoid edge collision
+*level 2 too hard 
+*make some sounds quieter?
+*prevent enemies from spawning on top of others
 *add store
-*fix level on equal exp
-*level up animation
+*make sure everything is freed on clean_up()
+*improve shield rep animation
 *Improve sprite quality
 *Drawing of ship for main screen
 *clean up code (ie remove testing/commented code)
@@ -12,3 +14,6 @@ To do:
 *add mute button
 *scrolling menu backgrounds
 *game over
+*make abilities
+*fill skill trees
+

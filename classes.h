@@ -375,4 +375,24 @@ class Tooltip
   void handle_events();
 };
 
+class Skill
+{
+ private:
+  Skill(int tx, int ty, int tw, int th, int reqlevel,
+	      SDL_Surface* tooltipImg, Skill* reqPrerequesite);
+  int x;
+  int y;
+  int h;
+  int w;
+  int points;
+  int level;
+  Skill *prerequesite;
+
+  Tooltip *tooltip;
+  Button *button;
+  
+  bool handleEvents(Player * player0);
+  
+};
+
 #endif

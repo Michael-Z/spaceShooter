@@ -195,6 +195,8 @@ void doSkillMenu(Player* player)
 void doOffensiveTree(Player* player)
 {
   apply_surface(0, 0, offensiveTreeBG, screen);
+
+  //MS buttons
   if(MS_damageButton->handle_events())
     {
       if(player->useSkillPoint())
@@ -236,6 +238,51 @@ void doOffensiveTree(Player* player)
     }
   else
     apply_surface(40, 590, skillUnavailable, screen);
+
+  //MG buttons
+  /*
+  if(MG_damageButton->handle_events())
+    {
+      if(player->useSkillPoint())
+	{
+	  player->MG_damagePoints++;
+	  player->MG_damage += 1;
+	}
+    }
+  if(player->getLevel() >= 3 && player->MG_damagePoints > 0)
+    {
+      if(MS_rangeButton->handle_events() && player->useSkillPoint())
+	{
+	  player->MS_rangePoints++;
+	  player->MS_range += 50;
+	}
+    }
+  else
+    apply_surface(40, 310, skillUnavailable, screen);
+
+  if(player->getLevel() >= 5 && player->MS_rangePoints > 0)
+    {
+      if(MS_radiusButton->handle_events() && player->useSkillPoint())
+	{
+	  player->MS_radiusPoints++;
+	  player->MS_radius += 2;
+	}
+    }
+  else
+    apply_surface(40, 450, skillUnavailable, screen);
+
+  if(player->getLevel() >= 10 && player->MS_radiusPoints > 0)
+    {
+      if(MS_rateButton->handle_events() && player->MS_ratePoints < 1 &&
+	 player->useSkillPoint())
+	{
+	  player->MS_ratePoints++;
+	  player->MS_rate /= 2;
+	}
+    }
+  else
+    apply_surface(40, 590, skillUnavailable, screen);
+  */
 
   MS_damageButton->show();
   MS_rangeButton->show();

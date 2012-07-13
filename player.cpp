@@ -169,12 +169,10 @@ void Player::handle_input()
       if(event.button.button == SDL_BUTTON_LEFT)
 	{
 	  lmouse = true;
-	  //lStart = frame;
 	}
       if(event.button.button == SDL_BUTTON_RIGHT)
 	{
 	  rmouse = true;
-	  //rStart = frame;
 	}
     }
 
@@ -242,7 +240,7 @@ void Player::doLeftClick()
       //maybe allow multiple weapons?
       if(weapon == 1)
 	{
-	  Mix_PlayChannel(-1, moltenSlugSFX, 0);
+	  playSound(moltenSlugSFX);
 	  lStart = MS_rate;
 	  shootProjectile(moltenSlug, MS_speed, MS_range, MS_damage,
 			  MS_radius);
@@ -250,19 +248,20 @@ void Player::doLeftClick()
       else if(weapon == 2)
 	{
 	  if(frame % 20 == 0)
-	    Mix_PlayChannel(-1, miniGunSFX, 0);
+	    playSound(miniGunSFX);
 	  lStart = MG_rate;
 	  shootProjectile(miniGun, MG_speed, MG_range, MG_damage, MG_radius);
 	}
       else if(weapon == 3)
 	{
-	  Mix_PlayChannel(-1, shotgunSFX, 0);
+	  playSound(shotgunSFX);
+
 	  lStart = SG_rate;
 	  shootShotgun();
 	}
       else if(weapon == 4)
 	{
-	  Mix_PlayChannel(-1, homingSFX, 0);
+	  playSound(homingSFX);
 	  lStart = homing_rate;
 	  shootHoming();
 	}
@@ -348,7 +347,7 @@ void Player::doUnit()
   updateStatusBars();
   
   exp = playerScore; //get experience
-  if(exp > levelExp)
+  if(exp >= levelExp)
     doLevel();
 
   accelerate();
@@ -363,6 +362,15 @@ void Player::doUnit()
   slugs = moveProjectiles(slugs);
   show();
   doRightClick();
+
+  //level up animation
+  if(levelUpTimer > 0)
+    {
+      apply_surface(x - camera.x - 45, y - camera.y - 45,
+		    levelUpAnimation, screen,
+		    &levelUpFrames[(32 - levelUpTimer) / 2]);
+      levelUpTimer--;
+    }
 }
 
 void Player::doLevel()
@@ -396,6 +404,9 @@ void Player::doLevel()
   //font28Color = {0xEE, 0xEE, 0xEE};
   mainMessage = TTF_RenderText_Solid(font28, "Level Up!", font28Color);
   mainMessageTimer = 40;
+
+  //level up animation
+  levelUpTimer = 32;
 }
 
 bool Player::useSkillPoint()

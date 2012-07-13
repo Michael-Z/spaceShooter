@@ -7,6 +7,8 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include "SDL/SDL_ttf.h"
+#include "SDL/SDL_mixer.h"
+
 
 #include "classes.h"
 
@@ -66,6 +68,8 @@ void showText(const char* text, TTF_Font *font, SDL_Color color, int x, int y);
 const char* intToString(int i);
 
 void resetEnemies();
+
+void playSound(Mix_Chunk *sound);
 
 //arcadeMode.cpp functions
 void doArcadeMode(Player *player0);

@@ -61,38 +61,29 @@ void Grunt::accelerate()
   //too far move closer
   if(dist > 300)
     {
-      if(playerX > x) xVel += 1;
-      else xVel -= 1;
+      if(playerX > x && xVel < maxSpeed) xVel += 1;
+      else if(playerX - x && xVel > -maxSpeed) xVel -= 1;
       
       
-      if(playerY > y) yVel += 1;
-      else yVel -= 1;
+      if(playerY > y && yVel < maxSpeed) yVel += 1;
+      else if(playerY - y && yVel > -maxSpeed) yVel -= 1;
     }
-  if(dist < 150) // too close
+  else if(dist < 150) // too close
     {
-      if(playerX > x) xVel -= 1;
-      else xVel += 1;
+      if(playerX > x && xVel > -maxSpeed) xVel -= 1;
+      else if(playerX < x && xVel < maxSpeed) xVel += 1;
 
-      if(playerY > y) yVel -= 1;
-      else yVel += 1;
-    }
-
-  /* fix max speed implementation see stealth.cpp */
-  if(abs(xVel) > maxSpeed)
-    {
-      if(xVel > 0)
-	xVel = maxSpeed;
-      else
-	xVel = -maxSpeed;
+      if(playerY > y && yVel > -maxSpeed) yVel -= 1;
+      else if(playerY < y && yVel < maxSpeed) yVel += 1;
     }
 
-  if(abs(yVel) > maxSpeed)
-    {
-      if(yVel > 0)
-	yVel = maxSpeed;
-      else
-	yVel = -maxSpeed;
-    }
+  //try to avoid crashing into walls
+  if(LEVEL_WIDTH - x < 150 && xVel > -maxSpeed) xVel -= 2;
+  else if(x < 150 && xVel < maxSpeed) xVel += 2;
+
+  if(LEVEL_HEIGHT - y < 150 && yVel > -maxSpeed) yVel -= 2;
+  else if(y < 150 && yVel < maxSpeed) yVel += 2;
+
 }
 
 void Grunt::doUnit(std::list<Grunt*>::iterator it)
@@ -136,8 +127,8 @@ void Grunt::doUnit(std::list<Grunt*>::iterator it)
   if(frame % MS_rate == 0)
     {
       //predict player position
-      int playerX = (*target).getX() + 5 * (*target).getXvel();
-      int playerY = (*target).getY() + 5 * (*target).getYvel();
+      int playerX = (*target).getX() + 5 * (*target).getXvel() - 5 * xVel;
+      int playerY = (*target).getY() + 5 * (*target).getYvel() - 5 * yVel;
       faceDirection(playerX, playerY);
       shootProjectile(moltenSlug, MS_speed, MS_range, MS_damage, MS_radius);
     }

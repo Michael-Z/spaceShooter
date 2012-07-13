@@ -73,18 +73,19 @@ void Carrier::accelerate()
       else if(playerX < x && xVel < maxSpeed)
 	xVel += 1;
 
-      if(playerY > y && yVel < -maxSpeed)
+      if(playerY > y && yVel > -maxSpeed)
 	yVel -= 1;
       else if(playerY < y && yVel < maxSpeed)
 	yVel += 1;
     }
 
-  //don't crash into edges
-  if(x - 200 < 0 && xVel < maxSpeed) xVel += 2;
-  else if(x + 200 > LEVEL_WIDTH && xVel > -maxSpeed) xVel -= 2;
+  //tryto avoid crashing into walls                                            
+  if(LEVEL_WIDTH - x < 200 && xVel > -maxSpeed) xVel -=2;
+  else if(x < 200 && xVel < maxSpeed) xVel += 2;
 
-  if(y - 200 < 0 && yVel < maxSpeed) yVel += 2;
-  else if(y + 200 > LEVEL_HEIGHT && yVel > -maxSpeed) yVel -= 2;
+  if(LEVEL_HEIGHT - y < 200 && yVel > -maxSpeed) yVel -= 2;
+  else if(y < 200 && yVel < maxSpeed) yVel += 2;
+
 }
 
 void Carrier::doUnit(std::list<Carrier*>::iterator it)

@@ -21,6 +21,10 @@ SDL_Surface *carrier = NULL;
 SDL_Surface *explosion = NULL;
 SDL_Surface *shield_rep = NULL;
 
+SDL_Surface *levelUpAnimation; //level up animation
+SDL_Rect levelUpFrames[16];
+int levelUpTimer = 0;
+
 SDL_Surface *mainMessage = NULL;
 int mainMessageTimer = 0;
 
@@ -166,6 +170,10 @@ int waveStage; //for breaking waves into multiple stages
 int waveStartFrame; //frame the wave started on
 int currentWave;
 bool inWave;
+
+
+bool mute;
+bool musicMute;
 
 //Music
 Mix_Music *mainMusic = NULL;

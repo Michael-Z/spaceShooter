@@ -23,6 +23,10 @@ extern SDL_Surface *carrier;
 extern SDL_Surface *explosion;
 extern SDL_Surface *shield_rep;
 
+extern SDL_Surface *levelUpAnimation; //level up animation
+extern SDL_Rect levelUpFrames[16];
+extern int levelUpTimer;
+
 extern SDL_Surface *mainMessage;
 extern int mainMessageTimer; //timer for main message
 
@@ -78,6 +82,13 @@ extern Button *MS_damageButton;
 extern Button *MS_rangeButton;
 extern Button *MS_radiusButton;
 extern Button *MS_rateButton;
+
+/*
+extern Button *MG_damageButton;
+extern Button *MG_speedButton;
+extern Button *MG_rangeButton;
+extern Button *MG_doubleButton;
+*/
 
 extern SDL_Surface *skillButtonSelection;
 extern SDL_Rect skillButtonSelectionFrames[3];
@@ -171,6 +182,10 @@ extern int waveStage;
 extern int waveStartFrame;
 extern int currentWave;
 extern bool inWave;
+
+
+extern bool mute;
+extern bool musicMute;
 
 //sound effects
 
