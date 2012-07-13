@@ -150,12 +150,22 @@ bool isPaused = true;
 //current menu
 int menu = 0;
 
+//game mode
+int gameMode = 0;
+
 //current skill tree
 int skillTree;
 
 //score of player
 Uint32 playerScore;
 int playerLevel;
+
+//wave control
+int waveCount; //counter used by waves
+int waveStage; //for breaking waves into multiple stages
+int waveStartFrame; //frame the wave started on
+int currentWave;
+bool inWave;
 
 //Music
 Mix_Music *mainMusic = NULL;

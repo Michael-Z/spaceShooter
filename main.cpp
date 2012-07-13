@@ -17,9 +17,6 @@ int main(int argc, char* args[])
   //quit flag
   bool quit = false;
 
-  //the player
-  Player player0;
-
   //frame rate regulator
   Timer fps;
 
@@ -35,26 +32,16 @@ int main(int argc, char* args[])
   //start frame counter
   frame = 0;
 
-  carriers.push_back(new Carrier(1500, 1500, &player0));
-  //stealths.push_back(new Stealth(500, 500, &player0));
-  //grunts.push_back(new Grunt(500, 500, &player0));
-  //grunts.push_back(new Grunt(1500, 500, &player0));
-  //grunts.push_back(new Grunt(500, 1500, &player0));
-  //grunts.push_back(new Grunt(1500, 1500, &player0));
-
-  //boomers.push_back(new Boomer(500, 500, &player0));
-
-  //set the playerScore to 0
-  playerScore = 0;
-  playerLevel = 1;
-
   //set blank message
-  mainMessage = TTF_RenderText_Solid(font28, "", font28Color);
-  scoreHUD = TTF_RenderText_Solid(font28, "", font28Color);
-  levelHUD = TTF_RenderText_Solid(font28, "", font28Color);
+  //mainMessage = TTF_RenderText_Solid(font28, "", font28Color);
+  //scoreHUD = TTF_RenderText_Solid(font28, "", font28Color);
+  //levelHUD = TTF_RenderText_Solid(font28, "", font28Color);
 
   //play music
   //Mix_PlayMusic(mainMusic, -1);
+
+  //the player
+  Player *player0 = NULL;
 
   //while in game
   while(quit == false)
@@ -67,7 +54,7 @@ int main(int argc, char* args[])
 	{
 	  //player0 ship movement/ shooting
 	  if(isPaused == false)
-	     player0.handle_input();
+	     player0->handle_input();
 	  else
 	    handle_menu_input();
 
@@ -83,23 +70,16 @@ int main(int argc, char* args[])
 	  //background
 	  apply_surface(0, 0, background, screen, &camera);
 
-	  ///*
-	  if(frame % 300 == 0)
-	    grunts.push_back(new Grunt(500, 500, &player0));
-	  
-	  
-	  if(frame % 80 == 0)
-	    boomers.push_back(new Boomer(500, 1000, &player0));
-	  
-	  if(frame % 500 == 0)
-	    stealths.push_back(new Stealth(1000, 1000, &player0));
-	  
-	  if(frame % 800 == 0)
-	    carriers.push_back(new Carrier(1500, 1500, &player0));
-	  
-	  //*/
-	  
-	  player0.doUnit();
+	  if(gameMode == 0)
+	    {
+	      doMainGame(player0);
+	    }
+
+	  else if(gameMode == 1)
+	    doArcadeMode(player0);
+
+	  //control units
+	  player0->doUnit();
 	  doGrunts();
 	  doBoomers();
 	  doStealths();
@@ -108,17 +88,26 @@ int main(int argc, char* args[])
 	  doExplosions();
 	  
 	  //HUD
-	  renderHUD(&player0);
+	  renderHUD(player0);
 	}
       else if(quit == false) //paused, show some sort of menu;
 	{
 	  switch(menu) //show menu based on menu variable
 	    {
-	    case 0: quit = doMainMenu(); break;
+	    case 0:
+	      quit = doMainMenu();
+	      //going to mainMenu, reset everything
+	      player0 = new Player;
+	      playerLevel = 1;
+	      playerScore = 0;
+	      currentWave = 0;
+	      inWave = false;
+	      resetEnemies();
+	      break;
 	    case 1: instructionsMenu(); break;
 	    case 2: doPauseMenu(); break;
-	    case 3: doSkillMenu(&player0); break;
-
+	    case 3: doSkillMenu(player0); break;
+	      //case 4: doShopMenu(player0); break;
 	      //if not valid menu, unpause game
 	    default: isPaused = false;
 	    }

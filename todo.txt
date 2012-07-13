@@ -1,15 +1,14 @@
 To do:
 
-*fix numbers on status bars
-*update exp fraction on kills
-*check text rendering for memory leaks
+*make enemies avoid edge collision
+*add store
+*fix level on equal exp
+*level up animation
 *Improve sprite quality
 *Drawing of ship for main screen
 *clean up code (ie remove testing/commented code)
 *change background music
-*get better sound effecs (maybe make own)
-*add level system.
+*get better sound effecs, added sounds to enemies too
 *add mute button
 *scrolling menu backgrounds
-*make tooltips
-*update README
+*game over

@@ -19,10 +19,16 @@ bool doMainMenu()
 {
   //handle inputs for buttons
   if(startGameButton->handle_events())
-    isPaused = false;
+    {
+      gameMode = 0;
+      isPaused = false;
+    }
 
   if(arcadeModeButton->handle_events())
-    printf("Arcade Mode Not yet implemented\n");
+    {
+      gameMode = 1;
+      isPaused = false;
+    }
 
   if(loadGameButton->handle_events())
     printf("Load game not yet implemneted\n");

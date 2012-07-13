@@ -249,7 +249,8 @@ void Player::doLeftClick()
 	}
       else if(weapon == 2)
 	{
-	  Mix_PlayChannel(-1, miniGunSFX, 0);
+	  if(frame % 20 == 0)
+	    Mix_PlayChannel(-1, miniGunSFX, 0);
 	  lStart = MG_rate;
 	  shootProjectile(miniGun, MG_speed, MG_range, MG_damage, MG_radius);
 	}

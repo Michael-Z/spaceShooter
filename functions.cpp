@@ -113,7 +113,7 @@ bool init()
     }
 
   //initialize SDL_mixer
-  if(Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+  if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
     {
       return false;
     }
@@ -577,7 +577,7 @@ void renderHUD(Player *player)
   if(mainMessageTimer > 0)
     {
       mainMessageTimer--;
-      apply_surface(int(SCREEN_WIDTH * 3.5 / 8), int(SCREEN_HEIGHT / 4),
+      apply_surface((SCREEN_WIDTH - mainMessage->w) / 2,int(SCREEN_HEIGHT / 4),
 		    mainMessage, screen);
       if(mainMessageTimer == 0)
 	SDL_FreeSurface(mainMessage);
@@ -728,4 +728,34 @@ const char* intToString(int i)
   std::stringstream ss;
   ss << i;
   return ss.str().c_str();
+}
+
+//removes all enemies
+void resetEnemies()
+{
+  for(std::list<Grunt*>::iterator it = grunts.begin(); it != grunts.end();)
+    {
+      delete * it;
+      grunts.erase(it++);
+    }
+
+  for(std::list<Boomer*>::iterator it = boomers.begin(); it != boomers.end();)
+    {
+      delete * it;
+      boomers.erase(it++);
+    }
+
+  for(std::list<Stealth*>::iterator it = stealths.begin();
+      it != stealths.end();)
+    {
+      delete *it;
+      stealths.erase(it++);
+    }
+
+  for(std::list<Carrier*>::iterator it = carriers.begin();
+      it != carriers.end();)
+    {
+      delete *it;
+      carriers.erase(it++);
+    }
 }

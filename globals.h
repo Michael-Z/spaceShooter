@@ -154,12 +154,23 @@ extern bool isPaused;
 //current menu
 extern int menu;
 
+//game mode
+extern int gameMode;
+
 //current skill tree
 extern int skillTree;
 
 //player score
 extern Uint32 playerScore;
 extern int playerLevel;
+
+
+//wave control
+extern int waveCount;
+extern int waveStage;
+extern int waveStartFrame;
+extern int currentWave;
+extern bool inWave;
 
 //sound effects
 

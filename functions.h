@@ -65,4 +65,14 @@ void showText(const char* text, TTF_Font *font, SDL_Color color, int x, int y);
 
 const char* intToString(int i);
 
+void resetEnemies();
+
+//arcadeMode.cpp functions
+void doArcadeMode(Player *player0);
+
+//mainGame.cpp functions
+void doMainGame(Player *player0);
+void doWave1(Player *player0);
+void doWave2(Player *player0);
+
 #endif

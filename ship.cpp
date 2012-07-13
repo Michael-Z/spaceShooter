@@ -24,7 +24,7 @@ void Ship::move()
     {
       //move back
       x -= xVel;
-      takeDamage(abs(xVel) * 4);
+      takeDamage(abs(xVel) * 2);
       xVel = -xVel / 2; //ricochet
     }
     
