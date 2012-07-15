@@ -232,6 +232,11 @@ class Player : public Ship
   int MS_radiusPoints;
   int MS_ratePoints;
 
+  int MG_damagePoints;
+  int MG_speedPoints;
+  int MG_rangePoints;
+  int MG_doublePoints;
+
   void regenEnergy();
 
   void doUnit();
@@ -373,26 +378,6 @@ class Tooltip
 
   bool inTooltip(int tX, int tY);
   void handle_events();
-};
-
-class Skill
-{
- private:
-  Skill(int tx, int ty, int tw, int th, int reqlevel,
-	      SDL_Surface* tooltipImg, Skill* reqPrerequesite);
-  int x;
-  int y;
-  int h;
-  int w;
-  int points;
-  int level;
-  Skill *prerequesite;
-
-  Tooltip *tooltip;
-  Button *button;
-  
-  bool handleEvents(Player * player0);
-  
 };
 
 #endif

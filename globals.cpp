@@ -79,12 +79,20 @@ Button *MS_rangeButton = NULL;
 Button *MS_radiusButton = NULL;
 Button *MS_rateButton = NULL;
 
+Button *MG_damageButton = NULL;
+Button *MG_speedButton = NULL;
+Button *MG_rangeButton = NULL;
+Button *MG_doubleButton = NULL;
+
+
 SDL_Surface *skillButtonSelection = NULL;
 SDL_Rect skillButtonSelectionFrames[3];
 
 //offensive tree tooltips
 SDL_Surface *skillUnavailable = NULL;
 
+
+//MS
 SDL_Surface *MS_damageTTimg = NULL;
 Tooltip *MS_damageTooltip = NULL;
 
@@ -96,6 +104,20 @@ Tooltip *MS_radiusTooltip = NULL;
 
 SDL_Surface *MS_rateTTimg = NULL;
 Tooltip *MS_rateTooltip = NULL;
+
+//MG
+SDL_Surface *MG_damageTTimg = NULL;
+Tooltip *MG_damageTooltip = NULL;
+                       
+SDL_Surface *MG_speedTTimg = NULL;
+Tooltip *MG_speedTooltip = NULL;
+                         
+SDL_Surface *MG_rangeTTimg = NULL;
+Tooltip *MG_rangeTooltip = NULL;
+
+SDL_Surface *MG_doubleTTimg = NULL;
+Tooltip *MG_doubleTooltip = NULL;
+
 
 //explosion clips
 SDL_Rect explosion_frames[25];

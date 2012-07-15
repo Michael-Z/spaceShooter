@@ -4,13 +4,15 @@ To do:
 *make some sounds quieter?
 *prevent enemies from spawning on top of others
 *add store
-*make sure everything is freed on clean_up()
+*make sure everything is freed on clean_up() (delete news)
+*make sure freed on game restart
+
 *improve shield rep animation
 *Improve sprite quality
 *Drawing of ship for main screen
 *clean up code (ie remove testing/commented code)
 *change background music
-*get better sound effecs, added sounds to enemies too
+*added sounds to enemies too?
 *add mute button
 *scrolling menu backgrounds
 *game over

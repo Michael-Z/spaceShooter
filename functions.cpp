@@ -407,7 +407,7 @@ void setButtons_and_Frames()
 			     &skillButtonSelectionFrames[1],
 			     &skillButtonSelectionFrames[2]);
 
-  /*
+  //MG buttons
   MG_damageButton = new Button(190, 160, 140, 140, skillButtonSelection,
 			       &skillButtonSelectionFrames[0],
 			       &skillButtonSelectionFrames[1],
@@ -427,7 +427,6 @@ void setButtons_and_Frames()
 			     &skillButtonSelectionFrames[0],
 			     &skillButtonSelectionFrames[1],
 			     &skillButtonSelectionFrames[2]);
-  */
 	
   
   //set explosion frame clips

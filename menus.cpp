@@ -240,7 +240,6 @@ void doOffensiveTree(Player* player)
     apply_surface(40, 590, skillUnavailable, screen);
 
   //MG buttons
-  /*
   if(MG_damageButton->handle_events())
     {
       if(player->useSkillPoint())
@@ -249,45 +248,54 @@ void doOffensiveTree(Player* player)
 	  player->MG_damage += 1;
 	}
     }
+
   if(player->getLevel() >= 3 && player->MG_damagePoints > 0)
     {
-      if(MS_rangeButton->handle_events() && player->useSkillPoint())
-	{
-	  player->MS_rangePoints++;
-	  player->MS_range += 50;
-	}
-    }
-  else
-    apply_surface(40, 310, skillUnavailable, screen);
-
-  if(player->getLevel() >= 5 && player->MS_rangePoints > 0)
-    {
-      if(MS_radiusButton->handle_events() && player->useSkillPoint())
-	{
-	  player->MS_radiusPoints++;
-	  player->MS_radius += 2;
-	}
-    }
-  else
-    apply_surface(40, 450, skillUnavailable, screen);
-
-  if(player->getLevel() >= 10 && player->MS_radiusPoints > 0)
-    {
-      if(MS_rateButton->handle_events() && player->MS_ratePoints < 1 &&
+      if(MG_speedButton->handle_events() && player->MG_speedPoints < 5 &&
 	 player->useSkillPoint())
 	{
-	  player->MS_ratePoints++;
-	  player->MS_rate /= 2;
+	  player->MG_speedPoints++;
+	  player->MG_speed += 2;
 	}
     }
   else
-    apply_surface(40, 590, skillUnavailable, screen);
-  */
+    apply_surface(200, 310, skillUnavailable, screen);
 
+  if(player->getLevel() >= 5 && player->MG_speedPoints > 0)
+    {
+      if(MG_rangeButton->handle_events() && player->useSkillPoint())
+	{
+	  player->MG_rangePoints++;
+	  player->MG_range += 25;
+	}
+    }
+  else
+    apply_surface(200, 450, skillUnavailable, screen);
+
+  //gives two shots
+  if(player->getLevel() >= 10 && player->MG_rangePoints > 0)
+    {
+      if(MG_doubleButton->handle_events() && player->MG_doublePoints < 1 &&
+	 player->useSkillPoint())
+	{
+	  printf("MG double shot");
+	}
+    }
+  else
+    apply_surface(200, 590, skillUnavailable, screen);
+
+
+
+  //show the buttons
   MS_damageButton->show();
   MS_rangeButton->show();
   MS_radiusButton->show();
   MS_rateButton->show();
+
+  MG_damageButton->show();
+  MG_speedButton->show();
+  MG_rangeButton->show();
+  MG_doubleButton->show();
 
   //show skill point numbers
   SDL_Color color = { 0xAA, 0xAA, 0xAA };
@@ -295,6 +303,11 @@ void doOffensiveTree(Player* player)
   showText(intToString(player->MS_rangePoints), font18, color, 50, 310);
   showText(intToString(player->MS_radiusPoints), font18, color, 50, 450);
   showText(intToString(player->MS_ratePoints), font18, color, 50, 590);
+
+  showText(intToString(player->MG_damagePoints), font18, color, 200, 170);
+  showText(intToString(player->MG_speedPoints), font18, color, 200, 310);
+  showText(intToString(player->MG_rangePoints), font18, color, 200, 450);
+  showText(intToString(player->MG_doublePoints), font18, color, 200, 590);
 
   //handle tooltips
   MS_damageTooltip->handle_events();

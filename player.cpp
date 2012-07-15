@@ -110,6 +110,11 @@ Player::Player()
   MS_rangePoints = 0;
   MS_radiusPoints = 0;
   MS_ratePoints = 0;
+
+  MG_damagePoints = 0;
+  MG_speedPoints = 0;
+  MG_rangePoints = 0;
+  MG_doublePoints = 0;
 }
 
 void Player::regenEnergy()
@@ -247,8 +252,7 @@ void Player::doLeftClick()
 	}
       else if(weapon == 2)
 	{
-	  if(frame % 20 == 0)
-	    playSound(miniGunSFX);
+	  playSound(miniGunSFX);
 	  lStart = MG_rate;
 	  shootProjectile(miniGun, MG_speed, MG_range, MG_damage, MG_radius);
 	}
@@ -266,6 +270,7 @@ void Player::doLeftClick()
 	  shootHoming();
 	}
     }
+  
 }
 
 void Player::doRightClick()
