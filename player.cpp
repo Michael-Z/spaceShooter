@@ -59,6 +59,7 @@ Player::Player()
   MG_radius = 4;
   MG_range = 400;
   MG_rate = 4;
+  MG_double = false;
 
   //shotgun
   SG_speed = 20;
@@ -66,6 +67,7 @@ Player::Player()
   SG_radius = 5;
   SG_range = 400;
   SG_rate = 30;
+  SG_double = false;
 
   //homing missiles
   homing_speed = 10;
@@ -73,6 +75,7 @@ Player::Player()
   homing_radius = 5;
   homing_range = 800;
   homing_rate = 30;
+  HM_double = false;
 
   lmouse = false;
   rmouse = false;
@@ -254,7 +257,10 @@ void Player::doLeftClick()
 	{
 	  playSound(miniGunSFX);
 	  lStart = MG_rate;
-	  shootProjectile(miniGun, MG_speed, MG_range, MG_damage, MG_radius);
+	  if(!MG_double)
+	    shootProjectile(miniGun, MG_speed, MG_range, MG_damage, MG_radius);
+	  else
+	    shootMGdouble();
 	}
       else if(weapon == 3)
 	{

@@ -78,15 +78,15 @@ extern Button *abilityTreeButton;
 extern SDL_Rect skillTreeSelectionFrames[3];
 
 //offensive skill buttons
-extern Button *MS_damageButton;
-extern Button *MS_rangeButton;
-extern Button *MS_radiusButton;
-extern Button *MS_rateButton;
+extern SkillButton *MS_damageButton;
+extern SkillButton *MS_rangeButton;
+extern SkillButton *MS_radiusButton;
+extern SkillButton *MS_rateButton;
 
-extern Button *MG_damageButton;
-extern Button *MG_speedButton;
-extern Button *MG_rangeButton;
-extern Button *MG_doubleButton;
+extern SkillButton *MG_damageButton;
+extern SkillButton *MG_speedButton;
+extern SkillButton *MG_rangeButton;
+extern SkillButton *MG_doubleButton;
 
 extern SDL_Surface *skillButtonSelection;
 extern SDL_Rect skillButtonSelectionFrames[3];
@@ -94,32 +94,17 @@ extern SDL_Rect skillButtonSelectionFrames[3];
 //offensive tree tooltips
 extern SDL_Surface *skillUnavailable;
 
-//MG
+//MS
 extern SDL_Surface *MS_damageTTimg;
-extern Tooltip *MS_damageTooltip;
-
 extern SDL_Surface *MS_rangeTTimg;
-extern Tooltip *MS_rangeTooltip;
-
 extern SDL_Surface *MS_radiusTTimg;
-extern Tooltip *MS_radiusTooltip;
-
 extern SDL_Surface *MS_rateTTimg;
-extern Tooltip *MS_rateTooltip;
-
 
 //MG
 extern SDL_Surface *MG_damageTTimg;
-extern Tooltip *MG_damageTooltip;
-
 extern SDL_Surface *MG_speedTTimg;
-extern Tooltip *MG_speedTooltip;
-
 extern SDL_Surface *MG_rangeTTimg;
-extern Tooltip *MG_rangeTooltip;
-
 extern SDL_Surface *MG_doubleTTimg;
-extern Tooltip *MG_doubleTooltip;
 
 //explosion_clips
 extern SDL_Rect explosion_frames[25];

@@ -41,6 +41,7 @@ Stealth::Stealth(int startx, int starty, Ship *player0)
   MG_radius = 4;
   MG_range = 400;
   MG_rate = 4;
+  MG_double = false;
 }
 
 //orbit target

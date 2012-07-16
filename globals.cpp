@@ -74,16 +74,16 @@ Button *abilityTreeButton = NULL;
 SDL_Rect skillTreeSelectionFrames[3];
 
 //offensive skill buttons
-Button *MS_damageButton = NULL;
-Button *MS_rangeButton = NULL;
-Button *MS_radiusButton = NULL;
-Button *MS_rateButton = NULL;
 
-Button *MG_damageButton = NULL;
-Button *MG_speedButton = NULL;
-Button *MG_rangeButton = NULL;
-Button *MG_doubleButton = NULL;
+SkillButton *MS_damageButton = NULL;
+SkillButton *MS_rangeButton = NULL;
+SkillButton *MS_radiusButton = NULL;
+SkillButton *MS_rateButton = NULL;
 
+SkillButton *MG_damageButton = NULL;
+SkillButton *MG_speedButton = NULL;
+SkillButton *MG_rangeButton = NULL;
+SkillButton *MG_doubleButton = NULL;
 
 SDL_Surface *skillButtonSelection = NULL;
 SDL_Rect skillButtonSelectionFrames[3];

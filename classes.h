@@ -109,6 +109,8 @@ class Ship
   std::list<Projectile*> slugs;
     
  public:
+  ~Ship();
+
   //weapon properties
   int MS_speed;
   int MS_damage;
@@ -121,12 +123,14 @@ class Ship
   int MG_radius;
   int MG_range;
   int MG_rate;
+  bool MG_double;
 
   int SG_speed;
   int SG_damage;
   int SG_radius;
   int SG_range;
   int SG_rate;
+  bool SG_double;
 
   //homing missile properties
   int homing_speed;
@@ -134,6 +138,7 @@ class Ship
   int homing_radius;
   int homing_range;
   int homing_rate;
+  bool HM_double;
 
   //do what the ship is supposed to do
   void doUnit();
@@ -161,6 +166,7 @@ class Ship
 
   void shootShotgun();
   void shootHoming();
+  void shootMGdouble();
 
   //move various projectiles
   std::list<Projectile*> moveProjectiles(std::list<Projectile*> bullets);
@@ -275,7 +281,6 @@ class Grunt : public Ship
 {
  public:
   Grunt(int startx, int starty, Ship *target);
-  ~Grunt();
   void doUnit(std::list<Grunt*>::iterator it);
 
   void accelerate();
@@ -378,6 +383,28 @@ class Tooltip
 
   bool inTooltip(int tX, int tY);
   void handle_events();
+};
+
+class SkillButton
+{
+ public:
+  SkillButton(int sx, int sy, int sw, int sh, SDL_Surface *ttImage);
+  ~SkillButton();
+
+
+  int x;
+  int y;
+  int w;
+  int h;
+
+  Button* button;
+  Tooltip* tooltip;
+
+  bool handle_events(int points);
+
+  void handle_tooltip();
+  void skillUnavail();
+  
 };
 
 #endif

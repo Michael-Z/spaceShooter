@@ -14,6 +14,16 @@
 #include "functions.h"
 #include "globals.h"
 
+Ship::~Ship()
+{
+  //delete all the projectiles
+  for(std::list<Projectile*>::iterator it = slugs.begin(); it != slugs.end();)
+    {
+      delete *it;
+      slugs.erase(it++);
+    }
+}
+
 void Ship::move()
 {
   //Move the ship left or right
@@ -172,6 +182,33 @@ void Ship::shootHoming()
 
   x1 = x1old;
   y1 = y1old;
+}
+
+void Ship::shootMGdouble()
+{
+  int oldX = x;
+  int oldY = y;
+
+  double angle = unitToAngle(x1, y1);
+
+  double x1temp = angleToUnitX(angle - PI / 2);
+  double y1temp = angleToUnitY(angle - PI / 2);
+
+  y = oldY + int(radius / 2 * y1temp);
+  x = oldX + int(radius / 2 * x1temp);
+  
+  shootProjectile(miniGun, MG_speed, MG_range, MG_damage, MG_radius);
+  
+  x1temp = angleToUnitX(angle + PI / 2);
+  y1temp = angleToUnitY(angle + PI / 2);
+
+  y = oldY + int(radius / 2 * y1temp);
+  x = oldX + int(radius / 2 * x1temp);
+
+  shootProjectile(miniGun, MG_speed, MG_range, MG_damage, MG_radius);
+
+  x = oldX;
+  y = oldY;
 }
 
 std::list<Projectile*> Ship::moveProjectiles(std::list<Projectile*> bullets)

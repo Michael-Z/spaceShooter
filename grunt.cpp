@@ -44,12 +44,6 @@ Grunt::Grunt(int startx, int starty, Ship *player0)
   MS_rate = 20;
 }
 
-/* useless */
-Grunt::~Grunt()
-{
-  void();
-}
-
 //accelerate towards player, but not crashing into
 void Grunt::accelerate()
 {

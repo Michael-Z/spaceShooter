@@ -25,7 +25,7 @@ double angleToUnitX(double angle);
 double angleToUnitY(double angle);
 
 //File Loader
-SDL_Surface *load_image( std::string filename );
+SDL_Surface *load_image(const char* filename, bool transparent = false );
 
 //Surface blitter
 void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination,

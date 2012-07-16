@@ -79,3 +79,47 @@ void Button::show()
 }
 
 
+//skill button
+SkillButton::SkillButton(int sx, int sy, int sw, int sh, SDL_Surface *ttImg)
+{
+  x = sx;
+  y = sy;
+  w = sw;
+  h = sh;
+
+  button = new Button(x, y, w, h, skillButtonSelection,         
+		      &skillButtonSelectionFrames[0],                  
+		      &skillButtonSelectionFrames[1],                  
+		      &skillButtonSelectionFrames[2]);
+
+  tooltip = new Tooltip(x, y, w, h, ttImg);
+
+}
+
+SkillButton::~SkillButton()
+{
+  delete button;
+  delete tooltip;
+}
+
+bool SkillButton::handle_events(int points)
+{
+  bool returnValue;
+  returnValue = button->handle_events();
+  button->show();
+
+  SDL_Color color = { 0xAA, 0xAA, 0xAA };
+  showText(intToString(points), font18, color, x + 10, y + 10);
+
+  return returnValue;
+}
+
+void SkillButton::handle_tooltip()
+{
+  tooltip->handle_events();
+}
+
+void SkillButton::skillUnavail()
+{
+  apply_surface(x + 10, y + 10, skillUnavailable, screen);
+}

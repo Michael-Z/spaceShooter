@@ -1,5 +1,7 @@
 To do:
 
+*rest of weapon buttons
+
 *level 2 too hard 
 *make some sounds quieter?
 *prevent enemies from spawning on top of others
