@@ -91,6 +91,49 @@ void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination,
 
 void clean_up()
 {
+  //delete enemies
+  resetEnemies();
+
+  //delete classes
+  //delete Buttons
+  delete startGameButton;
+  delete arcadeModeButton;
+  delete loadGameButton;
+  delete instructionsButton;
+  delete quitGameButton;
+  delete mainMenuButton;
+
+  delete resumeGameButton;
+  delete skillMenuButton;
+  delete saveGameButton;
+
+  delete pauseMenuButton;
+  delete offensiveTreeButton;
+  delete defensiveTreeButton;
+  delete abilityTreeButton;
+
+  //delete skill Buttons
+  
+  delete MS_damageButton;
+  delete MS_rangeButton;
+  delete MS_radiusButton;
+  delete MS_rateButton;
+
+  delete MG_damageButton;
+  delete MG_speedButton;
+  delete MG_rangeButton;
+  delete MG_doubleButton;
+
+  delete SG_rangeButton;
+  delete SG_damageButton;
+  delete SG_rateButton;
+  delete SG_doubleButton;
+
+  delete HM_rangeButton;
+  delete HM_damageButton;
+  delete HM_radiusButton;
+  delete HM_doubleButton;
+
   //Free the surface
   SDL_FreeSurface(player);
   SDL_FreeSurface(grunt);
@@ -269,16 +312,6 @@ void renderHUD(Player *player)
   SDL_FreeSurface(levelHUD);
 }
 
-void handle_menu_input()
-{
-  if(event.type == SDL_MOUSEMOTION)
-    {
-      mouseX = event.motion.x;
-      mouseY = event.motion.y;
-    }
-}
-
-
 void doGrunts()
 {
   for(std::list<Grunt*>::iterator it = grunts.begin(); it != grunts.end();)
@@ -420,6 +453,13 @@ void resetEnemies()
     {
       delete *it;
       carriers.erase(it++);
+    }
+
+  for(std::list<Explosion*>::iterator it = explosions.begin();
+      it != explosions.end();)
+    {
+      delete *it;
+      explosions.erase(it++);
     }
 }
 

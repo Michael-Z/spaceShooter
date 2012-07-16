@@ -50,9 +50,6 @@ SDL_Surface* rotate(SDL_Surface* source, double angle, double zoom,
 
 void renderHUD(Player *player);
 
-//handle menu input (clicking, mouse location)
-void handle_menu_input();
-
 //perform and render units
 void doGrunts();
 void doBoomers();
@@ -70,6 +67,10 @@ const char* intToString(int i);
 void resetEnemies();
 
 void playSound(Mix_Chunk *sound);
+
+//init.cpp functions
+
+void reset();
 
 //arcadeMode.cpp functions
 void doArcadeMode(Player *player0);

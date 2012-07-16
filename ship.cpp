@@ -157,6 +157,29 @@ void Ship::shootShotgun()
   y1 = angleToUnitY(angle - PI / 16);
 
   shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
+
+  if(SG_double == true)
+    {
+      x1 = angleToUnitX(angle - PI / 32);
+      y1 = angleToUnitY(angle - PI / 32);
+      
+      shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);      
+
+      x1 = angleToUnitX(angle + PI / 32);
+      y1 = angleToUnitY(angle + PI / 32);
+      
+      shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
+
+      x1 = angleToUnitX(angle + PI * 3 / 32);
+      y1 = angleToUnitY(angle + PI * 3 / 32);
+      
+      shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
+
+      x1 = angleToUnitX(angle - PI * 3 / 32);
+      y1 = angleToUnitY(angle - PI * 3 / 32);
+      
+      shootProjectile(shotgun, SG_speed, SG_range, SG_damage, SG_radius);
+    }
   
   x1 = x1old;
   y1 = y1old;
@@ -179,6 +202,21 @@ void Ship::shootHoming()
 
   shootProjectile(homing, homing_speed, homing_range, homing_damage,
 		  homing_radius, true);
+
+  if(HM_double == true)
+    {
+      x1 = angleToUnitX(angle - PI / 2);
+      y1 = angleToUnitY(angle - PI / 2);
+      
+      shootProjectile(homing, homing_speed, homing_range, homing_damage,
+		      homing_radius, true);      
+
+      x1 = angleToUnitX(angle + PI / 2);
+      y1 = angleToUnitY(angle + PI / 2);
+      
+      shootProjectile(homing, homing_speed, homing_range, homing_damage,
+		      homing_radius, true);      
+    }
 
   x1 = x1old;
   y1 = y1old;

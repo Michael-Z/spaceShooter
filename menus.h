@@ -1,5 +1,6 @@
 //menus.h
 
+bool handle_menu_input();
 bool doMainMenu();
 void instructionsMenu();
 void doPauseMenu();

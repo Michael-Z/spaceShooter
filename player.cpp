@@ -118,6 +118,16 @@ Player::Player()
   MG_speedPoints = 0;
   MG_rangePoints = 0;
   MG_doublePoints = 0;
+
+  SG_rangePoints = 0;
+  SG_damagePoints = 0;
+  SG_ratePoints = 0;
+  SG_doublePoints = 0;
+
+  HM_rangePoints = 0;
+  HM_damagePoints = 0;
+  HM_radiusPoints = 0;
+  HM_doublePoints = 0;
 }
 
 void Player::regenEnergy()

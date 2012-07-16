@@ -41,6 +41,7 @@ void Boomer::accelerate()
 
   int dist = distForm(x, y, tX, tY);
 
+
   //lead factor for acceleration;
   int lF = int(distForm(0, 0, tXvel, tYvel)) / 4;
 
@@ -49,6 +50,7 @@ void Boomer::accelerate()
       die();
       return;
     }
+
 
   if((tX + lF * tXvel > x) && xVel < maxSpeed)
     {

@@ -88,6 +88,16 @@ extern SkillButton *MG_speedButton;
 extern SkillButton *MG_rangeButton;
 extern SkillButton *MG_doubleButton;
 
+extern SkillButton *SG_rangeButton;
+extern SkillButton *SG_damageButton;
+extern SkillButton *SG_rateButton;
+extern SkillButton *SG_doubleButton;
+
+extern SkillButton *HM_rangeButton;
+extern SkillButton *HM_damageButton;
+extern SkillButton *HM_radiusButton;
+extern SkillButton *HM_doubleButton;
+
 extern SDL_Surface *skillButtonSelection;
 extern SDL_Rect skillButtonSelectionFrames[3];
 
@@ -105,6 +115,18 @@ extern SDL_Surface *MG_damageTTimg;
 extern SDL_Surface *MG_speedTTimg;
 extern SDL_Surface *MG_rangeTTimg;
 extern SDL_Surface *MG_doubleTTimg;
+
+//SG
+extern SDL_Surface *SG_rangeTTimg;
+extern SDL_Surface *SG_damageTTimg;
+extern SDL_Surface *SG_rateTTimg;
+extern SDL_Surface *SG_doubleTTimg;
+
+//HM
+extern SDL_Surface *HM_rangeTTimg;
+extern SDL_Surface *HM_damageTTimg;
+extern SDL_Surface *HM_radiusTTimg;
+extern SDL_Surface *HM_doubleTTimg;
 
 //explosion_clips
 extern SDL_Rect explosion_frames[25];

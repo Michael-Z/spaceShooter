@@ -85,39 +85,45 @@ SkillButton *MG_speedButton = NULL;
 SkillButton *MG_rangeButton = NULL;
 SkillButton *MG_doubleButton = NULL;
 
+SkillButton *SG_rangeButton = NULL;
+SkillButton *SG_damageButton = NULL;
+SkillButton *SG_rateButton = NULL;
+SkillButton *SG_doubleButton = NULL;
+
+SkillButton *HM_rangeButton = NULL;
+SkillButton *HM_damageButton = NULL;
+SkillButton *HM_radiusButton = NULL;
+SkillButton *HM_doubleButton = NULL;
+
 SDL_Surface *skillButtonSelection = NULL;
 SDL_Rect skillButtonSelectionFrames[3];
 
 //offensive tree tooltips
 SDL_Surface *skillUnavailable = NULL;
 
-
 //MS
 SDL_Surface *MS_damageTTimg = NULL;
-Tooltip *MS_damageTooltip = NULL;
-
 SDL_Surface *MS_rangeTTimg = NULL;
-Tooltip *MS_rangeTooltip = NULL;
-
 SDL_Surface *MS_radiusTTimg = NULL;
-Tooltip *MS_radiusTooltip = NULL;
-
 SDL_Surface *MS_rateTTimg = NULL;
-Tooltip *MS_rateTooltip = NULL;
 
 //MG
 SDL_Surface *MG_damageTTimg = NULL;
-Tooltip *MG_damageTooltip = NULL;
-                       
 SDL_Surface *MG_speedTTimg = NULL;
-Tooltip *MG_speedTooltip = NULL;
-                         
 SDL_Surface *MG_rangeTTimg = NULL;
-Tooltip *MG_rangeTooltip = NULL;
-
 SDL_Surface *MG_doubleTTimg = NULL;
-Tooltip *MG_doubleTooltip = NULL;
 
+//SG
+SDL_Surface *SG_rangeTTimg = NULL;
+SDL_Surface *SG_damageTTimg = NULL;
+SDL_Surface *SG_rateTTimg = NULL;
+SDL_Surface *SG_doubleTTimg = NULL;
+
+//MG
+SDL_Surface *HM_rangeTTimg = NULL;
+SDL_Surface *HM_damageTTimg = NULL;
+SDL_Surface *HM_radiusTTimg = NULL;
+SDL_Surface *HM_doubleTTimg = NULL;
 
 //explosion clips
 SDL_Rect explosion_frames[25];

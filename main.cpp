@@ -32,11 +32,6 @@ int main(int argc, char* args[])
   //start frame counter
   frame = 0;
 
-  //set blank message
-  //mainMessage = TTF_RenderText_Solid(font28, "", font28Color);
-  //scoreHUD = TTF_RenderText_Solid(font28, "", font28Color);
-  //levelHUD = TTF_RenderText_Solid(font28, "", font28Color);
-
   //play music
   //Mix_PlayMusic(mainMusic, -1);
 
@@ -56,7 +51,7 @@ int main(int argc, char* args[])
 	  if(isPaused == false)
 	     player0->handle_input();
 	  else
-	    handle_menu_input();
+	    quit = handle_menu_input();
 
 	  //if user closes window
 	  if(event.type == SDL_QUIT)
@@ -97,12 +92,10 @@ int main(int argc, char* args[])
 	    case 0:
 	      quit = doMainMenu();
 	      //going to mainMenu, reset everything
+	      if(player0 != NULL)
+		delete player0;
 	      player0 = new Player;
-	      playerLevel = 1;
-	      playerScore = 0;
-	      currentWave = 0;
-	      inWave = false;
-	      resetEnemies();
+	      reset();
 	      break;
 	    case 1: instructionsMenu(); break;
 	    case 2: doPauseMenu(); break;

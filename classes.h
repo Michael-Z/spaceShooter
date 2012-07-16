@@ -243,6 +243,16 @@ class Player : public Ship
   int MG_rangePoints;
   int MG_doublePoints;
 
+  int SG_rangePoints;
+  int SG_damagePoints;
+  int SG_ratePoints;
+  int SG_doublePoints;
+
+  int HM_rangePoints;
+  int HM_damagePoints;
+  int HM_radiusPoints;
+  int HM_doublePoints;
+
   void regenEnergy();
 
   void doUnit();

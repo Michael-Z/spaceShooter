@@ -102,6 +102,16 @@ bool load_files()
   MG_rangeTTimg = load_image("images/MG_rangeTTimg.png", true);
   MG_doubleTTimg = load_image("images/MG_doubleTTimg.png", true);
 
+  SG_rangeTTimg = load_image("images/SG_rangeTTimg.png", true);
+  SG_damageTTimg = load_image("images/SG_damageTTimg.png", true);
+  SG_rateTTimg = load_image("images/SG_rateTTimg.png", true);
+  SG_doubleTTimg = load_image("images/SG_doubleTTimg.png", true);
+
+  HM_rangeTTimg = load_image("images/HM_rangeTTimg.png", true);
+  HM_damageTTimg = load_image("images/HM_damageTTimg.png", true);
+  HM_radiusTTimg = load_image("images/HM_radiusTTimg.png", true);
+  HM_doubleTTimg = load_image("images/HM_doubleTTimg.png", true);
+
   //If there was a problem in loading the player or background
   if(background == NULL || HUD_shield_armor_hull == NULL ||
      shield_rep == NULL ||
@@ -119,7 +129,11 @@ bool load_files()
      MS_damageTTimg == NULL || MS_rangeTTimg == NULL ||
      MS_radiusTTimg == NULL || MS_rateTTimg == NULL ||
      MG_damageTTimg == NULL || MG_speedTTimg == NULL ||
-     MG_rangeTTimg == NULL || MG_doubleTTimg == NULL)
+     MG_rangeTTimg == NULL || MG_doubleTTimg == NULL ||
+     SG_rangeTTimg == NULL || SG_damageTTimg == NULL ||
+     SG_rateTTimg == NULL || SG_doubleTTimg == NULL ||
+     HM_rangeTTimg == NULL || HM_damageTTimg == NULL ||
+     HM_radiusTTimg == NULL || HM_doubleTTimg == NULL)
     {
       printf("failed to load an image\n");
       return false;    
@@ -318,7 +332,16 @@ void setButtons_and_Frames()
   MG_speedButton = new SkillButton(190, 300, 140, 140, MG_speedTTimg);
   MG_rangeButton = new SkillButton(190, 440, 140, 140, MG_rangeTTimg);
   MG_doubleButton = new SkillButton(190, 580, 140, 140, MG_doubleTTimg);
-  
+
+  SG_rangeButton = new SkillButton(350, 160, 140, 140, SG_rangeTTimg);
+  SG_damageButton = new SkillButton(350, 300, 140, 140, SG_damageTTimg);
+  SG_rateButton = new SkillButton(350, 440, 140, 140, SG_rateTTimg);
+  SG_doubleButton = new SkillButton(350, 580, 140, 140, SG_doubleTTimg);  
+
+  HM_rangeButton = new SkillButton(510, 160, 140, 140, HM_rangeTTimg);
+  HM_damageButton = new SkillButton(510, 300, 140, 140, HM_damageTTimg);
+  HM_radiusButton = new SkillButton(510, 440, 140, 140, HM_radiusTTimg);
+  HM_doubleButton = new SkillButton(510, 580, 140, 140, HM_doubleTTimg);  
   
   //set explosion frame clips
   for(int i = 0; i < 25; i++)
@@ -342,4 +365,17 @@ void setButtons_and_Frames()
 void create_Tooltips()
 {
   void();
+}
+
+void reset()
+{
+  playerLevel = 1;
+  playerScore = 0;
+  currentWave = 0;
+  waveCount = 0;
+  inWave = false;
+  resetEnemies();
+
+  levelUpTimer = 0;
+  mainMessageTimer = 0;
 }

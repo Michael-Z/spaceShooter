@@ -1,13 +1,9 @@
 To do:
 
-*rest of weapon buttons
-
-*level 2 too hard 
 *make some sounds quieter?
 *prevent enemies from spawning on top of others
 *add store
 *make sure everything is freed on clean_up() (delete news)
-*make sure freed on game restart
 
 *improve shield rep animation
 *Improve sprite quality

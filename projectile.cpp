@@ -37,15 +37,13 @@ Projectile::~Projectile()
 
 void Projectile::doHoming(int tX, int tY)
 {
-  if(tX > x)
-    xVel += 1;
-  else if(tX < x)
-    xVel -= 1;
+  int dist = distForm(x, y, tX, tY);
 
-  if(tY > y)
-    yVel += 1;
-  else if(tY < y)
-    yVel -= 1;
+  double x1 = double(tX - x) / dist;
+  double y1 = double(tY - y) / dist;
+
+  xVel += int(2 * x1);
+  yVel += int(2 * y1);
 }
 
 void Projectile::move()

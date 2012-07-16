@@ -13,6 +13,30 @@
 #include "globals.h"
 #include "menus.h"
 
+bool handle_menu_input()
+{
+  if(event.type == SDL_MOUSEMOTION)
+    {
+      mouseX = event.motion.x;
+      mouseY = event.motion.y;
+    }
+  if(event.type == SDL_KEYDOWN)
+    switch(event.key.keysym.sym)
+      {
+      case SDLK_ESCAPE:
+	switch(menu)
+	  {
+	  case 0: return true; break;
+	  case 1: menu = 0; break;
+	  case 2: isPaused = false; break;
+	  case 3: menu = 2; break;
+	  default: menu = 2; break;
+	  }
+      default: void(); break;
+      }
+  return false;
+}
+
 
 //watch mouse events and show main menu
 bool doMainMenu()
@@ -288,6 +312,100 @@ void doOffensiveTree(Player* player)
   else
     MG_doubleButton->skillUnavail();
 
+  //SG buttons
+  if(SG_rangeButton->handle_events(player->SG_rangePoints))
+    {
+      if(player->useSkillPoint())
+	{
+	  player->SG_rangePoints++;
+	  player->SG_range += 25;
+	}
+    }
+
+  if(player->getLevel() >= 3 && player->SG_rangePoints > 0)
+    {
+      if(SG_damageButton->handle_events(player->SG_damagePoints) &&
+	 player->useSkillPoint())
+	{
+	  player->SG_damagePoints++;
+	  player->SG_damage += 1;
+	}
+    }
+  else
+    SG_damageButton->skillUnavail();
+
+  if(player->getLevel() >= 5 && player->SG_damagePoints > 0)
+    {
+      if(SG_rateButton->handle_events(player->SG_ratePoints) &&
+	 player->SG_ratePoints < 7 && player->useSkillPoint())
+	{
+	  player->SG_ratePoints++;
+	  player->SG_rate -= 2;
+	}
+    }
+  else
+    SG_rateButton->skillUnavail();
+
+  //doubles pellets
+  if(player->getLevel() >= 10 && player->SG_ratePoints > 0)
+    {
+      if(SG_doubleButton->handle_events(player->SG_doublePoints) &&
+	 player->SG_doublePoints < 1 && player->useSkillPoint())
+	{
+	  player->SG_doublePoints++;
+	  player->SG_double = true;
+	}
+    }
+  else
+    SG_doubleButton->skillUnavail();
+
+  //HM
+  if(HM_rangeButton->handle_events(player->HM_rangePoints))
+    {
+      if(player->useSkillPoint())
+	{
+	  player->HM_rangePoints++;
+	  player->homing_range += 50;
+	}
+    }
+
+  if(player->getLevel() >= 3 && player->HM_rangePoints > 0)
+    {
+      if(HM_damageButton->handle_events(player->HM_damagePoints) &&
+	 player->useSkillPoint())
+	{
+	  player->HM_damagePoints++;
+	  player->homing_damage += 2;
+	}
+    }
+  else
+    HM_damageButton->skillUnavail();
+
+  if(player->getLevel() >= 5 && player->HM_damagePoints > 0)
+    {
+      if(HM_radiusButton->handle_events(player->HM_radiusPoints) &&
+	 player->useSkillPoint())
+	{
+	  player->HM_radiusPoints++;
+	  player->homing_radius += 2;
+	}
+    }
+  else
+    HM_radiusButton->skillUnavail();
+
+  //shoot 4 HM
+  if(player->getLevel() >= 10 && player->HM_radiusPoints > 0)
+    {
+      if(HM_doubleButton->handle_events(player->HM_doublePoints) &&
+	 player->HM_doublePoints < 1 && player->useSkillPoint())
+	{
+	  player->HM_doublePoints++;
+	  player->HM_double = true;
+	}
+    }
+  else
+    HM_doubleButton->skillUnavail();
+
   MS_damageButton->handle_tooltip();
   MS_rangeButton->handle_tooltip();
   MS_radiusButton->handle_tooltip();
@@ -297,6 +415,16 @@ void doOffensiveTree(Player* player)
   MG_speedButton->handle_tooltip();
   MG_rangeButton->handle_tooltip();
   MG_doubleButton->handle_tooltip();
+
+  SG_rangeButton->handle_tooltip();
+  SG_damageButton->handle_tooltip();
+  SG_rateButton->handle_tooltip();
+  SG_doubleButton->handle_tooltip();
+
+  HM_rangeButton->handle_tooltip();
+  HM_damageButton->handle_tooltip();
+  HM_radiusButton->handle_tooltip();
+  HM_doubleButton->handle_tooltip();
 }
 
 void doDefensiveTree(Player* player)
