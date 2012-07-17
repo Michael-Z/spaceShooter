@@ -22,6 +22,7 @@ extern SDL_Surface *carrier;
 
 extern SDL_Surface *explosion;
 extern SDL_Surface *shield_rep;
+extern SDL_Surface *armor_rep;
 
 extern SDL_Surface *levelUpAnimation; //level up animation
 extern SDL_Rect levelUpFrames[16];
@@ -159,6 +160,7 @@ extern SDL_Rect explosion_frames[25];
 
 //shield rep animation
 extern SDL_Rect shield_rep_frames[4];
+extern SDL_Rect armor_rep_frames[4];
 
 //ttf font
 extern TTF_Font *font28;

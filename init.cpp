@@ -58,6 +58,7 @@ bool load_files()
   HUD_shield_armor_hull = load_image("images/HUD_shield_armor_hull.png", true);
   explosion = load_image("images/explosion.png", true);
   shield_rep = load_image("images/repairShield_animation.png", true);
+  armor_rep = load_image("images/repairArmor_animation.png", true);
   skillTreeSelection = load_image("images/skillTreeSelectionFrames.png", true);
   levelUpAnimation = load_image("images/levelUpAnimation.png", true);
 
@@ -129,7 +130,7 @@ bool load_files()
 
   //If there was a problem in loading the player or background
   if(background == NULL || HUD_shield_armor_hull == NULL ||
-     shield_rep == NULL ||
+     shield_rep == NULL || armor_rep == NULL ||
      explosion == NULL || levelUpAnimation == NULL ||
      player == NULL || grunt == NULL || boomer == NULL || stealth == NULL ||
      carrier == NULL || 
@@ -390,6 +391,14 @@ void setButtons_and_Frames()
       shield_rep_frames[i].y = 60 * (i / 2);
       shield_rep_frames[i].w = 60;
       shield_rep_frames[i].h = 60;
+    }
+
+  for(int i = 0; i < 4; i++)
+    {
+      armor_rep_frames[i].x = 60 * (i % 2);
+      armor_rep_frames[i].y = 60 * (i / 2);
+      armor_rep_frames[i].w = 60;
+      armor_rep_frames[i].h = 60;
     }
 }
 

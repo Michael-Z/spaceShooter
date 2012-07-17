@@ -156,6 +156,9 @@ void clean_up()
   SDL_FreeSurface(background);
   SDL_FreeSurface(HUD_shield_armor_hull);
   SDL_FreeSurface(explosion);
+  SDL_FreeSurface(shield_rep);
+  SDL_FreeSurface(armor_rep);
+
   SDL_FreeSurface(levelUpAnimation);
 
   SDL_FreeSurface(moltenSlug);

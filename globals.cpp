@@ -20,6 +20,7 @@ SDL_Surface *carrier = NULL;
 
 SDL_Surface *explosion = NULL;
 SDL_Surface *shield_rep = NULL;
+SDL_Surface *armor_rep = NULL;
 
 SDL_Surface *levelUpAnimation; //level up animation
 SDL_Rect levelUpFrames[16];
@@ -156,6 +157,7 @@ SDL_Rect explosion_frames[25];
 
 //shield rep animation
 SDL_Rect shield_rep_frames[4];
+SDL_Rect armor_rep_frames[4];
 
 //ttf font
 TTF_Font *font28 = NULL;

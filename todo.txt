@@ -6,6 +6,7 @@ To do:
 *add tooltips for gameplay
 *finish arcade mode, mainGame
 *game saving
+*current ability & weapon icons & tooltips
 
 
 *particle effects

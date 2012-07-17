@@ -109,6 +109,7 @@ Player::Player()
 
   //abilities
   shieldRepFact = 1;
+  armorRepFact = 1;
 
   //set skill points
 
@@ -170,6 +171,12 @@ void Player::handle_input()
 	case SDLK_3: weapon = 3; break;
 	case SDLK_4: weapon = 4; break;
 	case SDLK_5: weapon = 5; break;
+
+	case SDLK_F1: ability = 1; break;
+	case SDLK_F2: ability = 2; break;
+	case SDLK_F3: ability = 3; break;
+	case SDLK_F4: ability = 4; break;
+	case SDLK_F5: ability = 5; break;
 	
 	default: void(); break;
         }
@@ -310,16 +317,13 @@ void Player::doRightClick()
   
   if(rmouse == true && rStart == 0)
     {
-      if(ability == 1 && energy > 0)
+      if(ability == 1 && energy > 0) //regen shield
 	{
-	  apply_surface(x - camera.x - 25, y - camera.y - 25,
-			shield_rep, screen,
-			&shield_rep_frames[(frame % 16) / 4]);
-
-	  shield += shieldRepFact;
-	  if(shield > maxShield)
-	    shield = maxShield;
-	  energy -= 1;
+	  repairShield();
+	}
+      if(ability == 2 && energy > 0)
+	{
+	  repairArmor();
 	}
     }
 }
@@ -458,4 +462,28 @@ bool Player::useSkillPoint()
     }
   else
     return false;
+}
+
+void Player::repairShield()
+{
+  apply_surface(x - camera.x - 25, y - camera.y - 25,
+		shield_rep, screen,
+		&shield_rep_frames[(frame % 16) / 4]);
+
+  shield += shieldRepFact;
+  if(shield > maxShield)
+    shield = maxShield;
+  energy -= 1;
+}
+
+void Player::repairArmor()
+{
+  apply_surface(x - camera.x - 25, y - camera.y - 25,
+		armor_rep, screen,
+		&armor_rep_frames[(frame % 16 / 4)]);
+  
+  armor += armorRepFact;
+  if(armor > maxArmor)
+    armor = maxArmor;
+  energy -= 1;
 }

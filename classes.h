@@ -286,7 +286,9 @@ class Player : public Ship
   int energy;
   int energyRegen; //energy regen per 10 frames
 
+  //skill attrubtes
   int shieldRepFact;
+  int armorRepFact;
 
   int getLevel() { return level; }
 
@@ -299,6 +301,9 @@ class Player : public Ship
   void updateStatusBars();
 
   void doLevel();
+
+  void repairShield();
+  void repairArmor();
 };
 
 //basic enemy, dumb and shoots molten slugs
