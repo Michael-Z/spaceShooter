@@ -17,4 +17,9 @@ const int LEVEL_HEIGHT = 2000;
 
 const double PI = 3.14159265;
 
+//skill attributs
+const int SHIELD_PER_POINT = 10;
+const int ARMOR_PER_POINT = 20;
+const int HULL_PER_POINT = 30;
+
 #endif

@@ -26,11 +26,17 @@ Stealth::Stealth(int startx, int starty, Ship *player0)
   x1 = 0;
   y1 = 1;
 
+  evasion = 0;
+  hitRadius = radius;
+  damRed = 0;
+  
+
   maxShield = 50;
   maxArmor = 10;
   maxHull = 10;
 
   shieldRegen = 2;
+  shieldCap = false;
   shield = 50;
   armor = 10;
   hull = 10;

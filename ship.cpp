@@ -34,7 +34,7 @@ void Ship::move()
     {
       //move back
       x -= xVel;
-      takeDamage(abs(xVel) * 2);
+      takeDamage(abs(xVel) * 2, true);
       xVel = -xVel / 2; //ricochet
     }
     
@@ -46,7 +46,7 @@ void Ship::move()
     {
       //move back
       y -= yVel;
-      takeDamage(abs(yVel) * 4);
+      takeDamage(abs(yVel) * 4, true);
       yVel = -yVel / 2;
     }
 }
@@ -54,7 +54,14 @@ void Ship::move()
 void Ship::regenShield()
 {
   if(shield < maxShield && frame % 10 == 0)
-    shield += shieldRegen * maxShield / 100;
+    {
+      shield += shieldRegen * maxShield / 100;
+      
+      if(shieldCap) //if have a shield capacitor
+	{
+	  shield += int(((maxShield - shield) / double(maxShield)) / 20);
+	}
+    }
 }
 
 void Ship::unMove()
@@ -78,8 +85,21 @@ void Ship::show()
                 ship, screen );
 }
 
-void Ship::takeDamage(int damage)
+void Ship::takeDamage(int damage, bool collide) //collide = false
 {
+  if(!collide) //not collision damage
+    {
+      //if evaded quit
+      if(abs(rand()) % 100 < evasion)
+	{
+	  return;
+	}
+
+    }
+
+  //do damage reduction
+  damage = damage - int((damage * damRed) / double(100));
+
   if(shield - damage > 0)
     shield -= damage;
   else
@@ -264,7 +284,7 @@ std::list<Projectile*> Ship::moveProjectiles(std::list<Projectile*> bullets)
 	    (**it).doHoming((*target).getX(), (*target).getY());
 
 	  if(distForm((*target).getX(), (*target).getY(), (**it).getX(),
-		      (**it).getY()) < (*target).getRad() + (**it).getRad())
+		      (**it).getY()) < (*target).hitRadius + (**it).getRad())
 	    {
 	      (*target).takeDamage((**it).getDamage());
 	      delete *it;

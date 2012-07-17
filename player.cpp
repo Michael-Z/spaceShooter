@@ -88,6 +88,10 @@ Player::Player()
   left = false;
   right = false;
 
+  evasion = 0;
+  damRed = 0;
+  hitRadius = radius;
+
   maxHull = 100;
   hull = 100;
 
@@ -95,6 +99,7 @@ Player::Player()
   armor = 100;
 
   shieldRegen = 1;
+  shieldCap = false;
   maxShield = 100;
   shield = 100;
 
@@ -128,6 +133,15 @@ Player::Player()
   HM_damagePoints = 0;
   HM_radiusPoints = 0;
   HM_doublePoints = 0;
+
+  shieldAmountPoints = 0;
+  shieldRegenPoints = 0;
+  shieldCapPoints = 0;
+  armorAmountPoints = 0;
+  hullAmountPoints = 0;
+  evasionPoints = 0;
+  hitRadPoints = 0;
+  damRedPoints = 0;
 }
 
 void Player::regenEnergy()
@@ -363,6 +377,11 @@ void Player::updateStatusBars()
 
 void Player::doUnit()
 {
+  /*
+  if(hull == 0)
+    gameOver();
+  */
+
   regenShield();
   regenEnergy();
   updateStatusBars();
@@ -409,14 +428,14 @@ void Player::doLevel()
   //printf("Level Up! Exp: %d Level: %d \n", oldExp - oldOldExp,level);
 
   //stat increases
-  maxShield += 10;
-  shield += 10;
+  maxShield += 10 + shieldAmountPoints * SHIELD_PER_POINT;
+  shield += 10 + shieldAmountPoints * SHIELD_PER_POINT;
 
-  maxArmor += 10;
-  armor += 10;
+  maxArmor += 10 + armorAmountPoints * ARMOR_PER_POINT;
+  armor += 10 + armorAmountPoints * ARMOR_PER_POINT;
 
-  maxHull += 5;
-  hull += 5;
+  maxHull += 5 + hullAmountPoints * HULL_PER_POINT;
+  hull += 5 + hullAmountPoints * HULL_PER_POINT;
 
   maxEnergy += 5;
   energy += 5;

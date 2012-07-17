@@ -28,11 +28,16 @@ Carrier::Carrier(int startx, int starty, Ship *player0)
   x1 = 0;
   y1 = 1;
 
+  evasion = 0;
+  hitRadius = radius;
+  damRed = 0;
+
   maxShield = 50;
   maxArmor = 50;
   maxHull = 100;
 
   shieldRegen = 2;
+  shieldCap = false;
   shield = 50;
   armor = 50;
   hull = 100;

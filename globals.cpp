@@ -42,6 +42,7 @@ SDL_Surface *mainMenuButtonText = NULL;
 SDL_Surface *menuBG_1024_768 = NULL;
 SDL_Surface *instructionsBG = NULL;
 SDL_Surface *pauseMenuBG = NULL;
+SDL_Surface *gameOverBG = NULL;
 SDL_Surface *skillTreeBG = NULL;
 SDL_Surface *offensiveTreeBG = NULL;
 SDL_Surface *defensiveTreeBG = NULL;
@@ -95,6 +96,20 @@ SkillButton *HM_damageButton = NULL;
 SkillButton *HM_radiusButton = NULL;
 SkillButton *HM_doubleButton = NULL;
 
+//defensive skill buttons
+
+SkillButton *shieldAmountButton;
+SkillButton *shieldRegenButton;
+SkillButton *shieldCapButton;
+
+SkillButton *armorAmountButton;
+SkillButton *hullAmountButton;
+
+SkillButton *evasionButton;
+SkillButton *hitRadButton;
+SkillButton *damRedButton;
+
+
 SDL_Surface *skillButtonSelection = NULL;
 SDL_Rect skillButtonSelectionFrames[3];
 
@@ -124,6 +139,17 @@ SDL_Surface *HM_rangeTTimg = NULL;
 SDL_Surface *HM_damageTTimg = NULL;
 SDL_Surface *HM_radiusTTimg = NULL;
 SDL_Surface *HM_doubleTTimg = NULL;
+
+//defensive tooltips
+SDL_Surface *shield_amountTTimg = NULL;
+SDL_Surface *shield_regenTTimg = NULL;
+SDL_Surface *shieldCapTTimg = NULL;
+SDL_Surface *armor_amountTTimg = NULL;
+SDL_Surface *hull_amountTTimg = NULL;
+SDL_Surface *evasionTTimg = NULL;
+SDL_Surface *hitRadiusTTimg = NULL;
+SDL_Surface *damRedTTimg = NULL;
+
 
 //explosion clips
 SDL_Rect explosion_frames[25];

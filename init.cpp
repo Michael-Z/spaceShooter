@@ -83,6 +83,7 @@ bool load_files()
 
   instructionsBG = load_image("images/instructionsBG.png", true);
   pauseMenuBG = load_image("images/pauseMenuBG.png", true);
+  gameOverBG = load_image("images/gameOverBG.png", true);
   skillTreeBG = load_image("images/skillTreeBG.png", true);
   offensiveTreeBG = load_image("images/offensiveSkills.png", true);
   defensiveTreeBG = load_image("images/defensiveSkills.png", true);
@@ -112,6 +113,20 @@ bool load_files()
   HM_radiusTTimg = load_image("images/HM_radiusTTimg.png", true);
   HM_doubleTTimg = load_image("images/HM_doubleTTimg.png", true);
 
+  //defensive Skills
+
+  shield_amountTTimg = load_image("images/shield_amountTTimg.png", true);
+  shield_regenTTimg = load_image("images/shield_regenTTimg.png", true);
+  shieldCapTTimg = load_image("images/shield_capacitorTTimg.png", true);
+
+  armor_amountTTimg = load_image("images/armor_amountTTimg.png", true);
+  hull_amountTTimg = load_image("images/hull_amountTTimg.png", true);
+
+  evasionTTimg = load_image("images/evasionTTimg.png", true);
+  hitRadiusTTimg = load_image("images/hitRadiusTTimg.png", true);
+  damRedTTimg = load_image("images/damageReductionTTimg.png", true);
+
+
   //If there was a problem in loading the player or background
   if(background == NULL || HUD_shield_armor_hull == NULL ||
      shield_rep == NULL ||
@@ -133,7 +148,11 @@ bool load_files()
      SG_rangeTTimg == NULL || SG_damageTTimg == NULL ||
      SG_rateTTimg == NULL || SG_doubleTTimg == NULL ||
      HM_rangeTTimg == NULL || HM_damageTTimg == NULL ||
-     HM_radiusTTimg == NULL || HM_doubleTTimg == NULL)
+     HM_radiusTTimg == NULL || HM_doubleTTimg == NULL ||
+     shield_amountTTimg == NULL || shield_regenTTimg == NULL ||
+     shieldCapTTimg == NULL || armor_amountTTimg == NULL ||
+     hull_amountTTimg == NULL || evasionTTimg == NULL ||
+     hitRadiusTTimg == NULL || damRedTTimg == NULL)
     {
       printf("failed to load an image\n");
       return false;    
@@ -342,6 +361,18 @@ void setButtons_and_Frames()
   HM_damageButton = new SkillButton(510, 300, 140, 140, HM_damageTTimg);
   HM_radiusButton = new SkillButton(510, 440, 140, 140, HM_radiusTTimg);
   HM_doubleButton = new SkillButton(510, 580, 140, 140, HM_doubleTTimg);  
+
+  //defensive Skill Buttons
+  shieldAmountButton = new SkillButton(150, 160, 140, 140, shield_amountTTimg);
+  shieldRegenButton = new SkillButton(30, 300, 140, 140, shield_regenTTimg);
+  shieldCapButton = new SkillButton(30, 440, 140, 140, shieldCapTTimg);
+
+  armorAmountButton = new SkillButton(550, 160, 140, 140, armor_amountTTimg);
+  hullAmountButton = new SkillButton(670, 300, 140, 140, hull_amountTTimg);
+
+  evasionButton = new SkillButton(350, 300, 140, 140, evasionTTimg);
+  hitRadButton = new SkillButton(350, 440, 140, 140, hitRadiusTTimg);
+  damRedButton = new SkillButton(350, 580, 140, 140, damRedTTimg);
   
   //set explosion frame clips
   for(int i = 0; i < 25; i++)

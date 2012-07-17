@@ -23,6 +23,10 @@ Boomer::Boomer(int startx, int starty, Ship* player, int startxVel,
 
   damage = 20;
 
+  evasion = 0;
+  hitRadius = radius;
+  damRed = 0;
+
   maxShield = 1;
   maxArmor = 1;
   maxHull = 1;

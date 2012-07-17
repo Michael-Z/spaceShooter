@@ -134,6 +134,18 @@ void clean_up()
   delete HM_radiusButton;
   delete HM_doubleButton;
 
+  //defensive Skill Buttons
+  delete shieldAmountButton;
+  delete shieldRegenButton;
+  delete shieldCapButton;
+
+  delete armorAmountButton;
+  delete hullAmountButton;
+
+  delete evasionButton;
+  delete hitRadButton;
+  delete damRedButton;
+
   //Free the surface
   SDL_FreeSurface(player);
   SDL_FreeSurface(grunt);
@@ -157,6 +169,7 @@ void clean_up()
 
   SDL_FreeSurface(instructionsBG);
   SDL_FreeSurface(pauseMenuBG);
+  SDL_FreeSurface(gameOverBG);
   SDL_FreeSurface(skillTreeBG);
   SDL_FreeSurface(skillTreeSelection);
   SDL_FreeSurface(offensiveTreeBG);
@@ -170,6 +183,30 @@ void clean_up()
   SDL_FreeSurface(MS_rangeTTimg);
   SDL_FreeSurface(MS_radiusTTimg);
   SDL_FreeSurface(MS_rateTTimg);
+
+  SDL_FreeSurface(MG_damageTTimg);
+  SDL_FreeSurface(MG_speedTTimg);
+  SDL_FreeSurface(MG_rangeTTimg);
+  SDL_FreeSurface(MG_doubleTTimg);
+
+  SDL_FreeSurface(SG_rangeTTimg);
+  SDL_FreeSurface(SG_damageTTimg);
+  SDL_FreeSurface(SG_rateTTimg);
+  SDL_FreeSurface(SG_doubleTTimg);
+
+  SDL_FreeSurface(HM_rangeTTimg);
+  SDL_FreeSurface(HM_damageTTimg);
+  SDL_FreeSurface(HM_radiusTTimg);
+  SDL_FreeSurface(HM_doubleTTimg);
+  
+  SDL_FreeSurface(shield_amountTTimg);
+  SDL_FreeSurface(shield_regenTTimg);
+  SDL_FreeSurface(shieldCapTTimg);
+  SDL_FreeSurface(armor_amountTTimg);
+  SDL_FreeSurface(hull_amountTTimg);
+  SDL_FreeSurface(evasionTTimg);
+  SDL_FreeSurface(hitRadiusTTimg);
+  SDL_FreeSurface(damRedTTimg);
 
   //free sound effecs
   Mix_FreeChunk(moltenSlugSFX);
@@ -407,7 +444,8 @@ void doExplosions()
 
 void gameOver()
 {
-  std::cout << "Game Over!\n";
+  isPaused = true;
+  menu = 4;
 }
 
 void showText(const char* text, TTF_Font *font, SDL_Color color, int x, int y)

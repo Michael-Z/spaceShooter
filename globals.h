@@ -46,6 +46,7 @@ extern SDL_Surface *menuBG_1024_768;
 
 extern SDL_Surface *instructionsBG;
 extern SDL_Surface *pauseMenuBG;
+extern SDL_Surface *gameOverBG;
 extern SDL_Surface *skillTreeBG;
 extern SDL_Surface *offensiveTreeBG;
 extern SDL_Surface *defensiveTreeBG;
@@ -98,6 +99,19 @@ extern SkillButton *HM_damageButton;
 extern SkillButton *HM_radiusButton;
 extern SkillButton *HM_doubleButton;
 
+//defensive Skill buttons
+extern SkillButton *shieldAmountButton;
+extern SkillButton *shieldRegenButton;
+extern SkillButton *shieldCapButton;
+
+extern SkillButton *armorAmountButton;
+extern SkillButton *hullAmountButton;
+
+extern SkillButton *evasionButton;
+extern SkillButton *hitRadButton;
+extern SkillButton *damRedButton;
+
+
 extern SDL_Surface *skillButtonSelection;
 extern SDL_Rect skillButtonSelectionFrames[3];
 
@@ -127,6 +141,18 @@ extern SDL_Surface *HM_rangeTTimg;
 extern SDL_Surface *HM_damageTTimg;
 extern SDL_Surface *HM_radiusTTimg;
 extern SDL_Surface *HM_doubleTTimg;
+
+//defensive tooltips
+
+extern SDL_Surface *shield_amountTTimg;
+extern SDL_Surface *shield_regenTTimg;
+extern SDL_Surface *shieldCapTTimg;
+extern SDL_Surface *armor_amountTTimg;
+extern SDL_Surface *hull_amountTTimg;
+extern SDL_Surface *evasionTTimg;
+extern SDL_Surface *hitRadiusTTimg;
+extern SDL_Surface *damRedTTimg;
+
 
 //explosion_clips
 extern SDL_Rect explosion_frames[25];

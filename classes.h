@@ -94,7 +94,17 @@ class Ship
   //surface of the ship
   SDL_Surface *ship;
 
+  //metal slugs container
+  std::list<Projectile*> slugs;
+    
+ public:
+  ~Ship();
+
   //defences
+  int evasion;
+  int hitRadius;
+  int damRed;
+
   int maxHull;
   int hull;
 
@@ -104,12 +114,7 @@ class Ship
   int maxShield;
   int shield;
   int shieldRegen; //% per 10 frames
-
-  //metal slugs container
-  std::list<Projectile*> slugs;
-    
- public:
-  ~Ship();
+  bool shieldCap; // regeneration increases while less
 
   //weapon properties
   int MS_speed;
@@ -158,7 +163,7 @@ class Ship
   void show();
 
   //take damage
-  void takeDamage(int damage);
+  void takeDamage(int damage, bool collide = false);
 
   //shoot various projectiles
   void shootProjectile(SDL_Surface* image, int speed, int range, int damage,
@@ -195,13 +200,6 @@ class Ship
 class Player : public Ship
 {
  private:
-  int level;
-  Uint32 exp;
-  Uint32 oldExp;
-  Uint32 levelExp;
-
-  int skillPoints;
-
   //if the keys are pressed
   bool up;
   bool down;
@@ -218,19 +216,19 @@ class Player : public Ship
   //current angle
   double angle;
 
-  //energy
-  int maxEnergy;
-  int energy;
-  int energyRegen; //energy regen per 10 frames
-
   //current lclick weapon 1-5?
   int weapon;
   int ability;
 
-  int shieldRepFact;
-
  public:
   Player();
+
+  int level;
+  Uint32 exp;
+  Uint32 oldExp;
+  Uint32 levelExp;
+
+  int skillPoints;
 
   //skill points
   int MS_damagePoints;
@@ -253,6 +251,16 @@ class Player : public Ship
   int HM_radiusPoints;
   int HM_doublePoints;
 
+  
+  int shieldAmountPoints;
+  int shieldRegenPoints;
+  int shieldCapPoints;
+  int armorAmountPoints;
+  int hullAmountPoints;
+  int evasionPoints;
+  int hitRadPoints;
+  int damRedPoints;
+
   void regenEnergy();
 
   void doUnit();
@@ -272,6 +280,13 @@ class Player : public Ship
 
   //center Camera
   void set_camera();
+
+  //energy
+  int maxEnergy;
+  int energy;
+  int energyRegen; //energy regen per 10 frames
+
+  int shieldRepFact;
 
   int getLevel() { return level; }
 

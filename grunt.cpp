@@ -28,6 +28,10 @@ Grunt::Grunt(int startx, int starty, Ship *player0)
   x1 = 0;
   y1 = 1;
 
+  evasion = 0;
+  hitRadius = radius;
+  damRed = 0;
+
   maxShield = 10;
   maxArmor = 10;
   maxHull = 10;

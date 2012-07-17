@@ -125,6 +125,22 @@ void instructionsMenu()
   return;
 }
 
+void gameOverMenu()
+{
+  if(mainMenuButton->handle_events())
+    {
+      menu = 0;
+      return;
+    }
+
+  //apply BG
+  apply_surface(0, 0, menuBG_1024_768, screen);
+  mainMenuButton->show();
+  apply_surface(0, 0, gameOverBG, screen);
+
+  return;
+}
+
 void doPauseMenu()
 {
   if(resumeGameButton->handle_events())
@@ -177,6 +193,12 @@ void doSkillMenu(Player* player)
       return;
     }
 
+  //show buttons
+  offensiveTreeButton->show();
+  defensiveTreeButton->show();
+  abilityTreeButton->show();
+  pauseMenuButton->show();
+
   switch(skillTree)
     {
     case 0: doOffensiveTree(player); title = "Offensive Skills"; break;
@@ -206,12 +228,6 @@ void doSkillMenu(Player* player)
   apply_surface(40, 120, skillPointsLabel, screen);
 
   SDL_FreeSurface(skillPointsLabel);
-
-  //show buttons
-  offensiveTreeButton->show();
-  defensiveTreeButton->show();
-  abilityTreeButton->show();
-  pauseMenuButton->show();
 
   apply_surface(0, 0, skillTreeBG, screen);
 }
@@ -430,6 +446,110 @@ void doOffensiveTree(Player* player)
 void doDefensiveTree(Player* player)
 {
   apply_surface(0, 0, defensiveTreeBG, screen);
+
+  if(shieldAmountButton->handle_events(player->shieldAmountPoints) &&
+     player->useSkillPoint())
+    {
+      player->shieldAmountPoints++;
+      player->shield += player->level * SHIELD_PER_POINT;
+      player->maxShield += player->level * SHIELD_PER_POINT;
+    }
+
+  if(player->level >= 3 && player->shieldAmountPoints > 0)
+    {
+      if(shieldRegenButton->handle_events(player->shieldRegenPoints) &&
+	 player->useSkillPoint())
+	{
+	  player->shieldRegenPoints++;
+	  if(player->shieldRegenPoints % 2 == 0)
+	    player->shieldRegen++;
+	  
+	}
+    }
+  else
+    shieldRegenButton->skillUnavail();
+
+  if(player->level >= 5 && player->shieldRegenPoints > 0)
+    {
+      if(shieldCapButton->handle_events(player->shieldCapPoints) &&
+	 player->shieldCapPoints < 1 && player->useSkillPoint())
+	{
+	  player->shieldCapPoints++;
+	  player->shieldCap = true;
+	}
+    }
+  else
+    shieldCapButton->skillUnavail();
+
+  if(armorAmountButton->handle_events(player->armorAmountPoints) &&
+     player->useSkillPoint())
+    {
+      player->armorAmountPoints++;
+      player->maxArmor += player->level * ARMOR_PER_POINT;
+      player->armor += player->level * ARMOR_PER_POINT;
+    }
+
+  if(player->level > 3 && player->armorAmountPoints > 0)
+    {
+      if(hullAmountButton->handle_events(player->hullAmountPoints) &&
+	 player->useSkillPoint())
+	{
+	  player->hullAmountPoints++;
+	  player->maxHull += player->level * HULL_PER_POINT;
+	  player->hull += player->level * HULL_PER_POINT;
+	}
+    }
+  else
+    hullAmountButton->skillUnavail();
+
+  if(player->level >= 3 && player->shieldAmountPoints > 0 &&
+     player->armorAmountPoints > 0)
+    {
+      if(evasionButton->handle_events(player->evasionPoints) &&
+	 player->evasionPoints < 10 && player->useSkillPoint())
+	{
+	  player->evasionPoints++;
+	  player->evasion += 4;
+	}
+    }
+  else
+    evasionButton->skillUnavail();
+
+  if(player->level >= 5 && player->evasionPoints > 0 &&
+     player->shieldRegenPoints > 0 && player->hullAmountPoints > 0)
+    {
+      if(hitRadButton->handle_events(player->hitRadPoints) &&
+	 player->hitRadPoints < 5 && player->useSkillPoint())
+	{
+	  player->hitRadPoints++;
+	  player->hitRadius -= 2;
+	}
+    }
+  else
+    hitRadButton->skillUnavail();
+
+  if(player->level >= 10 && player->hitRadPoints > 0)
+    {
+      if(damRedButton->handle_events(player->damRedPoints)
+	 && player->damRedPoints < 3 && player->useSkillPoint())
+	{
+	  player->damRedPoints++;
+	  player->damRed += 10;
+	}
+    }
+  else
+    damRedButton->skillUnavail();
+  
+  shieldAmountButton->handle_tooltip();
+  shieldRegenButton->handle_tooltip();
+  shieldCapButton->handle_tooltip();
+
+  armorAmountButton->handle_tooltip();
+  hullAmountButton->handle_tooltip();
+
+  evasionButton->handle_tooltip();
+  hitRadButton->handle_tooltip();
+  damRedButton->handle_tooltip();
 }
 
 void doAbilityTree(Player* player)

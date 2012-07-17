@@ -100,7 +100,8 @@ int main(int argc, char* args[])
 	    case 1: instructionsMenu(); break;
 	    case 2: doPauseMenu(); break;
 	    case 3: doSkillMenu(player0); break;
-	      //case 4: doShopMenu(player0); break;
+	    case 4: gameOverMenu(); break;
+	      //case 5: doShopMenu(player0); break;
 	      //if not valid menu, unpause game
 	    default: isPaused = false;
 	    }
