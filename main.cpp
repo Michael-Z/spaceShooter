@@ -103,6 +103,7 @@ int main(int argc, char* args[])
 	    case 4: gameOverMenu(); break;
 	      //case 5: doShopMenu(player0); break;
 	      //if not valid menu, unpause game
+	    case 6: victoryMenu(); break;
 	    default: isPaused = false;
 	    }
 	}

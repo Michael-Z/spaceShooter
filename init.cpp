@@ -85,6 +85,7 @@ bool load_files()
   instructionsBG = load_image("images/instructionsBG.png", true);
   pauseMenuBG = load_image("images/pauseMenuBG.png", true);
   gameOverBG = load_image("images/gameOverBG.png", true);
+  victoryBG = load_image("images/victoryBG.png", true);
   skillTreeBG = load_image("images/skillTreeBG.png", true);
   offensiveTreeBG = load_image("images/offensiveSkills.png", true);
   defensiveTreeBG = load_image("images/defensiveSkills.png", true);

@@ -29,9 +29,6 @@ int levelUpTimer = 0;
 SDL_Surface *mainMessage = NULL;
 int mainMessageTimer = 0;
 
-SDL_Surface *scoreHUD = NULL;
-SDL_Surface *levelHUD = NULL;
-
 SDL_Surface *background = NULL;
 SDL_Surface *screen = NULL;
 
@@ -44,6 +41,7 @@ SDL_Surface *menuBG_1024_768 = NULL;
 SDL_Surface *instructionsBG = NULL;
 SDL_Surface *pauseMenuBG = NULL;
 SDL_Surface *gameOverBG = NULL;
+SDL_Surface *victoryBG = NULL;
 SDL_Surface *skillTreeBG = NULL;
 SDL_Surface *offensiveTreeBG = NULL;
 SDL_Surface *defensiveTreeBG = NULL;

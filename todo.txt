@@ -2,18 +2,32 @@ To do:
 
 *make abilities
 *fill skill trees
-*add mute button
-*add tooltips for gameplay
+
++ability ideas
+ -nova, deals damage * charged energy
+ -reduce damage taken *
+ -slow time (frame rate)
+
 *finish arcade mode, mainGame
+*enemies more difficult after beating (global enemy stats/static class var)
+*restart game higher difficulty button
+
 *game saving
 *current ability & weapon icons & tooltips
 
 
+
+*add tooltips for gameplay
+*add mute button
+
+*disable boomer collision?
+*shield too op.  decrease regen?
 *particle effects
 *make some sounds quieter?
 *prevent enemies from spawning on top of others
 *make sure everything is freed on clean_up() (delete news, free SDL_surfaces)
 
+*warp in animation?
 *warcraft style miss label
 *improve shield rep animation
 *Improve sprite quality

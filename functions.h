@@ -68,6 +68,8 @@ void resetEnemies();
 
 void playSound(Mix_Chunk *sound);
 
+void setMainMessage(const char *message, int time);
+
 //init.cpp functions
 
 void reset();
@@ -79,5 +81,9 @@ void doArcadeMode(Player *player0);
 void doMainGame(Player *player0);
 void doWave1(Player *player0);
 void doWave2(Player *player0);
+void doWave3(Player *player0);
+void doWave4(Player *player0);
+void doWave5(Player *player0);
+void doWave6(Player *player0);
 
 #endif

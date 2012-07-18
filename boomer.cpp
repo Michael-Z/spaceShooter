@@ -75,11 +75,11 @@ void Boomer::accelerate()
     }
 
   //tryto avoid crashing into walls                                            
-  if(LEVEL_WIDTH - x < 150 && xVel > -maxSpeed) xVel -=2;
-  else if(x < 150 && xVel < maxSpeed) xVel += 2;
+  if(LEVEL_WIDTH - x < 100 && xVel > -maxSpeed) xVel -=2;
+  else if(x < 100 && xVel < maxSpeed) xVel += 2;
 
-  if(LEVEL_HEIGHT - y <150 && yVel > -maxSpeed) yVel -= 2;
-  else if(y < 150 && yVel < maxSpeed) yVel += 2;
+  if(LEVEL_HEIGHT - y <100 && yVel > -maxSpeed) yVel -= 2;
+  else if(y < 100 && yVel < maxSpeed) yVel += 2;
 
 }
 

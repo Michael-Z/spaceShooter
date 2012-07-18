@@ -31,10 +31,6 @@ extern int levelUpTimer;
 extern SDL_Surface *mainMessage;
 extern int mainMessageTimer; //timer for main message
 
-extern SDL_Surface *scoreHUD;
-extern SDL_Surface *levelHUD;
-
-
 extern SDL_Surface *background;
 extern SDL_Surface *screen;
 
@@ -48,6 +44,7 @@ extern SDL_Surface *menuBG_1024_768;
 extern SDL_Surface *instructionsBG;
 extern SDL_Surface *pauseMenuBG;
 extern SDL_Surface *gameOverBG;
+extern SDL_Surface *victoryBG;
 extern SDL_Surface *skillTreeBG;
 extern SDL_Surface *offensiveTreeBG;
 extern SDL_Surface *defensiveTreeBG;

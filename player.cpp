@@ -57,17 +57,27 @@ Player::Player()
   MG_speed = 20;
   MG_damage = 3;
   MG_radius = 4;
-  MG_range = 400;
+  MG_range = 350;
   MG_rate = 4;
   MG_double = false;
 
   //shotgun
+  /*
   SG_speed = 20;
   SG_damage = 8;
   SG_radius = 5;
   SG_range = 400;
   SG_rate = 30;
   SG_double = false;
+  */
+
+  //OP shotgun for wave test quick killing
+  SG_speed = 30;
+  SG_damage = 10;
+  SG_radius = 5;
+  SG_range = 800;
+  SG_rate = 10;
+  SG_double = true;
 
   //homing missiles
   homing_speed = 10;
@@ -109,7 +119,7 @@ Player::Player()
 
   //abilities
   shieldRepFact = 1;
-  armorRepFact = 1;
+  armorRepFact = 2;
 
   //set skill points
 
@@ -177,6 +187,9 @@ void Player::handle_input()
 	case SDLK_F3: ability = 3; break;
 	case SDLK_F4: ability = 4; break;
 	case SDLK_F5: ability = 5; break;
+
+	  //for testing waves
+	case SDLK_F6: resetEnemies(); inWave = false; break;
 	
 	default: void(); break;
         }

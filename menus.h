@@ -7,6 +7,7 @@ bool handle_menu_input();
 bool doMainMenu();
 void instructionsMenu();
 void gameOverMenu();
+void victoryMenu();
 void doPauseMenu();
 void doSkillMenu(Player *player);
 void doOffensiveTree(Player *player);

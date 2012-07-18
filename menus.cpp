@@ -141,6 +141,22 @@ void gameOverMenu()
   return;
 }
 
+void victoryMenu()
+{
+  if(mainMenuButton->handle_events())
+    {
+      menu = 0;
+      return;
+    }
+
+  apply_surface(0, 0, menuBG_1024_768, screen);
+  mainMenuButton->show();
+
+  apply_surface(0, 0, victoryBG, screen);
+
+  return;
+}
+
 void doPauseMenu()
 {
   if(resumeGameButton->handle_events())

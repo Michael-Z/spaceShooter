@@ -173,6 +173,7 @@ void clean_up()
   SDL_FreeSurface(instructionsBG);
   SDL_FreeSurface(pauseMenuBG);
   SDL_FreeSurface(gameOverBG);
+  SDL_FreeSurface(victoryBG);
   SDL_FreeSurface(skillTreeBG);
   SDL_FreeSurface(skillTreeSelection);
   SDL_FreeSurface(offensiveTreeBG);
@@ -331,6 +332,7 @@ void renderHUD(Player *player)
 
   //render score
   std::stringstream scoreStr;
+  SDL_Surface *scoreHUD;
 
   scoreStr << "Score: " << playerScore;
 
@@ -340,9 +342,9 @@ void renderHUD(Player *player)
 
   SDL_FreeSurface(scoreHUD);
 
-  //here for later implementation
 
   std::stringstream levelStr;
+  SDL_Surface *levelHUD;
 
   levelStr << "Level: " << playerLevel;
   levelHUD = TTF_RenderText_Solid(font18, levelStr.str().c_str(), font18Color);
@@ -350,6 +352,20 @@ void renderHUD(Player *player)
   apply_surface(5, 18, levelHUD, screen);
 
   SDL_FreeSurface(levelHUD);
+
+  if(gameMode == 0) //if playing main game
+    {
+      std::stringstream waveStr;
+      SDL_Surface *waveHUD;
+      
+      waveStr << "Wave: " << currentWave;
+      waveHUD = TTF_RenderText_Solid(font18, waveStr.str().c_str(),
+				     font18Color);
+      
+      apply_surface(5, 36, waveHUD, screen);
+      SDL_FreeSurface(waveHUD);
+    }
+  
 }
 
 void doGrunts()
@@ -508,4 +524,12 @@ void playSound(Mix_Chunk *sound)
 {
   if(mute == false)
     Mix_PlayChannel(-1, sound, 0);
+}
+
+void setMainMessage(const char *message, int time)
+{
+  mainMessage = TTF_RenderText_Solid(font28, message, font28Color);
+  mainMessageTimer = 60;
+
+  //automatically freed by render function when timer = 0;
 }
