@@ -60,8 +60,8 @@ bool Projectile::isOutBounds()
 }
 
 void Projectile::show()
-{
-  apply_surface(x - camera.x, y - camera.y, picture, screen);
+{//5 is radius of projectile images
+  apply_surface(x - camera.x - 5, y - camera.y - 5, picture, screen);
 }
 
 bool Projectile::collide(int cX, int cY, int rad)

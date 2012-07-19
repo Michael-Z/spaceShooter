@@ -21,5 +21,6 @@ const double PI = 3.14159265;
 const int SHIELD_PER_POINT = 10;
 const int ARMOR_PER_POINT = 20;
 const int HULL_PER_POINT = 30;
+const int ENERGY_PER_POINT = 10;
 
 #endif

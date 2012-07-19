@@ -166,6 +166,8 @@ void clean_up()
   SDL_FreeSurface(shotgun);
   SDL_FreeSurface(homing);
 
+  SDL_FreeSurface(energyBolt);
+
   SDL_FreeSurface(mainMenuBG);
   SDL_FreeSurface(mainMenuButtons);
   SDL_FreeSurface(mainMenuButtonText);
@@ -211,6 +213,17 @@ void clean_up()
   SDL_FreeSurface(evasionTTimg);
   SDL_FreeSurface(hitRadiusTTimg);
   SDL_FreeSurface(damRedTTimg);
+
+  SDL_FreeSurface(energy_amountTTimg);
+  SDL_FreeSurface(energy_regenTTimg);
+  SDL_FreeSurface(shieldRepTTimg);
+  SDL_FreeSurface(armorRepTTimg);
+  SDL_FreeSurface(engShieldTTimg);
+  SDL_FreeSurface(novaRangeTTimg);
+  SDL_FreeSurface(novaDamageTTimg);
+  SDL_FreeSurface(EB_costTTimg);
+  SDL_FreeSurface(EB_damageTTimg);
+
 
   //free sound effecs
   Mix_FreeChunk(moltenSlugSFX);

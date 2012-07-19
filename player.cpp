@@ -13,6 +13,7 @@
 #include "classes.h"
 #include "functions.h"
 #include "globals.h"
+#include "draw_circle.h"
 
 
 Player::Player()
@@ -121,6 +122,25 @@ Player::Player()
   shieldRepFact = 1;
   armorRepFact = 2;
 
+  novaMult = (double).5;
+  novaRad = 200;
+  novaPoints = 0;
+  novaStage = 0;
+
+  //EB
+  EB_speed = 40;
+  EB_damage = 10;
+  EB_radius = 20;
+  EB_range = 800;
+  EB_rate = 10;
+  EB_timer = 0;
+  EBcost = 10;
+
+  //energyShield
+
+  ES_damRed = 10;
+  ES_on = false;
+
   //set skill points
 
   //offensive
@@ -153,6 +173,17 @@ Player::Player()
   evasionPoints = 0;
   hitRadPoints = 0;
   damRedPoints = 0;
+
+  energy_amountPoints = 0;
+  energy_regenPoints = 0;
+  shieldRepPoints = 0;
+  armorRepPoints = 0;
+  engShieldPoints = 0;
+  novaRangePoints = 0;
+  novaDamagePoints = 0;
+  EB_costPoints = 0;
+  EB_damagePoints = 0;
+
 }
 
 void Player::regenEnergy()
@@ -163,9 +194,14 @@ void Player::regenEnergy()
 
 void Player::handle_input()
 {
+  int abilityOld = ability;
+  int weaponOld = weapon;
+
   //If a key was pressed
   if( event.type == SDL_KEYDOWN )
     {
+
+
       //Adjust the velocity
       switch( event.key.keysym.sym )
         {
@@ -193,6 +229,12 @@ void Player::handle_input()
 	
 	default: void(); break;
         }
+
+      if(rmouse)
+	ability = abilityOld;
+
+      if(lmouse)
+	weapon = weaponOld;
     }
   //If a key was released
   else if( event.type == SDL_KEYUP )
@@ -235,7 +277,20 @@ void Player::handle_input()
 	lmouse = false;
 
       if(event.button.button == SDL_BUTTON_RIGHT)
-	rmouse = false;
+	{
+	  rmouse = false;
+
+	  //unleash nova
+	  if(ability == 3 && novaPoints > 0 && novaStage == 0)
+	    novaStage = 1;
+
+	  //disable ES
+	  if(ability == 5 && ES_on)
+	    {
+	      ES_on = false;
+	      damRed -= ES_startDamRed;
+	    }
+	}
     }
 }
 
@@ -338,6 +393,44 @@ void Player::doRightClick()
 	{
 	  repairArmor();
 	}
+      if(ability == 3 && energy > 0 && novaStage == 0)
+	{
+	  chargeNova();
+	}
+      //must release nova if energy is empty
+      else if(ability == 3 && energy == 0) 
+	novaStage = 1;
+
+      if(ability == 4 && energy > 10 && frame - EB_timer > EB_rate)
+	{
+	  //shoot energy bolt (OP projectile, uses lots of energy)
+	  energy -= EBcost;
+	  EB_timer = frame;
+	  shootProjectile(energyBolt, EB_speed, EB_range, EB_damage, EB_radius,
+			  false);
+	}
+
+      if(ability == 5 && energy > 0)
+	{
+	  if(!ES_on)
+	    {
+	      ES_on = true;
+	      ES_startDamRed = ES_damRed; //prevent string behavior from skills
+	      damRed += ES_startDamRed;
+	    }
+
+	  if(frame % 4 == 0)
+	    energy -= 1;
+	}
+      else if(ability == 5 && energy == 0 && ES_on)
+	{
+	  if(ES_on)
+	    {
+	      ES_on = false;
+	      damRed -= ES_startDamRed;
+	    }
+	}
+      
     }
 }
 
@@ -420,6 +513,10 @@ void Player::doUnit()
   show();
   doRightClick();
 
+  //do nova
+  if(novaStage > 0)
+    doNova();
+
   //level up animation
   if(levelUpTimer > 0)
     {
@@ -454,8 +551,8 @@ void Player::doLevel()
   maxHull += 5 + hullAmountPoints * HULL_PER_POINT;
   hull += 5 + hullAmountPoints * HULL_PER_POINT;
 
-  maxEnergy += 5;
-  energy += 5;
+  maxEnergy += 5 + energy_amountPoints * ENERGY_PER_POINT;
+  energy += 5 + energy_amountPoints * ENERGY_PER_POINT;
 
   //show level up message
   //font28Color = {0xEE, 0xEE, 0xEE};
@@ -499,4 +596,75 @@ void Player::repairArmor()
   if(armor > maxArmor)
     armor = maxArmor;
   energy -= 1;
+}
+
+void Player::chargeNova()
+{
+  //need animation
+  apply_surface(x - camera.x - 25, y - camera.y - 25,
+		armor_rep, screen,
+		&armor_rep_frames[(frame % 16 / 4)]);
+
+  novaPoints++;
+  energy--;
+  
+}
+
+void Player::doNova()
+{
+  //printf("doNova()\n");
+  novaStage += 10;
+  draw_circle(screen, x - camera.x, y - camera.y, novaStage,
+	      0xFFFFFFFF);
+
+  int dist;
+
+  //check for enemies being hit
+  for(std::list<Grunt*>::iterator it = grunts.begin(); it != grunts.end();
+      it++)
+    {
+      dist = distForm((**it).getX(), (**it).getY(), x, y);
+      if(dist > novaStage - 5 && dist < novaStage + 5)
+	{
+	  (**it).takeDamage(int(novaPoints * novaMult), true);
+	}
+    }
+
+  for(std::list<Boomer*>::iterator it = boomers.begin(); it != boomers.end();
+      it++)
+    {
+      dist = distForm((**it).getX(), (**it).getY(), x, y);
+      if(dist > novaStage - 15 && dist < novaStage + 15)
+        {
+          (**it).takeDamage(int(novaPoints * novaMult), true);
+	}
+    }
+
+  for(std::list<Stealth*>::iterator it = stealths.begin(); it !=stealths.end();
+      it++)
+    {
+      dist = distForm((**it).getX(), (**it).getY(), x, y);
+      if(dist > novaStage - 10 && dist < novaStage + 10)
+        {
+          (**it).takeDamage(int(novaPoints * novaMult), true);
+	}
+    }
+
+  for(std::list<Carrier*>::iterator it = carriers.begin(); it !=carriers.end();
+      it++)
+    {
+      dist = distForm((**it).getX(), (**it).getY(), x, y);
+      if(dist > novaStage - 10 && dist < novaStage + 10)
+        {
+          (**it).takeDamage(int(novaPoints * novaMult), true);
+	}
+    }
+
+  
+
+  if(novaStage > novaRad)
+    {
+      novaStage = 0;
+      novaPoints = 0;
+    }
 }

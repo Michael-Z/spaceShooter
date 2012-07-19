@@ -261,6 +261,16 @@ class Player : public Ship
   int hitRadPoints;
   int damRedPoints;
 
+  int energy_amountPoints;
+  int energy_regenPoints;
+  int shieldRepPoints;
+  int armorRepPoints;
+  int engShieldPoints;
+  int novaRangePoints;
+  int novaDamagePoints;
+  int EB_costPoints;
+  int EB_damagePoints;
+
   void regenEnergy();
 
   void doUnit();
@@ -290,6 +300,26 @@ class Player : public Ship
   int shieldRepFact;
   int armorRepFact;
 
+  //energy nova
+  double novaMult; //damage = novaPoints * novaMult
+  int novaRad; //radius of the nova
+  int novaPoints; //energy points used for charging nova
+  int novaStage; //current stage of nova
+
+  //energyBolt
+  int EB_speed;
+  int EB_damage;
+  int EB_radius;
+  int EB_range;
+  int EB_rate;
+  int EB_timer;
+  int EBcost;
+
+  //energy shield
+  int ES_startDamRed;
+  int ES_damRed;
+  bool ES_on;
+
   int getLevel() { return level; }
 
   int getMaxEnergy() { return maxEnergy; }
@@ -304,6 +334,9 @@ class Player : public Ship
 
   void repairShield();
   void repairArmor();
+
+  void chargeNova();
+  void doNova();
 };
 
 //basic enemy, dumb and shoots molten slugs

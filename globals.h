@@ -109,6 +109,17 @@ extern SkillButton *evasionButton;
 extern SkillButton *hitRadButton;
 extern SkillButton *damRedButton;
 
+//ability skill buttons
+extern SkillButton *energy_amountButton;
+extern SkillButton *energy_regenButton;
+extern SkillButton *shieldRepButton;
+extern SkillButton *armorRepButton;
+extern SkillButton *engShieldButton;
+extern SkillButton *novaRangeButton;
+extern SkillButton *novaDamageButton;
+extern SkillButton *EB_costButton;
+extern SkillButton *EB_damageButton;
+
 
 extern SDL_Surface *skillButtonSelection;
 extern SDL_Rect skillButtonSelectionFrames[3];
@@ -151,6 +162,18 @@ extern SDL_Surface *evasionTTimg;
 extern SDL_Surface *hitRadiusTTimg;
 extern SDL_Surface *damRedTTimg;
 
+//ability skill tooltips
+
+extern SDL_Surface *energy_amountTTimg;
+extern SDL_Surface *energy_regenTTimg;
+extern SDL_Surface *shieldRepTTimg;
+extern SDL_Surface *armorRepTTimg;
+extern SDL_Surface *engShieldTTimg;
+extern SDL_Surface *novaRangeTTimg;
+extern SDL_Surface *novaDamageTTimg;
+extern SDL_Surface *EB_costTTimg;
+extern SDL_Surface *EB_damageTTimg;
+
 
 //explosion_clips
 extern SDL_Rect explosion_frames[25];
@@ -181,6 +204,8 @@ extern SDL_Surface *moltenSlug;
 extern SDL_Surface *miniGun;
 extern SDL_Surface *shotgun;
 extern SDL_Surface *homing;
+
+extern SDL_Surface *energyBolt;
 
 //enemy containers
 extern std::list<Grunt*> grunts;

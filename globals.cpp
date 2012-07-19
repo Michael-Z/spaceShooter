@@ -108,6 +108,17 @@ SkillButton *evasionButton;
 SkillButton *hitRadButton;
 SkillButton *damRedButton;
 
+//ability skill buttons
+SkillButton *energy_amountButton = NULL;
+SkillButton *energy_regenButton = NULL;
+SkillButton *shieldRepButton = NULL;
+SkillButton *armorRepButton = NULL;
+SkillButton *engShieldButton = NULL;
+SkillButton *novaRangeButton = NULL;
+SkillButton *novaDamageButton = NULL;
+SkillButton *EB_costButton = NULL;
+SkillButton *EB_damageButton = NULL;
+
 
 SDL_Surface *skillButtonSelection = NULL;
 SDL_Rect skillButtonSelectionFrames[3];
@@ -149,6 +160,18 @@ SDL_Surface *evasionTTimg = NULL;
 SDL_Surface *hitRadiusTTimg = NULL;
 SDL_Surface *damRedTTimg = NULL;
 
+//ability skill tooltips
+
+SDL_Surface *energy_amountTTimg = NULL;
+SDL_Surface *energy_regenTTimg = NULL;
+SDL_Surface *shieldRepTTimg = NULL;
+SDL_Surface *armorRepTTimg = NULL;
+SDL_Surface *engShieldTTimg = NULL;
+SDL_Surface *novaRangeTTimg = NULL;
+SDL_Surface *novaDamageTTimg = NULL;
+SDL_Surface *EB_costTTimg = NULL;
+SDL_Surface *EB_damageTTimg = NULL;
+
 
 //explosion clips
 SDL_Rect explosion_frames[25];
@@ -179,6 +202,8 @@ SDL_Surface *moltenSlug = NULL;
 SDL_Surface *miniGun = NULL;
 SDL_Surface *shotgun = NULL;
 SDL_Surface *homing = NULL;
+
+SDL_Surface *energyBolt = NULL;
 
 //enemy containers
 std::list<Grunt*> grunts;

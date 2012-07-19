@@ -571,4 +571,115 @@ void doDefensiveTree(Player* player)
 void doAbilityTree(Player* player)
 {
   apply_surface(0, 0, abilityTreeBG, screen);
+
+  if(armorRepButton->handle_events(player->armorRepPoints) &&
+     player->useSkillPoint())
+    {
+      player->armorRepPoints++;
+      player->armorRepFact += 2;
+    }
+
+  if(player->level >= 3 && player->armorRepPoints > 0)
+    {
+      if(engShieldButton->handle_events(player->engShieldPoints) &&
+	 player->engShieldPoints < 5 && player->useSkillPoint())
+	{
+	  player->engShieldPoints++;
+	  player->ES_damRed += 10;
+	}
+    }
+  else
+    engShieldButton->skillUnavail();
+
+  if(energy_amountButton->handle_events(player->energy_amountPoints) &&
+     player->useSkillPoint())
+    {
+      player->energy_amountPoints++;
+      player->energy += player->level * ENERGY_PER_POINT;
+      player->maxEnergy += player->level * ENERGY_PER_POINT;
+    }
+
+  if(player->level >= 3 && player->energy_amountPoints > 0)
+    {
+      if(energy_regenButton->handle_events(player->energy_regenPoints) &&
+	 player->useSkillPoint())
+	{
+	  player->energy_regenPoints++;
+	  if(player->energy_regenPoints % 2 == 0)
+	    player->energyRegen++;
+	}
+    }
+  else
+    energy_regenButton->skillUnavail();
+
+  if(player->level >= 3 && player->energy_amountPoints > 0)
+    {
+      if(shieldRepButton->handle_events(player->shieldRepPoints) &&
+	 player->useSkillPoint())
+	{
+	  player->shieldRepPoints++;
+	  player->shieldRepFact++;
+	}
+    }
+  else
+    shieldRepButton->skillUnavail();
+
+  if(player->level >= 5 && player->energy_regenPoints > 0)
+    {
+      if(novaRangeButton->handle_events(player->novaRangePoints) &&
+	 player->useSkillPoint())
+	{
+	  player->novaRangePoints++;
+	  player->novaRad += 30;
+	}
+    }
+  else
+    novaRangeButton->skillUnavail();
+
+  if(player->level >= 5 && player->novaRangePoints > 0)
+    {
+      if(novaDamageButton->handle_events(player->novaDamagePoints) &&
+	 player->useSkillPoint())
+	{
+	  player->novaDamagePoints++;
+	  player->novaMult += .2;
+	}
+    }
+  else
+    novaDamageButton->skillUnavail();
+
+  if(player->level >= 5 && player->energy_regenPoints > 0)
+    {
+      if(EB_costButton->handle_events(player->EB_costPoints) &&
+	 player->EB_costPoints < 5 && player->useSkillPoint())
+	{
+	  player->EB_costPoints++;
+	  player->EBcost--;
+	}
+    }
+  else
+    EB_costButton->skillUnavail();
+
+  if(player->level >= 10 && player->EB_costPoints > 0)
+    {
+      if(EB_damageButton->handle_events(player->EB_damagePoints) &&
+	 player->useSkillPoint())
+	{
+	  player->EB_damagePoints++;
+	  player->EB_damage += 5;
+	}
+    }
+  else
+    EB_damageButton->skillUnavail();
+
+
+  energy_amountButton->handle_tooltip();
+  energy_regenButton->handle_tooltip();
+  shieldRepButton->handle_tooltip();
+  armorRepButton->handle_tooltip();
+  engShieldButton->handle_tooltip();
+  novaRangeButton->handle_tooltip();
+  novaDamageButton->handle_tooltip();
+  EB_costButton->handle_tooltip();
+  EB_damageButton->handle_tooltip();
 }

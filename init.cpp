@@ -75,6 +75,8 @@ bool load_files()
   shotgun = load_image("images/shotgun.png");
   homing = load_image("images/homing.png");
 
+  energyBolt = load_image("images/energyBolt.png");
+
   //menu items
   
   menuBG_1024_768 = load_image("images/menuBG_1024-768.png");
@@ -128,6 +130,18 @@ bool load_files()
   hitRadiusTTimg = load_image("images/hitRadiusTTimg.png", true);
   damRedTTimg = load_image("images/damageReductionTTimg.png", true);
 
+  //ability skills
+
+  energy_amountTTimg = load_image("images/energy_amountTTimg.png", true);
+  energy_regenTTimg = load_image("images/energy_regenTTimg.png", true);
+  shieldRepTTimg = load_image("images/shieldRepTTimg.png", true);
+  armorRepTTimg = load_image("images/armorRepTTimg.png", true);
+  engShieldTTimg = load_image("images/damageReductionTTimg.png", true);
+  novaRangeTTimg = load_image("images/novaRangeTTimg.png", true);
+  novaDamageTTimg = load_image("images/novaDamageTTimg.png", true);
+  EB_costTTimg = load_image("images/EB_costTTimg.png", true);
+  EB_damageTTimg = load_image("images/EB_damageTTimg.png", true);
+
 
   //If there was a problem in loading the player or background
   if(background == NULL || HUD_shield_armor_hull == NULL ||
@@ -154,7 +168,13 @@ bool load_files()
      shield_amountTTimg == NULL || shield_regenTTimg == NULL ||
      shieldCapTTimg == NULL || armor_amountTTimg == NULL ||
      hull_amountTTimg == NULL || evasionTTimg == NULL ||
-     hitRadiusTTimg == NULL || damRedTTimg == NULL)
+     hitRadiusTTimg == NULL || damRedTTimg == NULL ||
+
+     energy_amountTTimg == NULL || energy_regenTTimg == NULL ||
+     shieldRepTTimg == NULL || armorRepTTimg == NULL ||
+     engShieldTTimg == NULL || novaRangeTTimg == NULL ||
+     novaDamageTTimg == NULL || EB_costTTimg == NULL ||
+     EB_damageTTimg == NULL)
     {
       printf("failed to load an image\n");
       return false;    
@@ -375,6 +395,17 @@ void setButtons_and_Frames()
   evasionButton = new SkillButton(350, 300, 140, 140, evasionTTimg);
   hitRadButton = new SkillButton(350, 440, 140, 140, hitRadiusTTimg);
   damRedButton = new SkillButton(350, 580, 140, 140, damRedTTimg);
+
+  //ability skill buttons
+  energy_amountButton = new SkillButton(170,160, 140, 140, energy_amountTTimg);
+  energy_regenButton = new SkillButton(290, 300, 140, 140, energy_regenTTimg);
+  shieldRepButton = new SkillButton(50, 300, 140, 140, shieldRepTTimg);
+  armorRepButton = new SkillButton(490, 160, 140, 140, armorRepTTimg);
+  engShieldButton = new SkillButton(610, 300, 140, 140, engShieldTTimg);
+  novaRangeButton = new SkillButton(290, 440, 140, 140, novaRangeTTimg);
+  novaDamageButton = new SkillButton(50, 440, 140, 140, novaDamageTTimg);
+  EB_costButton = new SkillButton(490, 440, 140, 140, EB_costTTimg);
+  EB_damageButton = new SkillButton(490, 580, 140, 140, EB_damageTTimg);
   
   //set explosion frame clips
   for(int i = 0; i < 25; i++)
