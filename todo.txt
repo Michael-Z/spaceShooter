@@ -1,8 +1,8 @@
 To do:
-
 *finish arcade mode
 
 *game saving
+*high score screen
 *current ability & weapon icons & tooltips
 *fix shield capacitor
 
