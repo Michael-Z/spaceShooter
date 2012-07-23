@@ -321,6 +321,12 @@ void setButtons_and_Frames()
 			      &mainMenuButtonFrames[1],
 			      &mainMenuButtonFrames[2]);
 
+  restartButton = new Button(SCREEN_WIDTH / 2 - 150, 500,
+			     300, 100, mainMenuButtons,
+			     &mainMenuButtonFrames[0],
+			     &mainMenuButtonFrames[1],
+			     &mainMenuButtonFrames[2]);
+
   //set skillTreeSelection clips
   for(int i = 0; i < 3; i++)
     {

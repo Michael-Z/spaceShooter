@@ -30,6 +30,8 @@ void doMainGame(Player *player0)
     case 4: doWave4(player0); break;
     case 5: doWave5(player0); break;
     case 6: doWave6(player0); break;
+    case 7: doWave7(player0); break;
+    case 8: doWave8(player0); break;
 
     default: menu = 6; isPaused = true; break;
     }
@@ -56,8 +58,8 @@ void doWave1(Player *player0)
   switch(waveStage)
     {
     case 0:
-	grunts.push_back(new Grunt(500, 500, player0));
-	break;
+      grunts.push_back(new Grunt(500, 500, player0));
+      break;
 
     case 1:
       grunts.push_back(new Grunt(500, 1000, player0));
@@ -389,6 +391,120 @@ void doWave6(Player *player0)
         }
       waveCount--;
     }
+}
 
+void doWave7(Player *player0)
+{
+  int waveTime = frame - waveStartFrame;
+  
+  if(grunts.size() == 0 && waveCount == 0 && stealths.size() == 0)
+    waveStage++;
+  else if(waveCount != 0)
+    void();
+  else
+    return;
 
+  switch(waveStage)
+    {
+    case 0:
+      carriers.push_back(new Carrier(1500, 1500, player0));
+      stealths.push_back(new Stealth(800, 800, player0));
+      stealths.push_back(new Stealth(1200, 1200, player0));
+      stealths.push_back(new Stealth(800, 1200, player0));
+      stealths.push_back(new Stealth(1200, 800, player0));
+
+      for(int i = 100; i < 2000; i += 1800)
+	for(int j = 100; j < 200; j += 100)
+	  {
+	    grunts.push_back(new Grunt(i, j, player0));
+	    grunts.push_back(new Grunt(j, i, player0));
+	  }
+      break;
+
+    case 1:
+      carriers.push_back(new Carrier(1800, 1800, player0));
+      carriers.push_back(new Carrier(200, 200, player0));
+
+      for(int i = 100; i < 2000; i += 400)
+	for(int j = 100; j < 200; j += 400)
+	  stealths.push_back(new Stealth(i, j, player0));
+
+      for(int i = 100; i < 2000; i += 1800)
+	for(int j = 100; j < 200; j += 100)
+	  {
+	    grunts.push_back(new Grunt(i, j, player0));
+	    grunts.push_back(new Grunt(j, i, player0));
+	  }
+
+      break;
+
+    case 2:
+      if(waveCount == 0)
+	{
+	  waveCount = 5;
+	  carriers.push_back(new Carrier(1500, 1500, player0));
+	  carriers.push_back(new Carrier(500, 500, player0));
+	  carriers.push_back(new Carrier(1500, 500, player0));
+	  carriers.push_back(new Carrier(500, 1500, player0));
+	}
+
+      if(waveTime % 320 == 0 || (grunts.size() == 0 && stealths.size() == 0))
+	{
+	  grunts.push_back(new Grunt(200, 1000, player0));
+          grunts.push_back(new Grunt(1800, 1000, player0));
+          grunts.push_back(new Grunt(1000, 200, player0));
+          grunts.push_back(new Grunt(1000, 1800, player0));
+
+	  grunts.push_back(new Grunt(500, 1000, player0));
+          grunts.push_back(new Grunt(1000, 500, player0));
+          grunts.push_back(new Grunt(1000, 100, player0));
+          grunts.push_back(new Grunt(500, 500, player0));
+
+	  stealths.push_back(new Stealth(1900, 1900, player0));
+	  stealths.push_back(new Stealth(100, 100, player0));
+	  stealths.push_back(new Stealth(100, 1900, player0));
+	  stealths.push_back(new Stealth(100, 1900, player0));
+	  waveCount--;
+	}
+      break;
+
+    default:
+      if(carriers.size() == 0)
+	inWave = false;
+
+      break;
+    }
+}
+
+void doWave8(Player *player0)
+{
+  int waveTime = frame - waveStartFrame;
+  if(waveTime == 0)
+    {
+      carriers.push_back(new Carrier(1000, 300, player0));
+      carriers.push_back(new Carrier(300, 1000, player0));
+      carriers.push_back(new Carrier(1700, 1000, player0));
+      carriers.push_back(new Carrier(1000, 1700, player0));
+    }
+
+  if(carriers.size() > 0)
+    {
+      if(waveTime % 120 == 0)
+	{
+	  grunts.push_back(new Grunt(1800, 1800, player0));
+	  grunts.push_back(new Grunt(200, 1800, player0));
+	  grunts.push_back(new Grunt(200, 200, player0));
+	  grunts.push_back(new Grunt(1800, 200, player0));
+	}
+      if(waveTime % 180 == 0)
+	{
+	  stealths.push_back(new Stealth(500, 500, player0));
+	  stealths.push_back(new Stealth(1500, 500, player0));
+	  stealths.push_back(new Stealth(500, 1500, player0));
+	  stealths.push_back(new Stealth(1500, 1500, player0));
+	}
+    }
+  else
+    if(grunts.size() == 0 && boomers.size() == 0 && stealths.size() == 0)
+      inWave = false;
 }

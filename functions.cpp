@@ -546,3 +546,38 @@ void setMainMessage(const char *message, int time)
 
   //automatically freed by render function when timer = 0;
 }
+
+void increaseDifficulty()
+{
+  resetEnemies();
+  inWave = false;
+  currentWave = 0;
+  waveCount = 0;
+  isPaused = false;
+
+  Grunt::unit_score *= 4;
+  Grunt::unit_shield *= 4;
+  Grunt::unit_armor *= 4;
+  Grunt::unit_hull *= 4;
+  Grunt::unit_damage *= 4;
+
+  Boomer::unit_score *= 4;
+  Boomer::unit_shield *= 4;
+  Boomer::unit_armor *= 4;
+  Boomer::unit_hull *= 4;
+  Boomer::unit_damage *= 4;
+
+  Stealth::unit_score *= 4;
+  Stealth::unit_shield *= 4;
+  Stealth::unit_armor *= 4;
+  Stealth::unit_hull *= 4;
+  Stealth::unit_damage *= 4;
+
+  Carrier::unit_score *= 4;
+  Carrier::unit_shield *= 4;
+  Carrier::unit_armor *= 4;
+  Carrier::unit_hull *= 4;
+  Carrier::unit_damage *= 4;
+
+
+}

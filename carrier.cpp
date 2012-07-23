@@ -10,11 +10,18 @@
 #include "functions.h"
 #include "globals.h"
 
+//init carrier variables
+int Carrier::unit_score = 200;
+int Carrier::unit_shield = 100;
+int Carrier::unit_armor = 50;
+int Carrier::unit_hull = 100;
+int Carrier::unit_damage = 20;
+
 Carrier::Carrier(int startx, int starty, Ship *player0)
 {
   isPlayer = false;
   target = player0;
-  score = 200;
+  score = unit_score;
 
   radius = 50;
   maxSpeed = 10;
@@ -32,19 +39,19 @@ Carrier::Carrier(int startx, int starty, Ship *player0)
   hitRadius = radius;
   damRed = 0;
 
-  maxShield = 50;
-  maxArmor = 50;
-  maxHull = 100;
+  maxShield = unit_shield;
+  maxArmor = unit_armor;
+  maxHull = unit_hull;
 
   shieldRegen = 2;
   shieldCap = false;
-  shield = 50;
-  armor = 50;
-  hull = 100;
+  shield = maxShield;
+  armor = maxArmor;
+  hull = maxHull;
 
   //molten slug info
   MS_speed = 50;
-  MS_damage = 20;
+  MS_damage = unit_damage;
   MS_radius = 10;
   MS_range = 1000;
   MS_rate = 20;

@@ -10,11 +10,18 @@
 #include "functions.h"
 #include "globals.h"
 
+//ititialize grunt variables
+int Grunt::unit_score = 20;
+int Grunt::unit_shield = 10;
+int Grunt::unit_armor= 10;
+int Grunt::unit_hull = 10;
+int Grunt::unit_damage = 10;
+
 Grunt::Grunt(int startx, int starty, Ship *player0)
 {
   isPlayer = false;
   target = player0;
-  score = 20;
+  score = unit_score;
 
   radius = 30;
   maxSpeed = 20;
@@ -32,17 +39,17 @@ Grunt::Grunt(int startx, int starty, Ship *player0)
   hitRadius = radius;
   damRed = 0;
 
-  maxShield = 10;
-  maxArmor = 10;
-  maxHull = 10;
+  maxShield = unit_shield;
+  maxArmor = unit_armor;
+  maxHull = unit_hull;
 
-  shield = 10;
-  armor = 10;
-  hull = 10;
+  shield = maxShield;
+  armor = maxArmor;
+  hull = maxHull;
 
   //Molten Slug info
   MS_speed = 30;
-  MS_damage = 10;
+  MS_damage = unit_damage;
   MS_radius = 5;
   MS_range = 600;
   MS_rate = 20;

@@ -70,6 +70,8 @@ void playSound(Mix_Chunk *sound);
 
 void setMainMessage(const char *message, int time);
 
+void increaseDifficulty();
+
 //init.cpp functions
 
 void reset();
@@ -85,5 +87,7 @@ void doWave3(Player *player0);
 void doWave4(Player *player0);
 void doWave5(Player *player0);
 void doWave6(Player *player0);
+void doWave7(Player *player0);
+void doWave8(Player *player0);
 
 #endif

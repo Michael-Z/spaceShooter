@@ -68,6 +68,9 @@ extern Button *resumeGameButton;
 extern Button *skillMenuButton;
 extern Button *saveGameButton;
 
+//victory button
+extern Button *restartButton;
+
 //Skill tree Buttons
 extern Button *pauseMenuButton;
 extern Button *offensiveTreeButton;
@@ -266,5 +269,6 @@ extern Mix_Chunk *shotgunSFX;
 extern Mix_Chunk *homingSFX;
 
 extern Mix_Chunk *explosionSFX;
+
 
 #endif

@@ -65,6 +65,9 @@ Button *resumeGameButton = NULL;
 Button *skillMenuButton = NULL;
 Button *saveGameButton = NULL;
 
+//victory Button
+Button *restartButton = NULL;
+
 //Skill tree buttons
 Button *pauseMenuButton = NULL;
 Button *offensiveTreeButton = NULL;

@@ -5,12 +5,19 @@
 #include "constants.h"
 #include "functions.h"
 
+//initialize boomer variables
+int Boomer::unit_score = 10;
+int Boomer::unit_shield = 1;
+int Boomer::unit_armor = 1;
+int Boomer::unit_hull = 1;
+int Boomer::unit_damage = 20;
+
 Boomer::Boomer(int startx, int starty, Ship* player, int startxVel,
 	       int startyVel)
 {
   isPlayer = false;
   target = player;
-  score = 10;
+  score = unit_score;
 
   radius = 10;
   maxSpeed = 20;
@@ -21,19 +28,19 @@ Boomer::Boomer(int startx, int starty, Ship* player, int startxVel,
   xVel = startxVel;
   yVel = startyVel;
 
-  damage = 20;
+  damage = unit_damage;
 
   evasion = 0;
   hitRadius = radius;
   damRed = 0;
 
-  maxShield = 1;
-  maxArmor = 1;
-  maxHull = 1;
+  maxShield = unit_shield;
+  maxArmor = unit_armor;
+  maxHull = unit_hull;
 
-  shield = 1;
-  armor = 1;
-  hull = 1;
+  shield = maxShield;
+  armor = maxArmor;
+  hull = maxHull;
 }
 
 void Boomer::accelerate()

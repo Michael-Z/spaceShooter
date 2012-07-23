@@ -1,21 +1,12 @@
 To do:
 
-*fix tooltips under skill tree buttons
-*check nova damage, EB_cost, EB_damage
-
-
-+ability ideas
- -nova, deals damage * charged energy
- -reduce damage taken *
- -slow time (frame rate)
-
-*finish arcade mode, mainGame
-*enemies more difficult after beating (global enemy stats/static class var)
-*restart game higher difficulty button
+*finish arcade mode
 
 *game saving
 *current ability & weapon icons & tooltips
+*fix shield capacitor
 
+*damage particle effecs
 *move all skill point bumps to the constants
 *clean code (ie useless class interfaces)
 *add tooltips for gameplay
@@ -28,8 +19,6 @@ To do:
 *prevent enemies from spawning on top of others
 *make sure everything is freed on clean_up() (delete news, free SDL_surfaces)
 
-*warp in animation?
-*warcraft style miss label
 *improve shield rep animation
 *Improve sprite quality
 *Drawing of ship for main screen
@@ -40,3 +29,6 @@ To do:
 
 *add store?
 *add last weapon (bomb launcher?)
+
+*warp in animation?
+*warcraft style miss label?

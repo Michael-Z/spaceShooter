@@ -8,11 +8,18 @@
 #include "functions.h"
 #include "globals.h"
 
+//initialize stealth variables
+int Stealth::unit_score = 50;
+int Stealth::unit_shield = 50;
+int Stealth::unit_armor = 10;
+int Stealth::unit_hull = 10;
+int Stealth::unit_damage = 3;
+
 Stealth::Stealth(int startx, int starty, Ship *player0)
 {
   isPlayer = false;
   target = player0;
-  score = 50;
+  score = unit_score;
 
   radius = 15;
   maxSpeed = 15;
@@ -31,19 +38,19 @@ Stealth::Stealth(int startx, int starty, Ship *player0)
   damRed = 0;
   
 
-  maxShield = 50;
-  maxArmor = 10;
-  maxHull = 10;
+  maxShield = unit_shield;
+  maxArmor = unit_armor;
+  maxHull = unit_hull;
 
   shieldRegen = 2;
   shieldCap = false;
-  shield = 50;
-  armor = 10;
-  hull = 10;
+  shield = maxShield;
+  armor = maxArmor;
+  hull = maxHull;
 
   //miniGun Info
   MG_speed = 30;
-  MG_damage = 3;
+  MG_damage = unit_damage;
   MG_radius = 4;
   MG_range = 400;
   MG_rate = 4;

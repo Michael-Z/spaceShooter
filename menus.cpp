@@ -148,9 +148,14 @@ void victoryMenu()
       menu = 0;
       return;
     }
+  if(restartButton->handle_events())
+    {
+      increaseDifficulty();
+    }
 
   apply_surface(0, 0, menuBG_1024_768, screen);
   mainMenuButton->show();
+  restartButton->show();
 
   apply_surface(0, 0, victoryBG, screen);
 
@@ -209,6 +214,7 @@ void doSkillMenu(Player* player)
       return;
     }
 
+  apply_surface(0, 0, skillTreeBG, screen);
   //show buttons
   offensiveTreeButton->show();
   defensiveTreeButton->show();
@@ -244,8 +250,6 @@ void doSkillMenu(Player* player)
   apply_surface(40, 120, skillPointsLabel, screen);
 
   SDL_FreeSurface(skillPointsLabel);
-
-  apply_surface(0, 0, skillTreeBG, screen);
 }
 
 void doOffensiveTree(Player* player)

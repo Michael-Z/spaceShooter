@@ -612,7 +612,7 @@ void Player::chargeNova()
 
 void Player::doNova()
 {
-  //printf("doNova()\n");
+  //printf("%f %d %d\n", novaMult, novaPoints, int(novaMult * novaPoints));
   novaStage += 10;
   draw_circle(screen, x - camera.x, y - camera.y, novaStage,
 	      0xFFFFFFFF);

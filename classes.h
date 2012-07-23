@@ -344,6 +344,13 @@ class Grunt : public Ship
 {
  public:
   Grunt(int startx, int starty, Ship *target);
+
+  static int unit_score;
+  static int unit_shield;
+  static int unit_armor;
+  static int unit_hull;
+  static int unit_damage;
+
   void doUnit(std::list<Grunt*>::iterator it);
 
   void accelerate();
@@ -351,12 +358,17 @@ class Grunt : public Ship
 
 class Boomer : public Ship
 {
- private:
-  int damage;
-
  public:
   Boomer(int startx, int starty, Ship* player,
 	 int startxVel = 0, int startyVel = 0);
+
+  int damage;
+  static int unit_score;
+  static int unit_shield;
+  static int unit_armor;
+  static int unit_hull;
+  static int unit_damage;
+
   void accelerate();
   void doUnit();
   void die();
@@ -366,6 +378,13 @@ class Stealth : public Ship
 {
  public:
   Stealth(int startx, int starty, Ship *target);
+
+  static int unit_score;
+  static int unit_shield;
+  static int unit_armor;
+  static int unit_hull;
+  static int unit_damage;
+
   void doUnit(std::list<Stealth*>::iterator it);
 
   void accelerate();
@@ -375,6 +394,13 @@ class Carrier : public Ship
 {
  public:
   Carrier(int startx, int starty, Ship *target);
+
+  static int unit_score;
+  static int unit_shield;
+  static int unit_armor;
+  static int unit_hull;
+  static int unit_damage;
+
   void doUnit(std::list<Carrier*>::iterator it);
 
   using Ship::die;
